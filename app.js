@@ -36,7 +36,7 @@ app.post("/action_page", (req, res) => {
     });
     // setSig({ signature: sig1, p_id: req.params.id })
   }
-  res.end(`<a href="http://127.0.0.1:3000/patient/${p_id}">Click here! Patient's Signature Required!!<a>`)
+  res.end(`<p>https://formnexuses.onrender.com/patient/${p_id}</p>`)
 
 
 
