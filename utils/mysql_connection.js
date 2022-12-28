@@ -11,7 +11,7 @@ var con = mysql.createConnection({
   "user": "kishan",
   "password": "Password@11",
   "database": "testnexuses",
-  "port": process.env.PORT
+  "port": "3306"
 
 });
 
