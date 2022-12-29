@@ -31,7 +31,7 @@ app.post("/action_page", (req, res) => {
 
 
   if (req.body.signature != null) {
-    require("fs").writeFile(`${p_id}.jpeg`, base64Data, 'base64', function (err) {
+    require("fs").writeFile(`${p_id}t.png`, base64Data, 'base64', function (err) {
       console.log(err);
     });
     // setSig({ signature: sig1, p_id: req.params.id })
@@ -50,12 +50,13 @@ app.get("/patient/:id", (req, res) => {
 
   getPersonById({ p_id: id }, (x, data) => {
 
-    res.render("index.ejs", { x: `../${req.params.id}.jpeg`, y: `${data[0].fname}`, z: `${data[0].lname}`, id: `${data[0].p_id}` })
+    res.render("index.ejs", { x: `../${req.params.id}t.png`, y: `${data[0].fname}`, z: `${data[0].lname}`, id: `${data[0].p_id}` })
   })
 
 
   // getPerson({})
 })
+
 app.post("/patient/:id", (req, res) => {
   sig = req.body.signaturep;
   id = req.params.id;
@@ -68,7 +69,7 @@ app.post("/patient/:id", (req, res) => {
   }
   getPersonById({ p_id: id }, (x, data) => {
 
-    res.render("final.ejs", { x: `../${req.params.id}.jpeg`, y: `${data[0].fname}`, z: `${data[0].lname}`, id: `${data[0].p_id}`, g: `../${req.params.id}.png` })
+    res.render("final.ejs", { x: `../${req.params.id}t.png`, y: `${data[0].fname}`, z: `${data[0].lname}`, id: `${data[0].p_id}`, g: `../${req.params.id}.png` })
 
   })
 
