@@ -31,8 +31,8 @@ function getClientById(data, callback) {
 
 }
 function getPersonById(data, callback) {
-    let query = "SELECT * FROM person where p_id = ?";
-    db.query(query, [data.p_id], function (err, data, fields) {
+    let query = "SELECT * FROM encbb where id = ?";
+    db.query(query, [data.id], function (err, data, fields) {
         if (err) {
             callback(err, null);
         }
@@ -80,7 +80,7 @@ function setClientToken(data, callback) {
 function setSig(data, callback) {
 
     var id = data.id;
-    let query = "Update person SET signature = ? where p_id = ?";
+    let query = "Update encbb SET signature = ? where id = ?";
     db.query(query, [data.signature, data.p_id], function (err, data, fields) {
         if (err) {
             throw err;
@@ -92,14 +92,26 @@ function setSig(data, callback) {
 function setSigP(data, callback) {
 
     var id = data.id;
-    let query = "Update person SET signaturep = ? where p_id = ?";
-    db.query(query, [data.signaturep, data.p_id], function (err, data, fields) {
+    let query = "Update encbb SET signaturep = ? where id = ?";
+    db.query(query, [data.signaturep, data.id], function (err, data, fields) {
         if (err) {
             throw err;
         }
 
     });
 }
+function setSigS(data, callback) {
+
+    var id = data.id;
+    let query = "Update person SET signatures = ? where  id = ?";
+    db.query(query, [data.signatures, data.id], function (err, data, fields) {
+        if (err) {
+            throw err;
+        }
+
+    });
+}
+
 function addClient(data, callback) {
     let query = "INSERT INTO clients (client_id,full_name, mobile, email, password, notes, profile_photo_link, status, created_at) VALUES (?,?,?,?,?,?,?,?,?)";
     db.query(query, [data.client_id, data.full_name, data.mobile, data.email, data.password, data.notes, data.profile_photo_link, data.status, data.created_at], function (err, data, fields) {
@@ -109,9 +121,11 @@ function addClient(data, callback) {
         response.json(data)
     });
 }
+
+
 function addPerson(data, callback) {
-    let query = "INSERT INTO person (p_id,fname, lname,signature) VALUES (?,?,?,?)";
-    const x = db.query(query, [data.p_id, data.fname, data.lname, data.signature], function (err, data, fields) {
+    let query = "INSERT INTO encbb (id, _select, reason_for_audio_only, chart_id, insurance_id, dob, consumer_name, icd_10, medicare, name_of_supervising_physician, co_pay_amount, paid_amount, time_in, time_out, am_or_pm, county, insurance_carrier,assessment_done, dora, in_treatment, referred, clinician_services,signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);";
+    const x = db.query(query, [data.id, data._select, data.reason_for_audio_only, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.county, data.insurance_carrier, data.assessment_done, data.dora, data.in_treatment, data.referred, data.clinician_services, data.signature], function (err, data, fields) {
         if (err) {
             throw err;
         }
