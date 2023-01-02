@@ -91,7 +91,7 @@ app.post("/login", async (req, res) => {
             res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
             //send token
             res.setHeader("token", `Bearer ${jwt_token}`)
-            res.render("home", { id: data[0].id, name: data[0].name })
+            res.render("home", { id: data[0].id, name: data[0].tname })
 
           } else {
             res.json({ error: "User does not exist" });
