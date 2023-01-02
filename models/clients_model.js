@@ -5,6 +5,38 @@ const db = require('../utils/mysql_connection');
 //     db.query('SELECT 1');
 //     console.log("j")
 // }, 2000);
+
+function getUserByNamePass(data, callback) {
+
+    let query = `SELECT * FROM user where tname = ? and password = ? and location = ?;`;
+    db.query(query, [data.tname, data.password, data.location], function (err, data, fields) {
+        if (err) {
+            callback(err, null)
+
+        }
+
+        callback(null, data)
+
+    });
+}
+
+function getUserById(data, callback) {
+
+    let query = `SELECT * FROM user where id=?;`;
+    db.query(query, [data.id], function (err, data, fields) {
+        if (err) {
+            callback(err, null)
+
+        }
+
+        callback(null, data)
+
+    });
+}
+
+
+
+// }
 function getAllClients(data, callback) {
     try {
         let query = "SELECT * FROM clients";
@@ -20,6 +52,20 @@ function getAllClients(data, callback) {
     }
 }
 
+// function getUserById(data, callback) {
+//     try {
+//         let query = "SELECT * FROM user where tname = ? and password = ? and location = ?;";
+//         db.query(query, (err, [, fields) => {
+//             if (err) {
+//                 throw err;
+//             }
+//             response.json(data);
+
+//         });
+//     } catch (err) {
+//         throw err;
+//     }
+// }
 function getClientById(data, callback) {
     let query = "SELECT * FROM clients where id = ?";
     db.query(query, [data.id], function (err, data, fields) {
@@ -64,15 +110,27 @@ function getClientByEmail(data, callback) {
 
 }
 
-function setClientToken(data, callback) {
+function setUserToken(data, callback) {
     var newToken = data.token;
     var id = data.id;
-    let query = "Update SET jwtToken = ? where id = ?";
-    db.query(query, [data.jwtToken, data.id], function (err, data, fields) {
+    let query = "Update user SET jwttoken = ? where id = ?;";
+    db.query(query, [data.jwttoken, data.id], function (err, data, fields) {
         if (err) {
             throw err;
         }
-        response.json(data)
+
+    });
+}
+
+function deleteUserToken(data, callback) {
+    var newToken = data.token;
+    var id = data.id;
+    let query = "Update user SET jwttoken = ? where id = ?;";
+    db.query(query, [data.jwttoken, data.id], function (err, data, fields) {
+        if (err) {
+            throw err;
+        }
+
     });
 }
 
@@ -134,11 +192,21 @@ function addPerson(data, callback) {
     });
 
 }
+// function addUser(data, callback) {
+//     let query = "INSERT INTO `user` ( `tname`, `location`,`password`) VALUES (?,?,?)";
 
+//     const x = db.query(query, [data.tname, data.location, data.password], function (err, data, fields) {
+//         if (err) {
+//             throw err;
+//         }
+
+
+//     });
+
+// }
 
 module.exports = {
     getAllClients,
     getClientById, addClient,
-    getClientByEmail
-    , addPerson, getPersonById, setSig, setSigP, getPersonBySig
+    getClientByEmail, setUserToken, getUserByNamePass, deleteUserToken
 }

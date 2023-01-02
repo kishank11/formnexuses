@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const { getAllClients, getClientById, addClient } = require("../models/clients_model")
-const ClientsBio = require("../controllers/clients/clients_bio");
 
-router.post("/login", ClientsBio.login);
+const express = require("express");
+const { login } = require("../controllers/clients/clients_bio");
+const router = express.Router();
+
+
+
+router.post("/login", login);
 
 // router.post("/api/v1/get-client-bio", ClientsBio.clientBio);
 

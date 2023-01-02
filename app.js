@@ -1,29 +1,133 @@
 require('dotenv').config()
 const express = require('express');
 var bodyParser = require('body-parser');
-const { addPerson, getPersonById, setSig, getPersonBySig, setSigP } = require('./models/clients_model.js');
+const { addPerson, getPersonById, setSig, getPersonBySig, setSigP, getUserById, setUserToken, getUserByName, deleteUserToken, getUserByNamePass } = require('./models/clients_model.js');
 const router = express.Router();
 const app = express();
 const crypto = require('crypto');
+const jwt = require("jsonwebtoken");
+const db = require('./utils/mysql_connection');
 const PORT = 3000;
 app.listen(PORT);
+let cookieParser = require('cookie-parser');
+app.use(cookieParser());
 const form = "encbb"
 let ejs = require("ejs");
 let pdf = require("html-pdf");
 var path = require("path")
 var fs = require("fs");
 const { group } = require('console');
+const verifyToken = require('./middleware/verifytoken.js');
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as json.
 app.use('/', express.static(__dirname + '/')); // Store static files.
-// app.use('/api/v1', require('./routes/client_route.js'));
+app.use('/api/v1', require('./routes/client_route.js'));
 
-app.get('/', function (request, response) {
-  console.log("h")
-  response.sendFile(`${__dirname}/htmlPage.html`);
+
+
+
+
+app.get('/', (req, res) => {
+  if (req.cookies.token) {
+
+    const authHeader = req.cookies.token;
+    console.log(req.cookies)
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, "JJJ", (err, user) => {
+
+      req.user = user;
+      console.log(user);
+
+    });
+    res.sendFile(`${__dirname}/htmlPage.html`)
+  }
+  else {
+    res.send("PLEASE LOGIN ")
+  }
+
+
+
 
 });
+
+app.get("/login", (req, res) => {
+
+  res.render("login")
+
+})
+app.post("/login", async (req, res) => {
+  try {
+
+    const {
+      tname,
+      password,
+      location
+
+    } = req.body;
+    if (tname != null && password != null && location != null) {
+
+
+
+      await getUserByNamePass(
+        { tname: tname, password: password, location: location },
+
+        (x, data) => {
+
+          console.log(data);
+
+
+          var client = data;
+          console.log(client);
+          if (client.length > 0) {
+            // gen token
+            console.log("ekk")
+            const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
+
+            console.log(jwt_token);
+
+            //set token
+            setUserToken({ jwttoken: jwt_token, id: client[0].id });
+            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
+            //send token
+            res.setHeader("token", `Bearer ${jwt_token}`)
+            res.render("home", { id: data[0].id, name: data[0].name })
+
+          } else {
+            res.json({ error: "User does not exist" });
+          }
+        }
+      );
+
+
+    } else {
+      console.log("NPPP")
+
+
+
+      res.json({ error: "Missing login information" });
+
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+});
+
+
+
+
+
+
+
+app.get("/logout/:id", async (req, res) => {
+
+  console.log(req.params.id)
+  await deleteUserToken({ jwttoken: "", id: req.params.id });
+  res.send("You are Logged out!");
+})
+
+
 app.post("/action_page", (req, res) => {
 
   const {
