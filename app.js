@@ -86,9 +86,11 @@ app.post("/login", async (req, res) => {
             const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
 
             console.log(jwt_token);
-
+            if (!client[0].jwttoken) {
+              setUserToken({ jwttoken: jwt_token, id: client[0].id });
+            }
             //set token
-            setUserToken({ jwttoken: jwt_token, id: client[0].id });
+
             res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
             //send token
             res.setHeader("token", `Bearer ${jwt_token}`)
@@ -317,7 +319,7 @@ app.get("/downloadencbb/:id", (req, res) => {
             if (err) {
               res.send(err);
             } else {
-              res.send(`File created successfully <a href="https://formnexuses.onrender.com/downloadencbb/${id}">Click to view!</a>`);
+              res.send(`File created successfully <a href="https://formnexuses.onrender.com/encbb${id}.pdf">Click to view!</a>`);
 
             }
           });

@@ -1,9 +1,26 @@
-
-const express = require("express");
-const { login } = require("./controllers/clients/clients_bio");
+require('dotenv').config()
+const express = require('express');
+var bodyParser = require('body-parser');
+const { setSigP, addPerson, getPersonById } = require('./models/mag_model');
 const router = express.Router();
-const jwt = require("jsonwebtoken")
+const app = express();
 
+const crypto = require('crypto');
+const jwt = require("jsonwebtoken");
+const db = require('./utils/mysql_connection');
+
+let cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+let ejs = require("ejs");
+let pdf = require("html-pdf");
+var path = require("path")
+var fs = require("fs");
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as json.
+app.use('/', express.static(__dirname + '/'));
 
 router.get('/', (req, res) => {
     if (req.cookies.token) {
@@ -17,7 +34,7 @@ router.get('/', (req, res) => {
             console.log(user);
 
         });
-        res.sendFile(`${__dirname}/htmlPage.html`)
+        res.sendFile(`${__dirname}/mag.html`)
     }
     else {
         res.send("PLEASE LOGIN ")
@@ -44,30 +61,29 @@ router.post("/action_page", (req, res) => {
         insurance_id,
         dob,
         consumer_name,
-        county,
+        city,
         medicare,
         icd_10,
         name_of_supervising_physician,
         co_pay_amount,
         paid_amount,
+        smoking_history,
         time_in,
         time_out,
         am_or_pm,
         insurance_carrier,
-        assessment_done,
-        dora,
-        in_treatment,
-        referred,
-        clinician_services, } = req.body
+        clinician_services, medical_services } = req.body
     console.log(req.body)
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
     const x = _select?.join(",")
     const y = reason_for_audio_only?.join(",")
-    const z = county?.join(",")
+    const z = city?.join(",")
     const p = insurance_carrier?.join(",")
     const q = clinician_services?.join(",")
+    const t = medical_services?.join(",")
+    const s = smoking_history?.join(",");
 
 
 
@@ -83,7 +99,7 @@ router.post("/action_page", (req, res) => {
     console.log(id1.toString())
     // console.log(signature)
 
-
+    let signatureat = new Date();
     const data = addPerson({
 
         _select: x,
@@ -100,14 +116,13 @@ router.post("/action_page", (req, res) => {
         time_out: time_out,
         am_or_pm: am_or_pm,
         icd_10: icd_10,
-        county: z,
+        city: z,
         insurance_carrier: p,
-        assessment_done: assessment_done,
-        dora: dora,
-        in_treatment: in_treatment,
-        referred: referred,
+        smoking_history: s,
         clinician_services: q,
+        medical_services: t,
         signature: signature,
+        signatureat: signatureat,
         id: id1
     })
     // getPersonBySig({ signaturet: req.body.signaturet })
@@ -135,23 +150,25 @@ router.get("/patient/:id", (req, res) => {
 
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}` })
+        res.render("magindex.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}` })
     })
 
 
-    // getPerson({})
+
 })
 
 router.post("/patient/:id", (req, res) => {
+    let signaturepat = new Date();
 
     sig = req.body.signaturep;
     id = req.params.id;
 
     if (req.body.signaturep != null) {
-        setSigP({ signaturep: sig, id: req.params.id })
+        setSigP({ signaturep: sig, signaturepat: signaturepat, id: req.params.id })
     }
     getPersonById({ id: id }, (x, data) => {
-        res.render("final.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        console.log(data[0])
+        res.render("magfinal.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
     })
 })
 
@@ -159,7 +176,7 @@ router.post("/patient/:id", (req, res) => {
 router.get("/generateReport/:id", (req, res) => {
     let id = req.params.id
     getPersonById({ id: id }, (x, data) => {
-        ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+        ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
             if (err) {
                 res.send(err);
             } else {
@@ -175,7 +192,7 @@ router.get("/generateReport/:id", (req, res) => {
                 };
 
 
-                pdf.create(data, options).toFile(`encbb${id}.pdf`, function (err, data) {
+                pdf.create(data, options).toFile(`mag${id}.pdf`, function (err, data) {
                     if (err) {
                         res.send(err);
                     } else {
@@ -193,12 +210,12 @@ router.get("/generateReport/:id", (req, res) => {
 
 router.get("/downloadmag/:id", (req, res) => {
     if (fs.existsSync(`./mag${req.params.id}.pdf`)) {
-        res.render("downloadmag.ejs", { id: req.params.id })
+        res.render("magdownload.ejs", { id: req.params.id })
         console.log("fil ")
     } else {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            ejs.renderFile(path.join(__dirname, './views/', "viewmag.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+            ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -218,7 +235,7 @@ router.get("/downloadmag/:id", (req, res) => {
                         if (err) {
                             res.send(err);
                         } else {
-                            res.send(`File created successfully <a href="http://localhost:3000/downloadmag/${id}">Click to view!</a>`);
+                            res.send(`File created successfully <a href="https://formnexuses.onrender.com/mag${id}.pdf">Click to view!</a>`);
 
                         }
                     });

@@ -8,7 +8,7 @@
   </head>
   <body>
     <center>
-    <form action="/patient/<%= `${id}` %>" method="POST">
+    <form action="/api/v1/patient/<%= `${id}` %>" method="POST">
       <hr />
       <h1>EncounterForm NE BB</h1>
       <hr />
@@ -20,6 +20,11 @@
         Outpatient Service Encounter Form
         <br />
       </h3>
+      <p>
+        COVID-19 Pandemic Protocol
+This session was conducted by phone due to Emergency Authorization by Magellan Behavioral Health due to Covid-19 pandemic. Full signatures will be obtained when the virus abates, and the client can resume treatment in office.
+
+      </p>
       
 
 
@@ -134,9 +139,9 @@
 
 
         <tr>
-          <td>County:</td>
+          <td>City:</td>
           <td>
-            <%=`${county}`%>
+            <%=`${city}`%>
             
           </td>
         </tr>
@@ -155,42 +160,14 @@
 
       
         <tr>
-          <td>Assessment done?</td>
+          <td>Smoking History</td>
           <td>
-            <%=`${assessment_done}`%>
+            <%=`${smoking_history}`%>
 
           </td>
         </tr>
 
 
-  
-        <tr>
-          <td>D/a?</td>
-          <td>
-            <%=`${dora}`%>
-
-          </td>
-        </tr>
-  
-
-  
-        <tr>
-          <td>In treatment?</td>
-          <td>
-            <%=`${in_treatment}`%>
-
-          </td>
-        </tr>
-    
-
-     
-        <tr>
-          <td>Referred?</td>
-          <td>
-            <%=`${referred}`%>
-
-          </td>
-        </tr>
       
       <br />
 
@@ -199,6 +176,13 @@
           <td>Clinician services:</td>
           <td>
             <%=`${clinician_services}` %>
+
+          </td>
+        </tr>
+        <tr>
+          <td>Medical services:</td>
+          <td>
+            <%=`${medical_services}` %>
 
           </td>
         </tr>

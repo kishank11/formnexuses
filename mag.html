@@ -11,7 +11,7 @@
   
     <center>
     <body>
-      <form action="/action_page" method="POST">
+      <form action="/api/v1/action_page" method="POST">
         <hr />
         <h1>EncounterForm NE BB</h1>
         <span><a href="https://formnexuses.onrender.com/home/">HOME</a></span>
@@ -24,7 +24,11 @@
           Outpatient Service Encounter Form
           
         </h3>
-  
+    <p>
+      COVID-19 Pandemic Protocol
+This session was conducted by phone due to Emergency Authorization by Magellan Behavioral Health due to Covid-19 pandemic. Full signatures will be obtained when the virus abates, and the client can resume treatment in office.
+
+    </p>
         <table align="center-left">
           <tr>
             <td>Select</td>
@@ -167,42 +171,43 @@
   
       
           <tr>
-            <td>County</td>
+            <td>City</td>
             <td>
               <label
                 ><input
                   type="checkbox"
-                  name="county[]"
-                  value="Lacka"
-                />Lacka</label
+                  name="city[]"
+                  value="Allentown"
+                />Allentown</label
               >
               <label
-                ><input type="checkbox" name="county[]" value="Luz" />Luz</label
+                ><input type="checkbox" name="city[]" value="Easton" />Luz</label
               >
               <label
-                ><input type="checkbox" name="county[]" value="Sus" />Sus</label
-              >
-              <label
-                ><input type="checkbox" name="county[]" value="Oyo" />Oyo</label
-              >
-              <label
-                ><input
-                  type="checkbox"
-                  name="county[]"
-                  value="Carbon"
-                />Carbon</label
-              >
-              <label
-                ><input type="checkbox" name="county[]" value="Mon" />Mon</label
-              >
-              <label
-                ><input type="checkbox" name="county[]" value="Pike" />Pike</label
+                ><input type="checkbox" name="city[]" value="Bethlehem" />Sus</label
               >
             </td>
           </tr>
       
         <br />
-  
+        <tr>
+          <td>Smoking History</td>
+          <td>
+            <label
+              ><input
+                type="checkbox"
+                name="smoking_history[]"
+                value="Non Smoker"
+              />Non Smoker</label
+            >
+            <label
+              ><input type="checkbox" name="smoking_history[]" value="Non Smoker" />Non Smoker</label
+            >
+            <label
+              ><input type="checkbox" name="smoking_history[]" value="] Smoker/Counseling Received" /> Smoker/Counseling Received</label
+            >
+          </td>
+        </tr>
   
           <tr>
             <td>Insurance carrier</td>
@@ -240,56 +245,6 @@
           </tr>
   
         <br />
-  
-        
-          <tr>
-            <td>Assessment done?</td>
-            <td>
-              <label
-                ><input
-                  type="radio"
-                  name="assessment_done"
-                  value="yes"
-                />yes</label
-              >
-              <label
-                ><input type="radio" name="assessment_done" value="no" />no</label
-              >
-            </td>
-          </tr>
-       
-          <tr>
-            <td>D/a?</td>
-            <td>
-              <label><input type="radio" name="dora" value="yes" />yes</label>
-              <label><input type="radio" name="dora" value="no" />no</label>
-            </td>
-          </tr>
-       
-  
-        
-          <tr>
-            <td>In treatment?</td>
-            <td>
-              <label
-                ><input type="radio" name="in_treatment" value="yes" />yes</label
-              >
-              <label
-                ><input type="radio" name="in_treatment" value="no" />no</label
-              >
-            </td>
-          </tr>
-        
-  
-    
-          <tr>
-            <td>Referred?</td>
-            <td>
-              <label><input type="radio" name="referred" value="yes" />yes</label>
-              <label><input type="radio" name="referred" value="no" />no</label>
-            </td>
-          </tr>
-  
         <br />
   
         <table border="1" width="1000px">
@@ -297,7 +252,7 @@
            
         
             <label
-              ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>DESCRIPTION</b></td></label>
+              ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>CLINICAL SERVICES</b></td></label>
           </tr>
           <tr>
            
@@ -306,16 +261,16 @@
                 ></label><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90837 Initial Bio Psychosocial	Max 1 hr and 30 mins"
-                /></td><td>90837</td><td> Initial Bio Psychosocial Max 1 hr and 30 mins</td></label>
+                  value="90791	Initial Diagnostic Assessment- Intake by clinician - billed 30 min increments"
+                /></td><td>90791</td><td> Initial Diagnostic Assessment- Intake by clinician - billed 30 min increments</td></label>
             </tr>
             <tr>
               <label
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90791 Initial Psych Assessment(CRNP/PA) (Per Evaluation)"
-                /><td>90791</td><td>Initial Psych Assessment(CRNP/PA) (Per Evaluation)</td> </label
+                  value="90832	Psychotherapy with consumer and/or family member 16-37 Minutes"
+                /><td>90832</td><td>Psychotherapy with consumer and/or family member 16-37 Minutes</td> </label
               >
              </tr>
              <tr>
@@ -323,8 +278,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90792	Psychological Evaluation BHRS (Per Evaluation)"
-                /><td>90792</td><td>Psychological Evaluation BHRS (Per Evaluation)</td> </label
+                  value="90832	Psychotherapy with consumer and/or family member 16-37 Minutes- licensed clinician "
+                /><td>90832</td><td>Psychotherapy with consumer and/or family member 16-37 Minutes- licensed clinician</td> </label
               >
              </tr>
              <tr>
@@ -332,8 +287,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90832	Individual Psychotherapy (38-52 Minutes)"
-                /><td>90832</td><td>Individual Psychotherapy (38-52 Minutes)</td> </label
+                  value="90834	Psychotherapy with consumer and/or family member 38-52 Minutes"
+                /><td>90834</td><td>Psychotherapy with consumer and/or family member 38-52 Minutes</td> </label
               >
              </tr>
              <tr>
@@ -341,8 +296,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90834	Individual Psychotherapy 45 Minutes"
-                /><td>90832</td><td>Individual Psychotherapy (38-52 Minutes)</td> </label
+                  value="90834	Psychotherapy with consumer and/or family member 38-52 Minutes- licensed clinician "
+                /><td>90834</td><td>Psychotherapy with consumer and/or family member 38-52 Minutes- licensed clinician</td> </label
               >
              </tr>
              <tr>
@@ -350,8 +305,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90837	Individual Psychotherapy (52+ Minutes)"
-                /><td>90837</td><td>Individual Psychotherapy (52+ Minutes)</td> </label
+                  value="90837	Psychotherapy with consumer and/or family member 53 minutes or more"
+                /><td>90837</td><td>Psychotherapy with consumer and/or family member 53 minutes or more</td> </label
               >
              </tr>
              <tr>
@@ -359,8 +314,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90846	Collateral Family Psychotherapy  (15 Minutes Units)"
-                /><td>90846</td><td>Individual Psychotherapy (52+ Minutes)</td> </label
+                  value="90846	Family Psychotherapy without consumer present- 15 min increments"
+                /><td>90846</td><td>Family Psychotherapy without consumer present- 15 min increments</td> </label
               >
              </tr>
              <tr>
@@ -368,8 +323,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90847	Family Psychotherapy  (15 Minutes Units)"
-                /><td>90847</td><td>Family Psychotherapy (15 Minutes Units)</td> </label
+                  value="90846	Family Psychotherapy without consumer present- 15 min increments- licensed clinician "
+                /><td>90846</td><td>Family Psychotherapy without consumer present- 15 min increments- licensed clinician</td> </label
               >
              </tr>
              <tr>
@@ -377,8 +332,8 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="99213	Pharmacological Management (15 Minutes)"
-                /></td><td>99213</td><td>Pharmacological Management (15 Minutes)</td> </label
+                  value="99213	Family Psychotherapy with consumer present- 15 min increments"
+                /></td><td>99213</td><td>Family Psychotherapy with consumer present- 15 min increments</td> </label
                 >
              </tr>
              <tr>
@@ -386,12 +341,166 @@
                 ><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90853	Group Psychotherapy	(Max 2 hours)
-        "
-                /></td><td>90853</td><td>Group Psychotherapy (Max 2 hours)&#13;</td> </label
+                  value="90847	Family Psychotherapy with consumer present- 15 min increments- licensed clinician "
+        
+                /></td><td>90847</td><td>Family Psychotherapy with consumer present- 15 min increments- licensed clinician</td> </label
+                >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="clinician_services[]"
+                  value=" 90853	Group Psychotherapy - 15 min increments  "
+        
+                /></td><td>90853</td><td>	Group Psychotherapy - 15 min increments</td> </label
+                >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="clinician_services[]"
+                  value="90853	Group Psychotherapy - 15 min increments - licensed clinician "
+        
+                /></td><td>90853</td><td>Group Psychotherapy - 15 min increments - licensed clinician</td> </label
+                >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="clinician_services[]"
+                  value="96127	Brief emotional/behavioral assessment- per occurrence-BDI,ADHD,BAI,Trauma"
+        
+                /></td><td>96127</td><td>Brief emotional/behavioral assessment- per occurrence-BDI,ADHD,BAI,Trauma</td> </label
                 >
              </tr>
             
+  
+            </td>
+          </tr>
+        </table>
+        <br/>
+        <table border="1" width="1000px">
+          <tr>
+           
+        
+            <label
+              ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>MEDICAL SERVICES</b></td></label>
+          </tr>
+          <tr>
+           
+        
+              <label
+                ></label><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99211	Medication Review 5-10 mins  MD"
+                /></td><td>99211</td><td> Medication Review 5-10 mins  MD</td></label>
+            </tr>
+            <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99211	Medication Review 5-10 mins – CRNP/PA"
+                /><td>99211</td><td>Medication Review 5-10 mins – CRNP/PA</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99212	Medication Review 10-19 mins- MD"
+                /><td>99212</td><td>Medication Review 10-19 mins- MD</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99212	Medication Review 10-19 mins CRNP/PA"
+                /><td>99212</td><td>Medication Review 10-19 mins CRNP/PA</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99213	Medication Review 20-29 mins- MD"
+                /><td>99213</td><td>Medication Review 20-29 mins- MD</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99213	Medication Review 20-29 mins CRNP/PA"
+                /><td>99213</td><td>Medication Review 20-29 mins CRNP/PA</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99214	Medication Review 30-39 mins- MD"
+                /><td>99214</td><td>Medication Review 30-39 mins- MD</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99214	Medication Review 30-39 mins CRNP/PA"
+                /><td>99214</td><td>Medication Review 30-39 mins CRNP/PA</td> </label
+              >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99215	Medication Review 40-54 mins-MD"
+                /></td><td>99215</td><td>Medication Review 40-54 mins-MD</td> </label
+                >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="99215	Medication Review 40-54 mins CRNP/PA
+        "
+                /></td><td>99215</td><td>Medication Review 40-54 mins CRNP/PA</td> </label
+                >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="90792	Psychiatric Evaluation - MD 
+        "
+                /></td><td>90792</td><td>Psychiatric Evaluation - MD </td> </label
+                >
+             </tr>
+             <tr>
+              <label
+                ><td><input
+                  type="checkbox"
+                  name="medical_services[]"
+                  value="90792	Psychiatric Evaluation - CRNP/PA
+        "
+                /></td><td>90792</td><td>Psychiatric Evaluation - CRNP/PA</td> </label
+                >
+             </tr>
   
             </td>
           </tr>
