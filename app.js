@@ -126,6 +126,7 @@ app.post("/login", async (req, res) => {
 app.get("/logout/:id", async (req, res) => {
 
   console.log(req.params.id)
+  res.clearCookie('token');
   await deleteUserToken({ jwttoken: "", id: req.params.id });
   res.send("You are Logged out!");
 })
@@ -319,7 +320,7 @@ app.get("/downloadencbb/:id", (req, res) => {
             if (err) {
               res.send(err);
             } else {
-              res.send(`File created successfully <a href="https://formnexuses.onrender.com/encbb${id}.pdf">Click to view!</a>`);
+              res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/encbb${id}.pdf">Click to view!</a>`);
 
             }
           });

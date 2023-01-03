@@ -196,7 +196,7 @@ router.get("/generateReport/:id", (req, res) => {
                     if (err) {
                         res.send(err);
                     } else {
-                        res.send(`File created successfully <a href="https://formnexuses.onrender.com/generateReport/${id}">Click to view!</a>`);
+                        res.send(`File created successfully <a style="color: grey;" href="https://formnexuses.onrender.com/generateReport/${id}">Click to view!</a>`);
 
                     }
                 });
@@ -235,7 +235,7 @@ router.get("/downloadmag/:id", (req, res) => {
                         if (err) {
                             res.send(err);
                         } else {
-                            res.send(`File created successfully <a href="https://formnexuses.onrender.com/mag${id}.pdf">Click to view!</a>`);
+                            res.send(`File created successfully <astyle="color: grey;" href="https://formnexuses.onrender.com/mag${id}.pdf">Click to view!</a>`);
 
                         }
                     });

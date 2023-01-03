@@ -451,14 +451,14 @@ signaturePad.addEventListener("beginStroke",()=>{
 });
 signaturePad.addEventListener("endStroke", () => {
   signature.value =signaturePad.toDataURL();
-console.log(signature.value);
+console.log(`Sign${signature.value}`);
 }, { once: true });
 signaturePad.addEventListener("beforeUpdateStroke", () => {
   console.log("SignaturebeforeUpdateStroke");
 }, { once: true });
 signaturePad.addEventListener("afterUpdateStroke", () => {
   const x  =signaturePad.toDataURL();
-console.log(x);
+console.log(  `HI ${x}`);
 }, { once: true });
 
   </script>
