@@ -264,7 +264,7 @@ router.get("/downloadmag/:id", (req, res) => {
 
                     pdf.create(data, options).toStream(`mag${id}.pdf`, function (err, data) {
                         if (err) {
-                            res.send(err);
+                            res.send(`THERE IS AN ERROR ${err}`);
                         } else {
                             res.send(`File created successfully <a style="color: grey;" href="https://formnexuses.onrender.com/mag${id}.pdf">Click to view!</a>`);
 
