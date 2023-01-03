@@ -331,7 +331,7 @@ app.get("/downloadencbb/:id", (req, res) => {
           };
 
 
-          pdf.create(data, options).toStream(`encbb${id}.pdf`, function (err, data) {
+          pdf.create(data, options).toFile(`encbb${id}.pdf`, function (err, data) {
             if (err) {
               res.send(err);
             } else {
