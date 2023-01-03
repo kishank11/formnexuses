@@ -150,8 +150,8 @@ function setSig(data, callback) {
 function setSigP(data, callback) {
 
     var id = data.id;
-    let query = "Update encbb SET signaturep = ? where id = ?";
-    db.query(query, [data.signaturep, data.id], function (err, data, fields) {
+    let query = "Update encbb SET signaturep = ? , signaturepat = ? where id = ?";
+    db.query(query, [data.signaturep, data.signaturepat, data.id], function (err, data, fields) {
         if (err) {
             throw err;
         }
@@ -182,8 +182,8 @@ function addClient(data, callback) {
 
 
 function addPerson(data, callback) {
-    let query = "INSERT INTO encbb (id, _select, reason_for_audio_only, chart_id, insurance_id, dob, consumer_name, icd_10, medicare, name_of_supervising_physician, co_pay_amount, paid_amount, time_in, time_out, am_or_pm, county, insurance_carrier,assessment_done, dora, in_treatment, referred, clinician_services,signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);";
-    const x = db.query(query, [data.id, data._select, data.reason_for_audio_only, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.county, data.insurance_carrier, data.assessment_done, data.dora, data.in_treatment, data.referred, data.clinician_services, data.signature], function (err, data, fields) {
+    let query = "INSERT INTO encbb (id, _select, reason_for_audio_only, chart_id, insurance_id, dob, consumer_name, icd_10, medicare, name_of_supervising_physician, co_pay_amount, paid_amount, time_in, time_out, am_or_pm, county, insurance_carrier,assessment_done, dora, in_treatment, referred, clinician_services,signature,signatureat) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
+    const x = db.query(query, [data.id, data._select, data.reason_for_audio_only, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.county, data.insurance_carrier, data.assessment_done, data.dora, data.in_treatment, data.referred, data.clinician_services, data.signature, data.signatureat], function (err, data, fields) {
         if (err) {
             throw err;
         }
@@ -206,7 +206,5 @@ function addPerson(data, callback) {
 // }
 
 module.exports = {
-    getAllClients,
-    getClientById, addClient,
-    getClientByEmail, setUserToken, getUserByNamePass, deleteUserToken
+    setUserToken, getUserByNamePass, deleteUserToken, setSigP, addPerson, getPersonById
 }

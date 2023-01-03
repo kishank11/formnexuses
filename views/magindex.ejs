@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMNI</title>
+  </head>
+  <body>
+    <center>
+    <form action="/patient/<%= `${id}` %>" method="POST">
+      <hr />
+      <h1>EncounterForm NE BB</h1>
+      <hr />
+
+      <h3>
+        <br />
+        OMNI Health Services Inc
+        <br />
+        Outpatient Service Encounter Form
+        <br />
+      </h3>
+      
+
+
+
+      <table align="center-left">
+        <tr>
+          <td>Select:</td>
+          <td>
+            <%=`${_select}`%>
+          </td>
+        </tr>
+
+
+  
+        <tr>
+          <td>Reason for audio only:</td>
+          <td>
+            <%=`${reason_for_audio_only}`%>
+            
+          </td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Chart id:</td>
+          <td>
+            <%=`${chart_id}`%>
+
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>Insurance id:</td>
+         
+            <td><%=`${insurance_id}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Dob:</td>
+          <td>            <%=`${dob}`%>
+          </td>
+        </tr>
+      
+
+     
+        <tr>
+          <td>Consumer name:</td>
+          
+            <td><%=`${consumer_name}`%></td>
+        </tr>
+      
+
+
+        <tr>
+          <td>Icd 10</td>
+          <td>           <%=`${icd_10}`%>
+          </td>
+        </tr>
+     
+ 
+        <tr>
+          <td>Name of the supervising physician:</td>
+          <td>            <%=`${name_of_supervising_physician}`%>
+          </td>
+        </tr>
+    
+ 
+        <tr>
+          <td>Co pay Amount:</td>
+          <td>            <%=`${co_pay_amount}`%>
+          </td>
+        </tr>
+      
+      
+        <tr>
+          <td>Paid Amount:</td>
+          <td>           <%=`${paid_amount}`%>
+          </td>
+        </tr>
+  
+
+     
+
+
+        <tr>
+          <td>Time in:</td>
+          <td>            <%=`${time_in}`%>
+          </td>
+        </tr>
+   
+
+  
+        <tr>
+          <td>Time out:</td>
+          <td>            <%=`${time_out}`%>
+          </td>
+        </tr>
+
+
+  
+        <tr>
+          <td>Am or pm:</td>
+          <td>            <%=`${am_or_pm}`%>
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>County:</td>
+          <td>
+            <%=`${county}`%>
+            
+          </td>
+        </tr>
+      
+      <br />
+
+        <tr>
+          <td>Insurance carrier:</td>
+          <td>
+            <%=`${insurance_carrier}`%>
+            
+          </td>
+        </tr>
+
+      <br />
+
+      
+        <tr>
+          <td>Assessment done?</td>
+          <td>
+            <%=`${assessment_done}`%>
+
+          </td>
+        </tr>
+
+
+  
+        <tr>
+          <td>D/a?</td>
+          <td>
+            <%=`${dora}`%>
+
+          </td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>In treatment?</td>
+          <td>
+            <%=`${in_treatment}`%>
+
+          </td>
+        </tr>
+    
+
+     
+        <tr>
+          <td>Referred?</td>
+          <td>
+            <%=`${referred}`%>
+
+          </td>
+        </tr>
+      
+      <br />
+
+ 
+        <tr>
+          <td>Clinician services:</td>
+          <td>
+            <%=`${clinician_services}` %>
+
+          </td>
+        </tr>
+      </table>
+      <br />
+
+      <br />
+      <p>
+        <br />
+        I certify that the information shown on this invoice is true, correct,
+        and accurate. I understand that payment and satisfaction of this claim
+        will be from federal and state funds, and that any false claims,
+        statements or documents, or concealment of material facts, may be
+        prosecuted under applicable federal and state laws.
+        <br />
+      </p>
+
+     
+      <hr />
+      <div>Consumer/Parent/Guardian Signature<img src= <%= `${sigt}`%> ></div>
+      <hr />
+      <div>
+        <canvas id="signaturep" width="300" height="100"></canvas>
+      </div>
+      <hr />
+      <div>Psychiatrist/Psychologist/Therapist Print Name<label><input type="hidden" name="signaturep" value=""/></div></label>
+
+     <div>
+        <canvas id="sig" width="300" height="100"></canvas>
+      </div>
+      <hr />
+      <div>Supervising Physician Print Name (Medicare Only)</div> 
+<br/>
+      <input type="submit" name="submit form" value="SUBMIT" />
+      
+    </form>
+  
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+  <script>
+     var canvas = document.getElementById("signaturep");
+    var signature = document.getElementsByName('signaturep')[0];
+    console.log(signature)
+     const signaturePad = new SignaturePad(canvas)
+
+signaturePad.addEventListener("beginStroke",()=>{
+  console.log("BEGIN");
+});
+signaturePad.addEventListener("endStroke", () => {
+  signature.value =signaturePad.toDataURL();
+console.log(signature.value);
+}, { once: true });
+signaturePad.addEventListener("beforeUpdateStroke", () => {
+  console.log("SignaturebeforeUpdateStroke");
+}, { once: true });
+signaturePad.addEventListener("afterUpdateStroke", () => {
+  const x  =signaturePad.toDataURL();
+console.log(x);
+}, { once: true });
+   
+  </script>
+  </centre>
+  </body>
+</html>
