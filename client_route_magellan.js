@@ -46,7 +46,38 @@ router.get('/', (req, res) => {
 });
 
 
+app.get("/view/:id", (req, res) => {
+    const id = req.params.id
+    getPersonById({ id: id }, (x, data) => {
+        res.render("view.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+    })
+})
 
+app.get("/pdf/:id", async (req, res) => {
+    const id = req.params.id;
+
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.goto(`http://localhost:3000/api/v1/view/${id}`, {
+        waitUntil: 'networkidle2'
+    });
+
+    const pdf = await page.pdf({
+        path: `mag${id}.pdf`,
+        displayHeaderFooter: true,
+        printBackground: false,
+        height: "11.25in",
+
+        width: "8.5in",
+
+    });
+
+    await browser.close();
+
+    res.contentType("application/pdf");
+    res.send(pdf);
+});
 
 
 
