@@ -117,7 +117,22 @@ app.post("/login", async (req, res) => {
 
 });
 
+app.get("/home", (req, res) => {
+  if (req.cookies.token) {
+    const authHeader = req.cookies.token;
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, "JJJ", (err, user) => {
+      if (err) res.status(403).json("Token is not valid!");
+      res.render("home.ejs", { id: user.id, name: user.tname })
+      req.user = user;
+      console.log(user);
 
+    });
+  }
+  else {
+    res.send("PLEASE LOGIN")
+  }
+})
 
 
 
