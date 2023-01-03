@@ -231,7 +231,7 @@ router.get("/downloadmag/:id", (req, res) => {
                     };
 
 
-                    pdf.create(data, options).toFile(`mag${id}.pdf`, function (err, data) {
+                    pdf.create(data, options).toStream(`mag${id}.pdf`, function (err, data) {
                         if (err) {
                             res.send(err);
                         } else {
