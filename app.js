@@ -43,7 +43,9 @@ app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/htmlPage.html`)
   }
   else {
-    res.send("PLEASE LOGIN ")
+    res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE LOGIN!</h1></div></center>`)
   }
 
 })
@@ -78,6 +80,7 @@ app.post("/login", async (req, res) => {
           console.log(data);
 
 
+
           var client = data;
           console.log(client);
           if (client.length > 0) {
@@ -97,7 +100,10 @@ app.post("/login", async (req, res) => {
             res.render("home", { id: data[0].id, name: data[0].tname })
 
           } else {
-            res.json({ error: "User does not exist" });
+
+            res.send(`<center>
+              <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
+
           }
         }
       );
