@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as js
 app.use('/', express.static(__dirname + '/')); // Store static files.
 app.use('/api/v1', require('./client_route_magellan.js'));
 app.use('/api/nj', require('./nj'));
+app.use('/api/se', require('./se'));
+
 
 
 
@@ -127,7 +129,8 @@ app.post("/login", async (req, res) => {
 
 
 
-      res.json({ error: "Missing login information" });
+      res.send(`<center>
+      <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
 
     }
   } catch (error) {
