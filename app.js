@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
       console.log(user);
 
     });
-    res.sendFile(`${__dirname}/nj.html`)
+    res.sendFile(`${__dirname}/htmlPage.html`)
   }
   else {
     res.send(`
