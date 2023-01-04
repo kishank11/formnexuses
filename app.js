@@ -95,7 +95,7 @@ app.post("/login", async (req, res) => {
 
             var client = data;
             console.log(client);
-            if (client.length > 0) {
+            if (client != null && client.length > 0) {
               // gen token
               console.log("ekk")
               const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
