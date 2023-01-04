@@ -1,0 +1,625 @@
+
+<html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>TEST</title>
+  
+      
+    </head>
+  
+    <center>
+    <body>
+      <form action="/api/v1/action_page" method="POST">
+        <hr />
+        <h1>EncounterForm NJ</h1>
+        <span><a style="color: grey;" href="https://formnexuses.onrender.com/home/">HOME</a></span>
+        <hr />
+  
+        <h3>
+          <br />
+          OMNI Health Services Inc
+          <br />
+          Outpatient Service Encounter Form
+          
+        </h3>
+    <p>
+      COVID-19 Pandemic Protocol
+This session was conducted by phone due to Emergency Authorization by Magellan Behavioral Health due to Covid-19 pandemic. Full signatures will be obtained when the virus abates, and the client can resume treatment in office.
+
+    </p>
+        <table align="center-left">
+          <tr>
+            <td>Select</td>
+            <td>
+              <label
+                ><input
+                  type="checkbox"
+                  name="_select[]"
+                  value="In person Session"
+                />In person Session</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="_select[]"
+                  value="Telehealth only Verbal consent obtained"
+                />Telehealth only Verbal consent obtained</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="_select[]"
+                  value="Audio and video"
+                />Audio and video</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="_select[]"
+                  value="Audio Only-Ph number"
+                />Audio Only-Ph number</label
+              >
+            </td>
+          </tr>
+        
+          <tr>
+            <td>Reason for audio only</td>
+            <td>
+              <label
+                ><input
+                  type="checkbox"
+                  name="reason_for_audio_only[]"
+                  value="Client at home"
+                />Client at home</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="reason_for_audio_only[]"
+                  value="Client outside the home
+        "
+                />Client outside the home&#13;</label
+              >
+            </td>
+          </tr>
+  
+  
+        
+          <tr>
+            <td>Chart id</td>
+            <td><input type="text" name="chart_id" /></td>
+          </tr>
+    
+  
+       
+          <tr>
+            <td>Insurance id</td>
+            <td><input type="text" name="insurance_id" /></td>
+          </tr>
+      
+  
+        
+          <tr>
+            <td>Dob</td>
+            <td><input type="text" name="dob" /></td>
+          </tr>
+  
+  
+    
+          <tr>
+            <td>Consumer name</td>
+            <td><input type="text" name="consumer_name" /></td>
+          </tr>
+   
+  
+        
+          <tr>
+            <td>Icd 10</td>
+            <td><input type="text" name="icd_10" /></td>
+          </tr>
+        
+  
+          <tr>
+            <td>Medicare</td>
+            <td><input type="text" name="medicare" /></td>
+          </tr>
+     
+      
+          <tr>
+            <td>Name of the supervising physician</td>
+            <td><input type="text" name="name_of_supervising_physician" /></td>
+          </tr>
+  
+       
+     
+          <tr>
+            <td>Co pay Amount</td>
+            <td><input type="text" name="co_pay_amount" /></td>
+          </tr>
+     
+  
+          <tr>
+            <td>Paid Amount</td>
+            <td><input type="text" name="paid_amount" /></td>
+          </tr>
+      
+  
+       
+  
+  
+          <tr>
+            <td>Time in</td>
+            <td><input type="text" name="time_in" /></td>
+          </tr>
+    
+  
+  
+          <tr>
+            <td>Time out</td>
+            <td><input type="text" name="time_out" /></td>
+          </tr>
+      
+  
+      
+          <tr>
+            <td>Am or pm</td>
+            <td><input type="text" name="am_or_pm" /></td>
+          </tr>
+        
+  
+      
+          <tr>
+            <td>City</td>
+            <td>
+              <label
+                ><input
+                  type="checkbox"
+                  name="city[]"
+                  value="Allentown"
+                />Allentown</label
+              >
+              <label
+                ><input type="checkbox" name="city[]" value="Easton" />Luz</label
+              >
+              <label
+                ><input type="checkbox" name="city[]" value="Bethlehem" />Sus</label
+              >
+            </td>
+          </tr>
+      
+        <br />
+        <tr>
+          <td>Smoking History</td>
+          <td>
+            <label
+              ><input
+                type="checkbox"
+                name="smoking_history[]"
+                value="Non Smoker"
+              />Non Smoker</label
+            >
+            <label
+              ><input type="checkbox" name="smoking_history[]" value="Non Smoker" />Non Smoker</label
+            >
+            <label
+              ><input type="checkbox" name="smoking_history[]" value="] Smoker/Counseling Received" /> Smoker/Counseling Received</label
+            >
+          </td>
+        </tr>
+  
+          <tr>
+            <td>Insurance carrier</td>
+            <td>
+              <label
+                ><input
+                  type="checkbox"
+                  name="insurance_carrier[]"
+                  value="MA"
+                />MA</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="insurance_carrier[]"
+                  value="Medicare"
+                />Medicare</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="insurance_carrier[]"
+                  value="Self Pay"
+                />Self Pay</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  name="insurance_carrier[]"
+                  value="Commercial Insurance
+        "
+                />Commercial Insurance&#13;</label
+              >
+            </td>
+          </tr>
+          </table>
+  
+        <br />
+
+  
+        <table border="1" width="1000px">
+            <tr>
+             
+          
+              <label
+                ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>Adult Psychotherapy 21+</b></td></label>
+            </tr>
+            <tr>
+             
+          
+                <label
+                  ></label><td><input
+                    type="checkbox"
+                    name="adult_psychotherapy[]"
+                    value="90832	Individual Psychotherapy 16-37 Minutess"
+                  /></td><td>90832</td><td> Individual Psychotherapy 16-37 Minutess</td></label>
+              </tr>
+              <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_psychotherapy[]"
+                    value="90833	Individual Psychotherapy 20-30 Minutes (with E/M) – psychiatrist only"
+                  /><td>90833</td><td>Individual Psychotherapy 20-30 Minutes (with E/M) – psychiatrist only</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_psychotherapy[]"
+                    value="90834 	Individual Psychotherapy 38-52 Minutes"
+                  /><td>90834</td><td>Individual Psychotherapy 38-52 Minutes</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_psychotherapy[]"
+                    value="90847	Special Family Therapy"
+                  /><td>90847</td><td>Special Family Therapy</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_psychotherapy[]"
+                    value="90887	Consultation with Family"
+                  /><td>90887</td><td>Consultation with Family</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_psychotherapy[]"
+                    value="90853 	Group Medical Psychotherapy"
+                  /><td>90853</td><td>Group Medical Psychotherapy</td> </label
+                >
+               </tr>
+             
+          </table>
+                
+        <table border="1" width="1000px">
+            <tr>
+             
+          
+              <label
+                ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>Child Psychotherapy 20-</b></td></label>
+            </tr>
+            <tr>
+             
+          
+                <label
+                  ></label><td><input
+                    type="checkbox"
+                    name="child_psychotherapy[]"
+                    value="90832	Individual Psychotherapy 16-37 Minutess"
+                  /></td><td>90832</td><td> Individual Psychotherapy 16-37 Minutess</td></label>
+              </tr>
+              <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="child_psychotherapy[]"
+                    value="90833	Individual Psychotherapy 20-30 Minutes (with E/M) – psychiatrist only"
+                  /><td>90833</td><td>Individual Psychotherapy 20-30 Minutes (with E/M) – psychiatrist only</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="child_psychotherapy[]"
+                    value="90834 	Individual Psychotherapy 38-52 Minutes"
+                  /><td>90834</td><td>Individual Psychotherapy 38-52 Minutes</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="child_psychotherapy[]"
+                    value="90847	Special Family Therapy"
+                  /><td>90847</td><td>Special Family Therapy</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="child_psychotherapy[]"
+                    value="90887	Consultation with Family"
+                  /><td>90887</td><td>Consultation with Family</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="child_psychotherapy[]"
+                    value="90853 	Group Medical Psychotherapy"
+                  /><td>90853</td><td>Group Medical Psychotherapy</td> </label
+                >
+               </tr>
+             <br/>
+          </table>
+        <br/>
+          <table border="1" width="1000px">
+            <tr>
+             
+          
+              <label
+                ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>Adult Medication Review 21 +</b></td></label>
+            </tr>
+            <tr>
+             
+          
+                <label
+                  ></label><td><input
+                    type="checkbox"
+                    name="adult_medication_review[]"
+                    value="99211	Medication Review 5-9 Minutes"
+                  /></td><td>99211</td><td>Medication Review 5-9 Minutes</td></label>
+              </tr>
+              <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_medication_review[]"
+                    value="99212	Medication Review 10-14 Minutes"
+                  /><td>99212</td><td>Medication Review 10-14 Minutes</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_medication_review[]"
+                    value="99213	Medication Review 15-24 Minutes"
+                  /><td>99213</td><td>Medication Review 15-24 Minutes</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_medication_review[]"
+                    value="99214	Medication Review 25-40 Minutes "
+                  /><td>99214</td><td>Medication Review 25-40 Minutes</td> </label
+                >
+               </tr>
+               <tr>
+                <label
+                  ><td><input
+                    type="checkbox"
+                    name="adult_medication_review[]"
+                    value="99215	Medication Review 40 + Minutes"
+                  /><td>99215</td><td>Medication Review 40 + Minutes</td> </label
+                >
+               </tr>
+               
+             
+          </table>
+
+
+    <br/>
+    <table border="1" width="1000px">
+        <tr>
+         
+      
+          <label
+            ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>Child Medication Review 20-</b></td></label>
+        </tr>
+        <tr>
+         
+      
+            <label
+              ></label><td><input
+                type="checkbox"
+                name="child_medication_review[]"
+                value="99211	Medication Review 5-9 Minutes"
+              /></td><td>99211</td><td>Medication Review 5-9 Minutes</td></label>
+          </tr>
+          <tr>
+            <label
+              ><td><input
+                type="checkbox"
+                name="child_medication_review[]"
+                value="99212	Medication Review 10-14 Minutes"
+              /><td>99212</td><td>Medication Review 10-14 Minutes</td> </label
+            >
+           </tr>
+           <tr>
+            <label
+              ><td><input
+                type="checkbox"
+                name="child_medication_review[]"
+                value="99213	Medication Review 15-24 Minutes"
+              /><td>99213</td><td>Medication Review 15-24 Minutes</td> </label
+            >
+           </tr>
+           <tr>
+            <label
+              ><td><input
+                type="checkbox"
+                name="child_medication_review[]"
+                value="99214	Medication Review 25-40 Minutes "
+              /><td>99214</td><td>Medication Review 25-40 Minutes</td> </label
+            >
+           </tr>
+           <tr>
+            <label
+              ><td><input
+                type="checkbox"
+                name="child_medication_review[]"
+                value="99215	Medication Review 40 + Minutes"
+              /><td>99215</td><td>Medication Review 40 + Minutes</td> </label
+            >
+           </tr>
+           
+         
+      </table>
+<br/>
+    <table border="1" width="1000px">
+      <tr>
+       
+    
+        <label
+          ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>Adult Psychiatric Evaluations 21+</b></td></label>
+      </tr>
+      <tr>
+       
+    
+          <label
+            ></label><td><input
+              type="checkbox"
+              name="adult_psychiatric_evaluations[]"
+              value="90792	Psychiatric Evaluation with Medication"
+            /></td><td>90792</td><td> Psychiatric Evaluation with Medication</td></label>
+        </tr>
+        <tr>
+          <label
+            ><td><input
+              type="checkbox"
+              name="adult_psychiatric_evaluations[]"
+              value="90791	Psychiatric Evaluation without Medication"
+            /><td>90791</td><td>Psychiatric Evaluation without Medication</td> </label
+          >
+         </tr>
+       
+         
+       
+    </table>
+    <br/>
+    <table border="1" width="1000px">
+        <tr>
+         
+      
+          <label
+            ></label><td><b>SELECTION</b</td><td><b>CODE</b></td><td> <b>Child Psychiatric Evaluations 20-</b></td></label>
+        </tr>
+        <tr>
+         
+      
+            <label
+              ></label><td><input
+                type="checkbox"
+                name="child_psychiatric_evaluations[]"
+                value="90792	Psychiatric Evaluation with Medication"
+              /></td><td>90792</td><td> Psychiatric Evaluation with Medication</td></label>
+          </tr>
+          <tr>
+            <label
+              ><td><input
+                type="checkbox"
+                name="child_psychiatric_evaluations[]"
+                value="90791	Psychiatric Evaluation without Medication"
+              /><td>90791</td><td>Psychiatric Evaluation without Medication</td> </label
+            >
+           </tr>
+         
+           
+         
+      </table>    <br />
+  
+        <br />
+        <p>
+          <br />
+          I certify that the information shown on this invoice is true, correct,
+          and accurate. I understand that payment and satisfaction of this claim
+          will be from federal and state funds, and that any false claims,
+          statements or documents, or concealment of material facts, may be
+          prosecuted under applicable federal and state laws.
+          <br />
+          <b>Please sign below if agree</b>
+        </p>
+  
+        <div>
+          <canvas id="signature" width="300" height="100"></canvas>
+        </div>
+        <hr />
+        <div>Psychiatrist/Psychologist/Therapist Print Name<input type="hidden" name="signature" /></div>
+  
+        <div>
+          <canvas id="signaturep" width="300" height="100"></canvas>
+        </div>
+        <hr />
+   
+        <div>Client/Guardian/Responsible Party Signature<label><input type="hidden" name="signaturep" /></div></label>
+  
+       <div>
+          <canvas id="sig" width="300" height="100"></canvas>
+        </div>
+        <hr />
+        <div>Supervising Physician Print Name (Medicare Only)<input type="hidden" name="sig" /></div> 
+        <br/>
+      </centre>
+  
+        <input type="submit" name="submit form" value="SUBMIT" />
+  
+        
+        
+      </form>
+    </body>
+  
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+     
+     
+       var canvas = document.getElementById("signature");
+      var signature = document.getElementsByName('signature')[0];
+      console.log(signature)
+       const signaturePad = new SignaturePad(canvas)
+     
+  signaturePad.addEventListener("beginStroke",()=>{
+    console.log("BEGIN");
+  });
+  signaturePad.addEventListener("endStroke", () => {
+    signature.value =signaturePad.toDataURL();
+  console.log(signature.value);
+  }, { once: true });
+  signaturePad.addEventListener("beforeUpdateStroke", () => {
+    console.log("SignaturebeforeUpdateStroke");
+  }, { once: true });
+  signaturePad.addEventListener("afterUpdateStroke", () => {
+    const x  =signaturePad.toDataURL();
+  console.log(x);
+  }, { once: true });
+  
+    </script>
+    </html>
+  

@@ -23,6 +23,8 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as json.
 app.use('/', express.static(__dirname + '/')); // Store static files.
 app.use('/api/v1', require('./client_route_magellan.js'));
+app.use('/api/nj', require('./nj'));
+
 
 
 
@@ -40,7 +42,7 @@ app.get('/', (req, res) => {
       console.log(user);
 
     });
-    res.sendFile(`${__dirname}/htmlPage.html`)
+    res.sendFile(`${__dirname}/nj.html`)
   }
   else {
     res.send(`
@@ -71,43 +73,54 @@ app.post("/login", async (req, res) => {
     if (tname != null && password != null && location != null) {
 
 
+      if (req.cookies.token) {
+        const authHeader = req.cookies.token;
+        const token = authHeader.split(" ")[1];
+        jwt.verify(token, "JJJ", (err, user) => {
+          if (err) res.status(403).json("Token is not valid!");
+          res.render("home.ejs", { id: user.id, name: user.tname })
+          req.user = user;
+          console.log(user);
 
-      await getUserByNamePass(
-        { tname: tname, password: password, location: location },
+        });
+      } else {
+        await getUserByNamePass(
+          { tname: tname, password: password, location: location },
 
-        (x, data) => {
+          (x, data) => {
 
-          console.log(data);
+            console.log(data);
 
 
 
-          var client = data;
-          console.log(client);
-          if (client.length > 0) {
-            // gen token
-            console.log("ekk")
-            const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
+            var client = data;
+            console.log(client);
+            if (client.length > 0) {
+              // gen token
+              console.log("ekk")
+              const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
 
-            console.log(jwt_token);
-            if (!client[0].jwttoken) {
-              setUserToken({ jwttoken: jwt_token, id: client[0].id });
-            }
-            //set token
+              console.log(jwt_token);
+              if (!client[0].jwttoken) {
+                setUserToken({ jwttoken: jwt_token, id: client[0].id });
+              }
+              //set token
 
-            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
-            //send token
-            res.setHeader("token", `Bearer ${jwt_token}`)
-            res.render("home", { id: data[0].id, name: data[0].tname })
+              res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
+              //send token
+              res.setHeader("token", `Bearer ${jwt_token}`)
+              res.render("home", { id: data[0].id, name: data[0].tname })
 
-          } else {
+            } else {
 
-            res.send(`<center>
+              res.send(`<center>
               <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
 
+            }
           }
-        }
-      );
 
+        );
+      }
 
     } else {
       console.log("NPPP")

@@ -8,9 +8,9 @@
   </head>
   <body>
     <center>
-    <form action="/encbbdownload/<%= `${id}` %>" method="GET">
+    <form action="api/nj/view/<%= `${id}` %>" method="GET">
       <hr />
-      <h1>EncounterForm NE CCBH</h1>
+      <h1>EncounterForm NJ</h1>
       <hr />
 
       <h3>
@@ -20,13 +20,6 @@
         Outpatient Service Encounter Form
         <br />
       </h3>
-      <p>
-        COVID-19 Pandemic Protocol
-This session was conducted by phone due to Emergency Authorization by Magellan Behavioral Health due to Covid-19 pandemic. Full signatures will be obtained when the virus abates, and the client can resume treatment in office.
-
-      </p>
-      
-      
 
 
 
@@ -140,9 +133,9 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
 
 
         <tr>
-          <td>County:</td>
+          <td>City:</td>
           <td>
-            <%=`${county}`%>
+            <%=`${city}`%>
             
           </td>
         </tr>
@@ -161,53 +154,65 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
 
       
         <tr>
-          <td>Assessment done?</td>
+          <td>Smoking History</td>
           <td>
-            <%=`${assessment_done}`%>
+            <%=`${smoking_history}`%>
 
           </td>
         </tr>
 
 
-  
-        <tr>
-          <td>D/a?</td>
-          <td>
-            <%=`${dora}`%>
-
-          </td>
-        </tr>
-  
-
-  
-        <tr>
-          <td>In treatment?</td>
-          <td>
-            <%=`${in_treatment}`%>
-
-          </td>
-        </tr>
-    
-
-     
-        <tr>
-          <td>Referred?</td>
-          <td>
-            <%=`${referred}`%>
-
-          </td>
-        </tr>
       
       <br />
 
  
-        <tr>
-          <td>Clinician services:</td>
+      <tr>
+        <td>Adult Psychotherapy 21+:</td>
+        <td>
+          <%=`${adult_psychotherapy}` %>
+
+        </td>
+      </tr>
+
+      <tr>
+          <td>Adult Psychotherapy 21+:</td>
           <td>
-            <%=`${clinician_services}` %>
+            <%=`${child_psychotherapy}` %>
 
           </td>
         </tr>
+
+      
+      <tr>
+          <td>Adult Medication Review 21+:</td>
+          <td>
+            <%=`${adult_medication_review}` %>
+
+          </td>
+        </tr>
+        <tr>
+          <td>Child Medication Review 20-:</td>
+          <td>
+            <%=`${child_medication_review}` %>
+
+          </td>
+        </tr>
+        <tr>
+          <td>Adult Psychiatric Evaluations 21+:</td>
+          <td>
+            <%=`${adult_psychiatric_evaluations}` %>
+
+          </td>
+        </tr>
+        <tr>
+          <td>Child Psychiatric Evaluations 20-:</td>
+          <td>
+            <%=`${child_psychiatric_evaluations}` %>
+
+          </td>
+        </tr>
+        
+
       </table>
       <br />
 
@@ -229,7 +234,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
      
       <hr />
       <table>
-        <tr><td>Psychiatrist/Psychologist/Therapist Print Name</td><td><img src= <%= `${sigt}`%>></td> </tr>
+        <tr><td>Psychiatrist/Psychologist/Therapist Print Name	</td><td><img src= <%= `${sigt}`%>></td> </tr>
       </table>
     
       <hr />
@@ -239,11 +244,11 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
       </table>
       <hr/>
      <table>
-       <td>Supervising Physician Print Name (Medicare Only)</td><td><canvas id="sig" width="300" height="100"></canvas></td>
+       <td> Supervisor Signature</td><td><canvas id="sig" width="300" height="100"></canvas></td>
      </table>
    <hr/>
 <br/>
-    
+      <input type="submit" name="submit form" value="DOWNLOAD" />
       
     </form>
   
