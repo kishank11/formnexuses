@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 var bodyParser = require('body-parser');
-const { setSigP, addPerson, getPersonById } = require('./models/mag_model');
+const { setSigP, addPerson, getPersonById } = require('./models/se_models');
 const router = express.Router();
 const app = express();
 
