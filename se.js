@@ -192,6 +192,7 @@ router.post("/action_page", (req, res) => {
     const x = _select?.join(",")
     const y = reason_for_audio_only?.join(",")
     const z = county?.join(",")
+    const office1 = office?.join(",");
     const p = insurance_carrier?.join(",")
     const q = clinician_services?.join(",")
 
@@ -235,7 +236,7 @@ router.post("/action_page", (req, res) => {
         clinician_services: q,
         signature: signature,
         signatureat: signatureat,
-        office: office,
+        office: office1,
         id: id1
     })
     // getPersonBySig({ signaturet: req.body.signaturet })
