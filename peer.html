@@ -1,0 +1,416 @@
+<html>
+  <head> </head>
+  <body>
+    <center>
+    <form action="/api/peer/action_page" method="POST"> 
+      <hr />
+      <h1>Encounter Form Peer</h1>
+      <hr />
+     
+
+      <h2>
+        Omni Health Service, Inc.
+        <br />
+
+        Peer Specialist Encounter Form
+        <br />
+      </h2>
+
+
+      <table align="center-left" width="600px">
+        <tr>
+          <td>Insurance</td>
+          <td><input type="text" name="insurance" style=" width: 530px"/></td>
+        </tr>
+     </table>
+     <table border="1" align="center-left" width="600px" >
+      <th colspan="2">Authorised Time Period</th>
+
+
+
+        <tr>
+          <td>Start date</td>
+          <td><input type="text" name="start_date" style=" width: 480px"/></td>
+        </tr>
+     
+
+ 
+
+        <tr>
+          <td>Assigned specialist</td>
+          <td><input type="text" name="assigned_specialist" style=" width: 480px" /></td>
+        </tr>
+      </table>
+      <br />
+      <table border="1" align="center-left" width="600px">
+      <th colSpan="2">Monday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_mon" style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_mon" style=" width: 480px" /></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_mon" style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_mon" style=" width: 480px" /></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_mon" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_mon" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_mon"  style=" width: 480px"/></td>
+        </tr>
+        <th colSpan="2">Tuesday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_tue"  style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_tue"  style=" width: 480px"/></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_tue"  style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_tue" style=" width: 480px"/></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td>
+            <canvas id="signature_tue" width="480" height="100"></canvas>
+      
+          <hr />
+      <input type="hidden" name="signature_tue" />
+          </td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_tue" style=" width: 480px"/></td>
+        </tr>
+
+        <th colSpan="2">Wednesday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_wed" style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_wed" style=" width: 480px"/></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_wed" style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_wed" style=" width: 480px" /></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td>
+            <canvas id="signature_wed" width="300" height="100"></canvas>
+      
+          <hr />
+      <input type="hidden" name="signature_wed" type="text"/></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_wed" style=" width: 480px"/></td>
+        </tr>
+        <th colSpan="2">Thursday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_thu" style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_thu" style=" width: 480px"/></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_thu" style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_thu" style=" width: 480px"/></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_thu" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_wed" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_thu" style=" width: 480px"/></td>
+        </tr>
+        <th colSpan="2">Friday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_fri" style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_fri" style=" width: 480px"/></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_fri" style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_fri" style=" width: 480px"/></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td>
+            <canvas id="signature_fri" width="300" height="100"></canvas>
+      
+          <hr />
+      <input type="hidden" name="signature_fri" />
+          </td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_fri" style=" width: 480px"/></td>
+        </tr>
+
+        <th colSpan="2">Saturday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_sat" style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_sat" style=" width: 480px"/></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_sat" style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_sat" style=" width: 480px"/></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_sat" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_sat" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_sat" style=" width: 480px"/></td>
+        </tr>
+
+        <th colSpan="2">Sunday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><input type="text" name="date_sun" style=" width: 480px"/></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><input type="text" name="start_sun" style=" width: 480px"/></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><input type="text" name="end_sun" style=" width: 480px"/></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><input type="text" name="total_hours_sun" style=" width: 480px"/></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_sun" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_sun" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><input type="text" name="contact_code_sun" style=" width: 480px"/></td>
+        </tr>
+
+     
+        <tr>
+          <td><b>Total hours in all</b></td>
+          <td><input type="text" name="total_hours_in_all" style=" width: 480px"/></td>
+        </tr>
+      </table>
+<p>I certify that this information on this encounter form is true, correct and accurate.  I understand that payment and satisfaction of this claim will be from federal and state funds, and that false claims, statements, <br/>documents or concealment of material may be prosecuted under applicable federal and state laws.<br/>
+CODES Home=H<br/>
+Office=O<br/>
+Community=C<br/>
+Phone=P
+</p>
+      <table>
+        <tr>
+          <td>Peer specialist signature</td>
+          <td><canvas id="signaturet" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signaturet" type="text"/></td>
+
+        </tr>
+        <tr>
+            <td>Date:</td><td><input type="text" name="date_signaturet" style=" width: 300px"/></td>
+        </tr>
+      </table>
+
+     <br/>
+      <input type="submit" name="submit form" value="submit form" />
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+        
+
+var canvas = document.getElementById("signaturet");
+      var signature = document.getElementsByName('signaturet')[0];
+
+      console.log(signature)
+       const signaturePad = new SignaturePad(canvas)
+
+  signaturePad.addEventListener("endStroke", () => {
+    signature.value =signaturePad.toDataURL();
+  console.log(signature.value);
+  }, { once: true });
+
+    </script>
+  </body>
+</html>

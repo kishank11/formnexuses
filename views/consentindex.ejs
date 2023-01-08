@@ -1,0 +1,153 @@
+<html>
+  <head> </head>
+  <body>
+   <table align="centre">
+    <form action="/api/consent/downloadnj/<%= `${id}` %>" method="GET">
+      <hr />
+      <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+      <hr />
+      <table >
+      <p >
+        <br />
+
+        By signing this form, I understand and agree with the following:
+        Telehealth/Telemedicine involves the use of electronic communications to
+        enable healthcare providers to provide patient services for the purpose
+        of improving patient care. Telehealth services can be provided from
+        Omni’s onsite staff or staff who are working from secure remote
+        locations. By providing consent, you are indicating that you will be in
+        a private and secure location to receive services.
+
+        <br />
+        Service providers may include Clinical Therapists, Psychiatrists, Nurse
+        Practitioners, Advanced Nurse Practitioners, Certified Peer Specialists,
+        Behavioral Consultants, Mobile Therapists, Behavioral Health Technicians
+        and other healthcare providers who are part of your clinical care team.
+        Friends and family may join and participate on the telehealth service if
+        appropriate and I agree to share my personal information with such
+        family members, caregivers, legal representatives or guardians. The
+        information may be used for diagnosis, therapy, follow-up and/or
+        education. Telehealth/Telemedicine requires transmission, via Internet
+        or tele-communication device, of health information, which may include:
+        <br/>
+        • Progress reports, treatment plans, assessments, or other
+        intervention-related documents 
+        <br/>• Bio-physiological data transmitted
+        electronically <br/>• Videos, pictures, text messages, audio, and any digital
+        form of data.
+        <br />
+
+        <br />
+        Omni utilizes HIPPA compliant software for service provision which
+        includes Vonage VOIP phone system and Zoom Telehealth platforms. As with
+        any Internet-based communication, I understand that there is a risk of
+        security breach. Electronic systems used will incorporate network and
+        software security protocols to protect the confidentiality of patient
+        identification and imaging data and will include measures to safeguard
+        the data and to ensure its integrity against intentional or
+        unintentional corruption. Individuals other than my clinical care team
+        or consulting providers may also be present and have access to my
+        information for the telehealth/telemedicine session. This is so they can
+        operate or repair the video or audio equipment used. These persons will
+        adhere to applicable privacy and security policies.
+        Telehealth/telemedicine sessions may not always be possible. Disruptions
+        of signals or problems with the Internet’s infrastructure may cause
+        broadcast and reception problems (e.g., poor picture or sound quality,
+        dropped connections, audio interference) that prevent effective
+        interaction between consulting clinician(s), participant, patient or
+        care team.
+
+        <br />
+        I have the right to withhold or withdraw consent to the use of
+        telehealth/telemedicine services at any time and revert to traditional
+        in-person clinic services. I understand that if I withdraw my consent
+        for telehealth/telemedicine, it will not affect any future services.
+
+        <br />
+        I understand that I may receive the following behavioral health services
+        based on the program:
+       
+        <table>
+      
+           ​​​<tr>
+          <td>Program</td><td> <%=program%> </td> 
+           </tr>
+           </table>
+
+        <br />
+        The selected program above includes the services offered within that
+        program. You and your therapist/care provider will decide together what
+        services will assist you toward your goals as you build your treatment
+        plan. These services have been explained to me along with the benefits
+        and risks of each choice.
+        <br />
+        I understand that I am an active participant in the development of my
+        treatment goals and ongoing treatment planning while receiving services
+        at OMNI Health Services, Inc.
+        <br />
+        I understand that I am under the care of mental health professionals and
+        that they will make recommendations for my care. I understand that I may
+        not agree with all service recommendations made. However, I will have
+        the benefits and risks of each service explained to assist me in making
+        an informed decision about my care.
+        <br />
+        I consent to the recording of my consent for treatment in an electronic
+        format which includes audio and video. If I choose not to consent to
+        electronic recordings, Omni will be unable to provide telehealth
+        services and will provide in person services.
+        <br />
+        I understand for any child under the age of 5, the caregiver will need
+        to participate in the provision of services, ages 6 to 9, observe the
+        service provision and 10 to 13, a caregiver should be available.
+        <br />
+        
+      
+  
+        <td>I have had the behavioral health services offered in my OMNI Program explained, and I agree to receive treatment at OMNI Health Services, Inc.<br/><b> (Required Field: Must be checked to receive any services):<%=agree%></b>
+      </p>
+      <tr>
+        <td>Printed Name of Client</td>
+        <td><%=name_of_client%></td>
+      </tr>
+      
+      <hr />
+      
+      <div>Signature of Client: OR Parent/Guardian if under 14 years of age/PA;<br/>If under 18 Years of age/NJ  
+
+        ​​Check if consent received verbally:(Requires second witness) Psychiatrist/Psychologist/Therapist Print Name<img src= <%= `${sigt}`%> ></div>
+
+      <div>
+        <canvas id="signaturep" width="300" height="100"></canvas>
+      </div>
+      <hr />
+          
+      <div>Signature of Omni Witness:  <label><input type="hidden" name="signaturep" /></div></label>
+
+     <div>
+        <canvas id="sig" width="300" height="100"></canvas>
+      </div>
+      <hr />
+      <div>​Second Omni Witness for Verbal Consent Signature: (Only needed for verbal consent)<input type="hidden" name="sig" /></div> 
+      <br/>
+      <div>
+        <canvas id="sig" width="300" height="100"></canvas>
+      </div>
+      <hr />
+      <div>​Electronic Consent Recorded<input type="hidden" name="sig" /></div> 
+     
+      <br />
+ 
+      <br />
+
+      <table></table>
+      <input type="submit" name="submit form" value="Submit" />
+      </table>
+    </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+  <script>
+   
+
+  </script>
+  </body>
+</html>

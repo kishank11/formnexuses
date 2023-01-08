@@ -1,0 +1,381 @@
+require('dotenv').config()
+const express = require('express');
+var bodyParser = require('body-parser');
+const { setSigP, addPerson, getPersonById } = require('./models/peer_models');
+const router = express.Router();
+const app = express();
+
+const crypto = require('crypto');
+const jwt = require("jsonwebtoken");
+const db = require('./utils/mysql_connection');
+
+let cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+let ejs = require("ejs");
+let pdf = require("html-pdf");
+var path = require("path")
+var fs = require("fs");
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as json.
+app.use('/', express.static(__dirname + '/'));
+
+router.get('/', (req, res) => {
+    if (req.cookies.token) {
+
+        const authHeader = req.cookies.token;
+        console.log(req.cookies)
+        const token = authHeader.split(" ")[1];
+        jwt.verify(token, "JJJ", (err, user) => {
+
+            req.user = user;
+            console.log(user);
+
+        });
+        res.sendFile(`${__dirname}/peer.html`)
+    }
+    else {
+        res.send(`
+      <center>
+      <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE LOGIN!</h1></div></center>`)
+    }
+
+})
+
+
+
+
+router.get("/login", (req, res) => {
+
+    res.render("login")
+
+})
+
+router.post("/login", async (req, res) => {
+    try {
+
+        const {
+            tname,
+            password,
+            location
+
+        } = req.body;
+        if (tname != null && password != null && location != null) {
+
+
+            if (req.cookies.token) {
+                const authHeader = req.cookies.token;
+                const token = authHeader.split(" ")[1];
+                jwt.verify(token, "JJJ", (err, user) => {
+                    if (err) res.status(403).json("Token is not valid!");
+                    res.render("home.ejs", { id: user.id, name: user.tname })
+                    req.user = user;
+                    console.log(user);
+
+                });
+            } else {
+                await getUserByNamePass(
+                    { tname: tname, password: password, location: location },
+
+                    (x, data) => {
+
+                        console.log(data);
+
+
+
+                        var client = data;
+                        console.log(client);
+                        if (client != null && client.length > 0) {
+                            // gen token
+                            console.log("ekk")
+                            const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
+
+                            console.log(jwt_token);
+                            if (!client[0].jwttoken) {
+                                setUserToken({ jwttoken: jwt_token, id: client[0].id });
+                            }
+                            //set token
+
+                            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
+                            //send token
+                            res.setHeader("token", `Bearer ${jwt_token}`)
+                            res.render("home", { id: data[0].id, name: data[0].tname })
+
+                        } else {
+
+                            res.send(`<center>
+                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
+
+                        }
+                    }
+
+                );
+            }
+
+        } else {
+            console.log("NPPP")
+
+
+
+            res.json({ error: "Missing login information" });
+
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+});
+
+router.get("/home", (req, res) => {
+    if (req.cookies.token) {
+        const authHeader = req.cookies.token;
+        const token = authHeader.split(" ")[1];
+        jwt.verify(token, "JJJ", (err, user) => {
+            if (err) res.status(403).json("Token is not valid!");
+            res.render("home.ejs", { id: user.id, name: user.tname })
+            req.user = user;
+            console.log(user);
+
+        });
+    } else {
+        res.send("PLEASE LOGIN")
+    }
+})
+
+
+
+
+
+router.get("/logout/:id", async (req, res) => {
+
+    console.log(req.params.id)
+    res.clearCookie('token');
+    await deleteUserToken({ jwttoken: "", id: req.params.id });
+    res.send("You are Logged out!");
+})
+
+
+router.post("/action_page", (req, res) => {
+
+    const {
+        id,
+        insurance,
+        start_date,
+        total_hours_in_all,
+        assigned_specialist,
+        date_mon,
+        start_mon,
+        end_mon,
+        total_hours_mon,
+        signature_mon,
+        contact_code_mon,
+        date_tue,
+        start_tue,
+        end_tue,
+        total_hours_tue,
+        signature_tue,
+        contact_code_tue,
+        date_wed,
+        start_wed,
+        end_wed,
+        total_hours_wed,
+        signature_wed,
+        contact_code_wed,
+        date_thu,
+        start_thu,
+        end_thu,
+        total_hours_thu,
+        signature_thu,
+        contact_code_thu,
+        date_fri,
+        start_fri,
+        end_fri,
+        total_hours_fri,
+        signature_fri,
+        contact_code_fri,
+        date_sat,
+        start_sat,
+        end_sat,
+        total_hours_sat,
+        signature_sat,
+        contact_code_sat,
+        date_sun,
+        start_sun,
+        end_sun,
+        total_hours_sun,
+        signature_sun,
+        contact_code_sun,
+        signaturet,
+        date_signaturet } = req.body
+    let signatureat = new Date();
+
+    console.log(req.body)
+
+    // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
+
+    // const x = _select?.join(",")
+    // const y = reason_for_audio_only?.join(",")
+    // const z = county?.join(",")
+    // const office1 = office?.join(",");
+    // const p = insurance_carrier?.join(",")
+    // const q = clinician_services?.join(",")
+
+
+
+
+
+    // console.log(x)
+    // console.log(_select)
+
+
+    const id0 = crypto.randomUUID();
+    const id1 = id0.toString()
+
+    console.log(id1.toString())
+    // console.log(signature)
+
+
+    const data = addPerson({
+        id: id1,
+        insurance: insurance,
+        total_hours_in_all: total_hours_in_all,
+        start_date: start_date,
+        assigned_specialist: assigned_specialist,
+        date_mon: date_mon,
+        start_mon: start_mon,
+        end_mon: end_mon,
+        total_hours_mon: total_hours_mon,
+       
+        contact_code_mon: contact_code_mon,
+        date_tue: date_tue,
+        start_tue: start_tue,
+        end_tue: end_tue,
+        total_hours_tue: total_hours_tue,
+       
+        contact_code_tue: contact_code_tue,
+        date_wed: date_wed,
+        start_wed: start_wed,
+        end_wed: end_wed,
+        total_hours_wed: total_hours_wed,
+    
+        contact_code_wed: contact_code_wed,
+        date_thu: date_thu,
+        start_thu: start_thu,
+        end_thu: end_thu,
+        total_hours_thu: total_hours_thu,
+        
+        contact_code_thu: contact_code_thu,
+        date_fri: date_fri,
+        start_fri: start_fri,
+        end_fri: end_fri,
+        total_hours_fri: total_hours_fri,
+        
+        contact_code_fri: contact_code_fri,
+        date_sat: date_sat,
+        start_sat: start_sat,
+        end_sat: end_sat,
+        total_hours_sat: total_hours_sat,
+        
+        contact_code_sat: contact_code_sat,
+        date_sun: date_sun,
+        start_sun: start_sun,
+        end_sun: end_sun,
+        total_hours_sun: total_hours_sun,
+
+        contact_code_sun: contact_code_sun,
+        signaturet: signaturet,
+        date_signaturet: date_signaturet
+    })
+    // getPersonBySig({ signaturet: req.body.signaturet })
+
+
+
+    // if (req.body.signature != null) {
+    //   require("fs").writeFile(`${form}${id1}t.png`, base64Data, 'base64', function (err) {
+    //     console.log(err);
+    //   });
+    //   // setSig({ signature: sig1, p_id: req.params.id })
+    // }
+    res.end(`<p>https://formnexuses.onrender.com/api/peer/patient/${id1}</p>`)
+
+
+
+
+})
+
+router.get("/patient/:id", (req, res) => {
+
+    id = req.params.id;
+    console.log(req.params.id)
+    // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
+
+    getPersonById({ id: id }, (x, data) => {
+        console.log(data[0])
+        res.render("peerindex.ejs", { id: data[0].id, insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet })
+    })
+
+
+    // getPerson({})
+})
+
+router.post("/patient/:id", (req, res) => {
+
+    sig = req.body.signaturep;
+    id = req.params.id;
+    let signaturepat = new Date();
+
+    if (req.body.signaturep != null) {
+        setSigP({ signaturep: sig, id: req.params.id, signaturepat: signaturepat })
+    }
+    getPersonById({ id: id }, (x, data) => {
+        res.render("peerfinal.ejs", { id: `${data[0].id}`, office: `${data[0].office}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+    })
+})
+
+
+
+
+router.get("/downloadpeer/:id", (req, res) => {
+    if (fs.existsSync(`./se${req.params.id}.pdf`)) {
+        res.render("peerdownload.ejs", { id: req.params.id })
+        console.log("fil ")
+    } else {
+        let id = req.params.id
+        getPersonById({ id: id }, (x, data) => {
+            ejs.renderFile(path.join(__dirname, './views/', "peerview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, office: `${data[0].office}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    let options = {
+                        "height": "11.25in",
+                        "width": "8.5in",
+                        "header": {
+                            "height": "20mm"
+                        },
+                        "footer": {
+                            "height": "20mm",
+                        },
+                    };
+
+
+                    pdf.create(data, options).toFile(`peer${id}.pdf`, function (err, data) {
+                        if (err) {
+                            res.send(`THERE IS AN ERROR ${err}`);
+
+                        } else {
+                            res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/peer${id}.pdf">Click to view!</a>`);
+
+                        }
+                    });
+                }
+            });
+
+        })
+
+    }
+
+})
+
+module.exports = router;

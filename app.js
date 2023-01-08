@@ -25,6 +25,10 @@ app.use('/', express.static(__dirname + '/')); // Store static files.
 app.use('/api/v1', require('./client_route_magellan.js'));
 app.use('/api/nj', require('./nj'));
 app.use('/api/se', require('./se'));
+app.use('/api/peer', require('./peer'));
+app.use('/api/consent', require('./consent'));
+
+
 
 
 
