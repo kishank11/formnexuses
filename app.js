@@ -1,5 +1,7 @@
 require('dotenv').config()
 const express = require('express');
+const helmet = require('helmet');
+
 var bodyParser = require('body-parser');
 const { addPerson, getPersonById, setSig, getPersonBySig, setSigP, getUserById, setUserToken, getUserByName, deleteUserToken, getUserByNamePass } = require('./models/clients_model.js');
 const router = express.Router();
@@ -7,6 +9,7 @@ const app = express();
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
+app.use(helmet({ contentSecurityPolicy: false }));
 const PORT = 3000;
 app.listen(PORT);
 let cookieParser = require('cookie-parser');
@@ -27,6 +30,8 @@ app.use('/api/nj', require('./nj'));
 app.use('/api/se', require('./se'));
 app.use('/api/peer', require('./peer'));
 app.use('/api/consent', require('./consent'));
+app.use('/api/ibhs', require('./ibhs'));
+
 
 
 
@@ -112,10 +117,9 @@ app.post("/login", async (req, res) => {
               }
               //set token
 
-              res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 360000 });
-              //send token
-              res.setHeader("token", `Bearer ${jwt_token}`)
-              res.render("home", { id: data[0].id, name: data[0].tname })
+              res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 86400 }) &&
+                res.setHeader("token", `Bearer ${jwt_token}`) &&
+                res.render("home", { id: data[0].id, name: data[0].tname })
 
             } else {
 
@@ -261,7 +265,7 @@ app.post("/action_page", (req, res) => {
   //   });
   //   // setSig({ signature: sig1, p_id: req.params.id })
   // }
-  res.end(`<p>https://formnexuses.onrender.com/patient/${id1}</p>`)
+  res.send(`<p>https://formnexuses.onrender.com/patient/${id1}</p>`)
 
 
 
@@ -315,6 +319,14 @@ app.get("/generateReport/:id", (req, res) => {
             "height": "20mm",
           },
         };
+        if (req.cookies.token) {
+
+          const authHeader = req.cookies.token;
+          console.log(req.cookies)
+          const token = authHeader.split(" ")[1];
+          const l = jwt.verify(token, "JJJ")
+
+        }
 
 
         pdf.create(data, options).toFile(`encbb${id}.pdf`, function (err, data) {
@@ -354,22 +366,68 @@ app.get("/downloadencbb/:id", (req, res) => {
               "height": "20mm",
             },
           };
+          try {
 
 
-          pdf.create(data, options).toFile(`encbb${id}.pdf`, function (err, data) {
-            if (err) {
-              res.send(`THERE IS AN ERROR ${err}`);
+            const authHeader = req.cookies.token;
+            console.log(req.cookies)
+            const token = authHeader.split(" ")[1];
+            var la = jwt.verify(token, "JJJ")
 
-            } else {
-              res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/encbb${id}.pdf">Click to view!</a>`);
 
-            }
-          });
+
+
+            pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}encbb${id}.pdf`, function (err, data) {
+              console.log(la)
+              if (err) {
+                res.send(`THERE IS AN ERROR ${err}`);
+
+              } else {
+                res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}encbb${id}.pdf">Click to view!</a>`);
+
+              }
+
+
+
+
+            })
+
+          } catch (error) {
+            console.log(`cookie not found ${error}`)
+          }
+
+
+
         }
       });
 
     })
 
+  }
+
+})
+app.get("/test", (req, res) => {
+  let aa = `end_date, peer_specialist_hours, agency_name, employee_name, recipient_name, id, insurance, start_date, total_hours_in_all, assigned_specialist, date_mon, start_mon, end_mon, total_hours_mon, contact_code_mon, date_tue, start_tue, end_tue, total_hours_tue, contact_code_tue, date_wed, start_wed, end_wed, total_hours_wed, contact_code_wed, date_thu, start_thu, end_thu, total_hours_thu, contact_code_thu, date_fri, start_fri, end_fri, total_hours_fri, contact_code_fri, date_sat, start_sat, end_sat, total_hours_sat, contact_code_sat, date_sun, start_sun, end_sun, total_hours_sun, contact_code_sun, signaturet, date_signaturet`
+  let x = aa.split(",");
+  console.log(x.length)
+
+
+
+
+})
+
+
+app.get('/d', (req, res) => {
+  const x = `Allentown,Atlantic City,Bethlehem,Bristol,Camden,Colmar,Ferry_Street,Hazleton,Highland_Park,Chester,Kingston,Northampton,Phillipsburg,Scranton,Tobyhanna,Upper_Darby,Vineland`;
+  const s = x.split(",")
+  res.send(`${s}`)
+  for (i = 0; i <= s.length - 1; i++) {
+
+    var dir = __dirname + `/${s[i]}`;
+    if (!fs.existsSync(dir)) {
+      console.log("inside")
+      fs.mkdirSync(dir);
+    }
   }
 
 })

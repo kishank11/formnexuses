@@ -166,7 +166,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.end(`<p>https://formnexuses.onrender.com/api/v1/patient/${id1}</p>`)
+    res.send(`<p>https://formnexuses.onrender.com/api/v1/patient/${id1}</p>`)
 
 
 
@@ -262,14 +262,34 @@ router.get("/downloadmag/:id", (req, res) => {
                     };
 
 
-                    pdf.create(data, options).toFile(`mag${id}.pdf`, function (err, data) {
-                        if (err) {
-                            res.send(`THERE IS AN ERROR ${err}`);
-                        } else {
-                            res.send(`File created successfully <a style="color: grey;" href="https://formnexuses.onrender.com/mag${id}.pdf">Click to view!</a>`);
+                    try {
 
-                        }
-                    });
+                        const authHeader = req.cookies.token;
+                        console.log(req.cookies)
+                        const token = authHeader.split(" ")[1];
+                        var la = jwt.verify(token, "JJJ")
+
+
+
+
+                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}mag${id}.pdf`, function (err, data) {
+                            console.log(la)
+                            if (err) {
+                                res.send(`THERE IS AN ERROR ${err}`);
+
+                            } else {
+                                res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}mag${id}.pdf">Click to view!</a>`);
+
+                            }
+
+
+
+
+                        })
+
+                    } catch (error) {
+                        console.log(`cookie not found ${error}`)
+                    }
                 }
             });
 

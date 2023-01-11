@@ -1,0 +1,529 @@
+<html>
+  <head> </head>
+  <body>
+    <center>
+    <form action="/api/ibhs/patient/<%= `${id}` %>" method="POST"> 
+      <hr />
+      <h1>Encounter Form Peer</h1>
+      <hr />
+     
+
+      <h2>
+        Omni Health Service, Inc.
+        <br />
+
+        Peer Specialist Encounter Form
+        <br />
+      </h2>
+
+
+      <table align="center-left" width="600px">
+        <tr>
+          <td>Empployee Name</td>
+          <td><%=employee_name%></td>
+        </tr>
+        <tr>
+          <td>Recipient Name</td>
+          <td><%=recipient_name%></td>
+        </tr>
+        <tr>
+            <td>Treatment plan covering period</td>
+            <td><%=plan%></td>
+          </tr>
+       
+ 
+     </table>
+     <table border="1" align="center-left" width="600px" >
+      <th colspan="2">Authorised Time Period</th>
+
+
+
+        <tr>
+          <td>Start date</td>
+          <td><%=`${start_date}`%></td>
+        </tr>
+        <tr>
+          <td>End date</td>
+          <td><%=end_date%></td>
+        </tr>
+        <tr>
+            <td>BC hours</td>
+            <td><%=bc_hours%></td>
+          </tr>
+          <tr>
+            <td>Assigned BC</td>
+            <td><%=assigned_bc%></td>
+          </tr>
+          <tr>
+            <td>MT Hours</td>
+            <td><%=mt_hours%></td>
+          </tr>
+          <tr>
+            <td>Assigned MT</td>
+            <td><%=assigned_mt%></td>
+          </tr>
+          <tr>
+            <td>School</td>
+            <td><%=school%></td>
+          </tr>
+          <tr>
+            <td>Home</td>
+            <td><%=home%></td>
+          </tr>
+          <tr>
+            <td>Camp</td>
+            <td><%=camp%></td>
+          </tr>
+          <tr>
+            <td>Other</td>
+            <td><%=other%></td>
+          </tr>
+          <tr>
+            <td>Assigned Home</td>
+            <td><%=assigned_home%></td>
+          </tr>
+         
+          <tr>
+            <td>Assigned Schol</td>
+            <td><%=assigned_school%></td>
+          </tr>
+          <tr>
+            <td>Assigned Camp</td>
+            <td><%=assigned_camp%></td>
+          </tr>
+          <tr>
+            <td>Assigned Other</td>
+            <td><%=assigned_other%></td>
+          </tr>
+
+      
+      </table>
+      <br />
+      <table border="1" align="center-left" width="600px">
+      <th colSpan="2">Monday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_mon}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_mon}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_mon}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_mon}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_mon" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_mon" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_mon}`%></td>
+        </tr>
+        <th colSpan="2">Tuesday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_tue}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_tue}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_tue}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_tue}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td>
+            <canvas id="signature_tue" width="480" height="100"></canvas>
+      
+          <hr />
+      <input type="hidden" name="signature_tue" />
+          </td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_tue}`%></td>
+        </tr>
+
+        <th colSpan="2">Wednesday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_wed}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_wed}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_wed}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_wed}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td>
+            <canvas id="signature_wed" width="300" height="100"></canvas>
+      
+          <hr />
+      <input type="hidden" name="signature_wed" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_wed}`%></td>
+        </tr>
+        <th colSpan="2">Thursday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_thu}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_thu}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_thu}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_thu}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_thu" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_thu" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_wed}`%></td>
+        </tr>
+        <th colSpan="2">Friday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_fri}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_fri}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_fri}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_fri}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td>
+            <canvas id="signature_fri" width="300" height="100"></canvas>
+      
+          <hr />
+      <input type="hidden" name="signature_fri" value="" />
+          </td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_fri}`%></td>
+        </tr>
+
+        <th colSpan="2">Saturday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_sat}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_sat}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_sat}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_sat}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_sat" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_sat" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_sat}`%></td>
+        </tr>
+
+        <th colSpan="2">Sunday</th>
+
+      
+        <tr>
+          <td>Date</td>
+          <td><%=`${date_sun}`%></td>
+        </tr>
+      
+
+   
+        <tr>
+          <td>Start</td>
+          <td><%=`${start_sun}`%></td>
+        </tr>
+  
+
+      
+        <tr>
+          <td>End</td>
+          <td><%=`${end_sun}`%></td>
+        </tr>
+     
+
+      
+        <tr>
+          <td>Total hours</td>
+          <td><%=`${total_hours_sun}`%></td>
+        </tr>
+     
+
+    
+        <tr>
+          <td>Client signature</td>
+          <td><canvas id="signature_sun" width="300" height="100"></canvas>
+      
+            <hr />
+        <input type="hidden" name="signature_sun" value="" /></td>
+        </tr>
+  
+
+  
+        <tr>
+          <td>Contact code</td>
+          <td><%=`${contact_code_sun}`%></td>
+        </tr>
+
+     
+        <tr>
+          <td><b>Total hours in all</b></td>
+          <td><%=`${total_hours_in_all}`%></td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>Peer specialist signature</td>
+          <td><img src= <%= `${sigt}`%> ></td>
+
+        </tr>
+        <tr>
+            <td>Date:</td><td><%=date_signaturet%></td>
+        </tr>
+      </table>
+
+     <br/>
+      <input type="submit" name="submit form" value="submit form" />
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+        
+
+var canvas_mon = document.getElementById("signature_mon");
+      var signature_mon = document.getElementsByName('signature_mon')[0];
+      console.log(signature_mon)
+       const signaturePad_mon = new SignaturePad(canvas_mon)
+
+  signaturePad_mon.addEventListener("endStroke", () => {
+    signature_mon.value =signaturePad_mon.toDataURL();
+  console.log(signature_mon.value);
+  }, { once: true });
+
+  var canvas_tue = document.getElementById("signature_tue");
+      var signature_tue = document.getElementsByName('signature_tue')[0];
+      console.log(signature_tue)
+       const signaturePad_tue = new SignaturePad(canvas_tue)
+
+  signaturePad_tue.addEventListener("endStroke", () => {
+    signature_tue.value =signaturePad_tue.toDataURL();
+  console.log(signature_tue.value);
+  })
+
+  var canvas_wed = document.getElementById("signature_wed");
+      var signature_wed = document.getElementsByName('signature_wed')[0];
+      console.log(signature_wed)
+       const signaturePad_wed = new SignaturePad(canvas_wed)
+
+  signaturePad_wed.addEventListener("endStroke", () => {
+    signature_wed.value =signaturePad_wed.toDataURL();
+  console.log(signature_wed.value);
+  })
+//thu
+var canvas_thu = document.getElementById("signature_thu");
+      var signature_thu = document.getElementsByName('signature_thu')[0];
+      console.log(signature_thu);
+       const signaturePad_thu = new SignaturePad(canvas_thu)
+
+  signaturePad_thu.addEventListener("endStroke", () => {
+    signature_thu.value =signaturePad_thu.toDataURL();
+  console.log(signature_thu.value);
+  })
+  //fri
+  var canvas_fri = document.getElementById("signature_fri");
+      var signature_fri = document.getElementsByName('signature_fri')[0];
+      console.log(signature_fri)
+       const signaturePad_fri = new SignaturePad(canvas_fri)
+
+  signaturePad_fri.addEventListener("endStroke", () => {
+    signature_fri.value =signaturePad_fri.toDataURL();
+  console.log(signature_fri.value);
+  })
+//sat
+var canvas_sat = document.getElementById("signature_sat");
+      var signature_sat = document.getElementsByName('signature_sat')[0];
+      console.log(signature_sat)
+       const signaturePad_sat = new SignaturePad(canvas_sat)
+
+  signaturePad_sat.addEventListener("endStroke", () => {
+    signature_sat.value =signaturePad_sat.toDataURL();
+  console.log(signature_sat.value);
+  })
+//sun
+var canvas_sun = document.getElementById("signature_sun");
+      var signature_sun = document.getElementsByName('signature_sun')[0];
+      console.log(signature_sun)
+       const signaturePad_sun = new SignaturePad(canvas_sun)
+
+  signaturePad_sun.addEventListener("endStroke", () => {
+    signature_sun.value =signaturePad_sun.toDataURL();
+  console.log(signature_sun.value);
+
+  }, { once: true });
+
+
+    </script>
+    </center>
+  </body>
+  
+  </html>
+</html>

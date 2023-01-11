@@ -2,7 +2,7 @@
   <head> </head>
   <body>
     <center>
-    <form action="/api/peer/downloadnj/<%= `${id}` %>" method="GET"> 
+    <form action="/api/peer/downloadpeer/<%= `${id}` %>" method="GET"> 
       <hr />
       <h1>Encounter Form Peer</h1>
       <hr />
@@ -19,8 +19,20 @@
 
       <table align="center-left" width="600px">
         <tr>
+          <td>Empployee Name</td>
+          <td><%=employee_name%></td>
+        </tr>
+        <tr>
+          <td>Recipient Name</td>
+          <td><%=recipient_name%></td>
+        </tr>
+        <tr>
+          <td>Agency Name</td>
+          <td><%=agency_name%></td>
+        </tr>
+        <tr>
           <td>Insurance</td>
-          <td><input type="text" name="insurance" style=" width: 530px"/></td>
+          <td><%=insurance%></td>
         </tr>
      </table>
      <table border="1" align="center-left" width="600px" >
@@ -30,15 +42,21 @@
 
         <tr>
           <td>Start date</td>
-          <td><input type="text" name="start_date" style=" width: 480px"/></td>
+          <td><%=start_date%></td>
         </tr>
-     
-
+        <tr>
+          <td>End date</td>
+          <td><%=end_date%></td>
+        </tr>
+        <tr>
+          <td>Peer Specialist Hours</td>
+          <td><%=peer_specialist_hours%></td>
+        </tr>
  
 
         <tr>
           <td>Assigned specialist</td>
-          <td><input type="text" name="assigned_specialist" style=" width: 480px" /></td>
+          <td><%=assigned_specialist%></td>
         </tr>
       </table>
       <br />
@@ -48,14 +66,14 @@
       
         <tr>
           <td>Date</td>
-          <td><%=`${date}`%></td>
+          <td><%=`${date_mon}`%></td>
         </tr>
       
 
    
         <tr>
           <td>Start</td>
-          <td><%=`${start}`%></td>
+          <td><%=`${start_mon}`%></td>
         </tr>
   
 
@@ -76,10 +94,7 @@
     
         <tr>
           <td>Client signature</td>
-          <td><canvas id="signature_mon" width="300" height="100"></canvas>
-      
-            <hr />
-        <input type="hidden" name="signature_mon" /></td>
+          <td><img src= <%= `${signature_mon}`%> ></td>
         </tr>
   
 
@@ -122,10 +137,7 @@
         <tr>
           <td>Client signature</td>
           <td>
-            <canvas id="signature_tue" width="480" height="100"></canvas>
-      
-          <hr />
-      <input type="hidden" name="signature_tue" />
+            <img src= <%= `${signature_tue}`%> >
           </td>
         </tr>
   
@@ -133,7 +145,7 @@
   
         <tr>
           <td>Contact code</td>
-          <td><<%=`${contact_code_tue}`%></td>
+          <td><%=`${contact_code_tue}`%></td>
         </tr>
 
         <th colSpan="2">Wednesday</th>
@@ -170,10 +182,7 @@
         <tr>
           <td>Client signature</td>
           <td>
-            <canvas id="signature_wed" width="300" height="100"></canvas>
-      
-          <hr />
-      <input type="hidden" name="signature_wed" /></td>
+            <img src= <%= `${signature_wed}`%> ></td>
         </tr>
   
 
@@ -215,10 +224,7 @@
     
         <tr>
           <td>Client signature</td>
-          <td><canvas id="signature_thu" width="300" height="100"></canvas>
-      
-            <hr />
-        <input type="hidden" name="signature_wed" /></td>
+          <td><img src= <%= `${signature_thu}`%> ></td>
         </tr>
   
 
@@ -261,10 +267,7 @@
         <tr>
           <td>Client signature</td>
           <td>
-            <canvas id="signature_fri" width="300" height="100"></canvas>
-      
-          <hr />
-      <input type="hidden" name="signature_fri" />
+            <img src= <%= `${signature_fri}`%> >
           </td>
         </tr>
   
@@ -308,10 +311,7 @@
     
         <tr>
           <td>Client signature</td>
-          <td><canvas id="signature_sat" width="300" height="100"></canvas>
-      
-            <hr />
-        <input type="hidden" name="signature_sat" /></td>
+          <td><img src= <%= `${signature_sat}`%> ></td>
         </tr>
   
 
@@ -354,17 +354,14 @@
     
         <tr>
           <td>Client signature</td>
-          <td><canvas id="signature_sun" width="300" height="100"></canvas>
-      
-            <hr />
-        <input type="hidden" name="signature_sun" /></td>
+          <td><img src= <%= `${signature_sun}`%> ></td>
         </tr>
   
 
   
         <tr>
           <td>Contact code</td>
-          <td><<%=`${contact_code_sun}`%></td>
+          <td><%=`${contact_code_sun}`%></td>
         </tr>
 
      
@@ -377,94 +374,21 @@
       <table>
         <tr>
           <td>Peer specialist signature</td>
-          <td><canvas id="signaturet" width="300" height="100"></canvas>
-      
-            <hr />
-        <input type="hidden" name="signaturet" /></td>
+          <td><img src= <%= `${sigt}`%> ></td>
 
         </tr>
         <tr>
-            <td>Date:</td><td><input type="text" name="date_signaturet" style=" width: 300px"/></td>
+            <td>Date:</td><td><%=date_signaturet%></td>
         </tr>
       </table>
 
      <br/>
-      <input type="submit" name="submit form" value="submit form" />
+      <input type="submit" name="submit form" value="DOWNLOAD" />
     </form>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script>
         
 
-var canvas_mon = document.getElementById("signature_mon");
-      var signature_mon = document.getElementsByName('signature_mon')[0];
-      console.log(signature_mon)
-       const signaturePad_mon = new SignaturePad(canvas_mon)
-
-  signaturePad_mon.addEventListener("endStroke", () => {
-    signature_mon.value =signaturePad_mon.toDataURL();
-  console.log(signature_mon.value);
-  }, { once: true });
-
-  var canvas_tue = document.getElementById("signature_tue");
-      var signature_tue = document.getElementsByName('signature_tue')[0];
-      console.log(signature_tue)
-       const signaturePad_tue = new SignaturePad(canvas_tue)
-
-  signaturePad_tue.addEventListener("endStroke", () => {
-    signature_tue.value =signaturePad_tue.toDataURL();
-  console.log(signature_mon.value);
-  })
-
-  var canvas_wed = document.getElementById("signature_wed");
-      var signature_wed = document.getElementsByName('signature_wed')[0];
-      console.log(signature_wed)
-       const signaturePad_wed = new SignaturePad(canvas_wed)
-
-  signaturePad_wed.addEventListener("endStroke", () => {
-    signature_tue.value =signaturePad_wed.toDataURL();
-  console.log(signature_wed.value);
-  })
-//thu
-var canvas_thu = document.getElementById("signature_thu");
-      var signature_thu = document.getElementsByName('signature_thu')[0];
-      console.log(signature_thu);
-       const signaturePad_thu = new SignaturePad(canvas_thu)
-
-  signaturePad_thu.addEventListener("endStroke", () => {
-    signature_thu.value =signaturePad_thu.toDataURL();
-  console.log(signature_thu.value);
-  })
-  //fri
-  var canvas_fri = document.getElementById("signature_fri");
-      var signature_fri = document.getElementsByName('signature_fri')[0];
-      console.log(signature_fri)
-       const signaturePad_fri = new SignaturePad(canvas_fri)
-
-  signaturePad_fri.addEventListener("endStroke", () => {
-    signature_fri.value =signaturePad_fri.toDataURL();
-  console.log(signature_fri.value);
-  })
-//sat
-var canvas_sat = document.getElementById("signature_sat");
-      var signature_sat = document.getElementsByName('signature_sat')[0];
-      console.log(signature_sat)
-       const signaturePad_sat = new SignaturePad(canvas_sat)
-
-  signaturePad_sat.addEventListener("endStroke", () => {
-    signature_sat.value =signaturePad_sat.toDataURL();
-  console.log(signature_sat.value);
-  })
-//sun
-var canvas_sun = document.getElementById("signature_sat");
-      var signature_sun = document.getElementsByName('signature_sun')[0];
-      console.log(signature_sun)
-       const signaturePad_sun = new SignaturePad(canvas_sun)
-
-  signaturePad_sun.addEventListener("endStroke", () => {
-    signature_sun.value =signaturePad_sun.toDataURL();
-  console.log(signature_sun.value);
-
-  }, { once: true });
 
 
     </script>

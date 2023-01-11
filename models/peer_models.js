@@ -150,10 +150,10 @@ function setSig(data, callback) {
 function setSigP(data, callback) {
 
     var id = data.id;
-    let query = "Update peer SET signaturep = ? , signaturepat = ? where id = ?";
-    db.query(query, [data.signaturep, data.signaturepat, data.id], function (err, data, fields) {
+    let query = "Update peer SET signature_mon = ?, signature_tue = ?,signature_wed = ?,signature_thu = ?,signature_fri = ?,signature_sat = ?,signature_sun = ? where id = ?";
+    db.query(query, [data.signature_mon, data.signature_tue, data.signature_wed, data.signature_thu, data.signature_fri, data.signature_sat, data.signature_sun, data.id], function (err, data, fields) {
         if (err) {
-            throw err;
+            console.log(`${err}`)
         }
 
     });
@@ -182,8 +182,8 @@ function addClient(data, callback) {
 
 
 function addPerson(data, callback) {
-    let query = "INSERT INTO peer (id,insurance, start_date, total_hours_in_all,assigned_specialist,date_mon,start_mon,end_mon,total_hours_mon,signature_mon,contact_code_mon,date_tue,start_tue,end_tue,total_hours_tue,signature_tue,contact_code_tue,date_wed,start_wed,end_wed,total_hours_wed,signature_wed,contact_code_wed,date_thu,start_thu,end_thu,total_hours_thu,signature_thu,contact_code_thu,date_fri,start_fri,end_fri,total_hours_fri,signature_fri,contact_code_fri,date_sat,start_sat,end_sat,total_hours_sat,signature_sat,contact_code_sat,date_sun,start_sun, end_sun,total_hours_sun,signature_sun,contact_code_sun,signaturet,date_signaturet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    const x = db.query(query, [data.id, data.insurance, data.start_date, data.total_hours_in_all, data.assigned_specialist, data.date_mon, data.start_mon, data.end_mon, data.total_hours_mon, data.signature_mon, data.contact_code_mon, data.date_tue, data.start_tue, data.end_tue, data.total_hours_tue, data.signature_tue, data.contact_code_tue, data.date_wed, data.start_wed, data.end_wed, data.total_hours_wed, data.signature_wed, data.contact_code_wed, data.date_thu, data.start_thu, data.end_thu, data.total_hours_thu, data.signature_thu, data.contact_code_thu, data.date_fri, data.start_fri, data.end_fri, data.total_hours_fri, data.signature_fri, data.contact_code_fri, data.date_sat, data.start_sat, data.end_sat, data.total_hours_sat, data.signature_sat, data.contact_code_sat, data.date_sun, data.start_sun, data.end_sun, data.total_hours_sun, data.signature_sun, data.contact_code_sun, data.signaturet, data.date_signaturet], function (err, data, fields) {
+    let query = "INSERT INTO peer (end_date, peer_specialist_hours, agency_name, employee_name, recipient_name, id, insurance, start_date, total_hours_in_all, assigned_specialist, date_mon, start_mon, end_mon, total_hours_mon, contact_code_mon, date_tue, start_tue, end_tue, total_hours_tue, contact_code_tue, date_wed, start_wed, end_wed, total_hours_wed, contact_code_wed, date_thu, start_thu, end_thu, total_hours_thu, contact_code_thu, date_fri, start_fri, end_fri, total_hours_fri, contact_code_fri, date_sat, start_sat, end_sat, total_hours_sat, contact_code_sat, date_sun, start_sun, end_sun, total_hours_sun, contact_code_sun, signaturet, date_signaturet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    const x = db.query(query, [data.end_date, data.peer_specialist_hours, data.agency_name, data.employee_name, data.recipient_name, data.id, data.insurance, data.start_date, data.total_hours_in_all, data.assigned_specialist, data.date_mon, data.start_mon, data.end_mon, data.total_hours_mon, data.contact_code_mon, data.date_tue, data.start_tue, data.end_tue, data.total_hours_tue, data.contact_code_tue, data.date_wed, data.start_wed, data.end_wed, data.total_hours_wed, data.contact_code_wed, data.date_thu, data.start_thu, data.end_thu, data.total_hours_thu, data.contact_code_thu, data.date_fri, data.start_fri, data.end_fri, data.total_hours_fri, data.contact_code_fri, data.date_sat, data.start_sat, data.end_sat, data.total_hours_sat, data.contact_code_sat, data.date_sun, data.start_sun, data.end_sun, data.total_hours_sun, data.contact_code_sun, data.signaturet, data.date_signaturet], function (err, data, fields) {
         if (err) {
             console.log(`${err}`)
         }

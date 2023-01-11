@@ -2,7 +2,7 @@
   <head> </head>
   <body>
     <center>
-    <form action="/api/peer/action_page" method="POST"> 
+    <form action="/api/peer/patient/<%= `${id}` %>" method="POST""> 
       <hr />
       <h1>Encounter Form Peer</h1>
       <hr />
@@ -19,8 +19,21 @@
 
       <table align="center-left" width="600px">
         <tr>
+          <td>Empployee Name</td>
+          <td><%=employee_name%></td>
+        </tr>
+        <tr>
+          <td>Recipient Name</td>
+          <td><%=recipient_name%></td>
+        </tr>
+        <tr>
+          <td>Agency Name</td>
+          <td><%=agency_name%></td>
+        </tr>
+ 
+        <tr>
           <td>Insurance</td>
-          <td><input type="text" name="insurance" style=" width: 530px"/></td>
+          <td><%=insurance%></td>
         </tr>
      </table>
      <table border="1" align="center-left" width="600px" >
@@ -32,7 +45,15 @@
           <td>Start date</td>
           <td><%=`${start_date}`%></td>
         </tr>
-     
+        <tr>
+          <td>End date</td>
+          <td><%=end_date%></td>
+        </tr>
+        <tr>
+          <td>Peer Specialist Hours</td>
+          <td><%=peer_specialist_hours%></td>
+        </tr>
+ 
 
  
 
@@ -218,7 +239,7 @@
           <td><canvas id="signature_thu" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signature_wed" /></td>
+        <input type="hidden" name="signature_thu" /></td>
         </tr>
   
 
@@ -264,7 +285,7 @@
             <canvas id="signature_fri" width="300" height="100"></canvas>
       
           <hr />
-      <input type="hidden" name="signature_fri" />
+      <input type="hidden" name="signature_fri" value="" />
           </td>
         </tr>
   
@@ -357,7 +378,7 @@
           <td><canvas id="signature_sun" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signature_sun" /></td>
+        <input type="hidden" name="signature_sun" value="" /></td>
         </tr>
   
 
@@ -381,7 +402,7 @@
 
         </tr>
         <tr>
-            <td>Date:</td><td><input type="text" name="date_signaturet" style=" width: 300px"/></td>
+            <td>Date:</td><td><%=date_signaturet%></td>
         </tr>
       </table>
 
@@ -409,7 +430,7 @@ var canvas_mon = document.getElementById("signature_mon");
 
   signaturePad_tue.addEventListener("endStroke", () => {
     signature_tue.value =signaturePad_tue.toDataURL();
-  console.log(signature_mon.value);
+  console.log(signature_tue.value);
   })
 
   var canvas_wed = document.getElementById("signature_wed");

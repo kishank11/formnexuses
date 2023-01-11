@@ -162,6 +162,11 @@ router.post("/action_page", (req, res) => {
     const {
         id,
         insurance,
+        end_date,
+        peer_specialist_hours,
+        agency_name,
+        employee_name,
+        recipient_name,
         start_date,
         total_hours_in_all,
         assigned_specialist,
@@ -240,6 +245,9 @@ router.post("/action_page", (req, res) => {
     const data = addPerson({
         id: id1,
         insurance: insurance,
+        agency_name: agency_name,
+        employee_name: employee_name,
+        recipient_name: recipient_name,
         total_hours_in_all: total_hours_in_all,
         start_date: start_date,
         assigned_specialist: assigned_specialist,
@@ -247,37 +255,38 @@ router.post("/action_page", (req, res) => {
         start_mon: start_mon,
         end_mon: end_mon,
         total_hours_mon: total_hours_mon,
-       
+
         contact_code_mon: contact_code_mon,
         date_tue: date_tue,
         start_tue: start_tue,
         end_tue: end_tue,
         total_hours_tue: total_hours_tue,
-       
+
         contact_code_tue: contact_code_tue,
         date_wed: date_wed,
         start_wed: start_wed,
         end_wed: end_wed,
         total_hours_wed: total_hours_wed,
-    
+        end_date: end_date,
+        peer_specialist_hours: peer_specialist_hours,
         contact_code_wed: contact_code_wed,
         date_thu: date_thu,
         start_thu: start_thu,
         end_thu: end_thu,
         total_hours_thu: total_hours_thu,
-        
+
         contact_code_thu: contact_code_thu,
         date_fri: date_fri,
         start_fri: start_fri,
         end_fri: end_fri,
         total_hours_fri: total_hours_fri,
-        
+
         contact_code_fri: contact_code_fri,
         date_sat: date_sat,
         start_sat: start_sat,
         end_sat: end_sat,
         total_hours_sat: total_hours_sat,
-        
+
         contact_code_sat: contact_code_sat,
         date_sun: date_sun,
         start_sun: start_sun,
@@ -298,7 +307,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.end(`<p>https://formnexuses.onrender.com/api/peer/patient/${id1}</p>`)
+    res.send(`<p>https://formnexuses.onrender.com/api/peer/patient/${id1}</p>`)
 
 
 
@@ -313,7 +322,13 @@ router.get("/patient/:id", (req, res) => {
 
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("peerindex.ejs", { id: data[0].id, insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet })
+        res.render("peerindex.ejs", {
+            id: data[0].id, agency_name: data[0].agency_name,
+            employee_name: data[0].employee_name,
+            recipient_name: data[0].recipient_name,
+            end_date: data[0].end_date,
+            peer_specialist_hours: data[0].peer_specialist_hours, insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet
+        })
     })
 
 
@@ -321,16 +336,23 @@ router.get("/patient/:id", (req, res) => {
 })
 
 router.post("/patient/:id", (req, res) => {
+    const { signature_mon, signature_tue, signature_wed, signature_thu, signature_fri, signature_sat, signature_sun } = req.body
+    console.log(req.body)
 
-    sig = req.body.signaturep;
-    id = req.params.id;
-    let signaturepat = new Date();
 
-    if (req.body.signaturep != null) {
-        setSigP({ signaturep: sig, id: req.params.id, signaturepat: signaturepat })
-    }
-    getPersonById({ id: id }, (x, data) => {
-        res.render("peerfinal.ejs", { id: `${data[0].id}`, office: `${data[0].office}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+
+    setSigP({ id: req.params.id, signature_mon: signature_mon, signature_tue: signature_tue, signature_wed: signature_wed, signature_thu: signature_thu, signature_fri: signature_fri, signature_sat: signature_sat, signature_sat: signature_sat, signature_sun: signature_sun })
+
+    getPersonById({ id: req.params.id }, (x, data) => {
+        res.render("peerfinal.ejs", {
+            id: data[0].id,
+            agency_name: data[0].agency_name,
+            employee_name: data[0].employee_name,
+            recipient_name: data[0].recipient_name,
+            end_date: data[0].end_date,
+            peer_specialist_hours: data[0].peer_specialist_hours,
+            insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet
+        })
     })
 })
 
@@ -338,15 +360,22 @@ router.post("/patient/:id", (req, res) => {
 
 
 router.get("/downloadpeer/:id", (req, res) => {
-    if (fs.existsSync(`./se${req.params.id}.pdf`)) {
+    if (fs.existsSync(`./peer${req.params.id}.pdf`)) {
         res.render("peerdownload.ejs", { id: req.params.id })
         console.log("fil ")
     } else {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            ejs.renderFile(path.join(__dirname, './views/', "peerview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, office: `${data[0].office}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+            ejs.renderFile(path.join(__dirname, './views/', "peerview.ejs"), {
+                signature_mon: `${data[0].signature_mon}`, signature_tue: `${data[0].signature_tue}`, signature_wed: `${data[0].signature_wed}`, signature_thu: `${data[0].signature_thu}`, signature_fri: `${data[0].signature_fri}`, signature_sat: `${data[0].signature_sat}`, signature_sun: `${data[0].signature_sun}`, id: data[0].id, insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat,
+                agency_name: data[0].agency_name,
+                employee_name: data[0].employee_name,
+                recipient_name: data[0].recipient_name,
+                end_date: data[0].end_date,
+                peer_specialist_hours: data[0].peer_specialist_hours, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet
+            }, (err, data) => {
                 if (err) {
-                    res.send(err);
+                    console.log(`${err}`)
                 } else {
                     let options = {
                         "height": "11.25in",
@@ -360,15 +389,34 @@ router.get("/downloadpeer/:id", (req, res) => {
                     };
 
 
-                    pdf.create(data, options).toFile(`peer${id}.pdf`, function (err, data) {
-                        if (err) {
+                    try {
+
+                        const authHeader = req.cookies.token;
+                        console.log(req.cookies)
+                        const token = authHeader.split(" ")[1];
+                        var la = jwt.verify(token, "JJJ")
+            
+            
+            
+            
+                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}peer${id}.pdf`, function (err, data) {
+                          console.log(la)
+                          if (err) {
                             res.send(`THERE IS AN ERROR ${err}`);
-
-                        } else {
-                            res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/peer${id}.pdf">Click to view!</a>`);
-
-                        }
-                    });
+            
+                          } else {
+                            res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}peer${id}.pdf">Click to view!</a>`);
+            
+                          }
+            
+            
+            
+            
+                        })
+            
+                      } catch (error) {
+                        console.log(`cookie not found ${error}`)
+                      }
                 }
             });
 
