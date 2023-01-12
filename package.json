@@ -4,7 +4,7 @@
   "description": "POS APIs",
   "main": "app.js",
   "scripts": {
-    "start": "export OPENSSL_CONF=/tmp/openssl.cnf && node app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "nexuses",
@@ -23,7 +23,6 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.16",
-    "puppeteer": "^19.4.1",
     "signature_pad": "^4.1.4"
   }
 }

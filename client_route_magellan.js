@@ -56,7 +56,7 @@ router.get("/view/:id", (req, res) => {
 router.get("/pdf/:id", async (req, res) => {
     const id = req.params.id;
 
-    const browser = await puppeteer.launch();
+    
     const page = await browser.newPage();
 
     await page.goto(`http://localhost:3000/api/v1/view/${id}`, {
