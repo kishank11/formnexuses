@@ -109,21 +109,21 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select?.join(",")
-    const y = reason_for_audio_only?.join(",")
+    const x = _select.join(",")
+    const y = reason_for_audio_only.join(",")
 
-    const p = insurance_carrier?.join(",")
-    const ap = adult_psychotherapy?.join(",")
-    const cp = child_psychotherapy?.join(",")
-    const amr = adult_medication_review?.join(",");
-    const cmr = child_medication_review?.join(",");
-    const ape = adult_psychiatric_evaluations?.join(",");
-    const cpe = child_psychiatric_evaluations?.join(",");
-
-
+    const p = insurance_carrier.join(",")
+    const ap = adult_psychotherapy.join(",")
+    const cp = child_psychotherapy.join(",")
+    const amr = adult_medication_review.join(",");
+    const cmr = child_medication_review.join(",");
+    const ape = adult_psychiatric_evaluations.join(",");
+    const cpe = child_psychiatric_evaluations.join(",");
 
 
-    const s = smoking_history?.join(",");
+
+
+    const s = smoking_history.join(",");
 
 
 

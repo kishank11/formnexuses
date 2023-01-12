@@ -96,7 +96,7 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = program?.join(",");
+    const x = program.join(",");
 
 
 

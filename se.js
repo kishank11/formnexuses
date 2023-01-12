@@ -189,12 +189,12 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select?.join(",")
-    const y = reason_for_audio_only?.join(",")
-    const z = county?.join(",")
-    const office1 = office?.join(",");
-    const p = insurance_carrier?.join(",")
-    const q = clinician_services?.join(",")
+    const x = _select.join(",")
+    const y = reason_for_audio_only.join(",")
+    const z = county.join(",")
+    const office1 = office.join(",");
+    const p = insurance_carrier.join(",")
+    const q = clinician_services.join(",")
 
 
 
