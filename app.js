@@ -3,7 +3,7 @@ const express = require('express');
 const helmet = require('helmet');
 
 var bodyParser = require('body-parser');
-const { addPerson, getPersonById, setSig, getPersonBySig, setSigP, getUserById, setUserToken, getUserByName, deleteUserToken, getUserByNamePass } = require('./models/clients_model.js');
+const { addPerson, getPersonById, setSig, getPersonBySig, setSigP, getUserById, setUserToken, getUserByName, deleteUserToken, getUserByNamePass, addUser } = require('./models/clients_model.js');
 const router = express.Router();
 const app = express();
 const crypto = require('crypto');
@@ -37,7 +37,48 @@ app.use('/api/ibhs', require('./ibhs'));
 
 
 
+app.get("/register", (req, res) => {
+  console.log(req.cookies)
+  const authHeader = req.cookies.token;
+  if (authHeader) {
+    console.log(req.cookies)
+    const token = authHeader.split(" ")[1];
+    console.log(token)
+    jwt.verify(token, "JJJ", (err, user) => {
+      console.log(user)
+      if (user.isAdmin == 1 && user.isAdmin != null && user.isAdmin != undefined) {
+        res.render("reg.ejs")
 
+      } else {
+        res.send(`
+      <center>
+      <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>YOU ARE NOT AN ADMIN!</h1></div></center>`)
+
+      }
+
+    });
+
+  } else {
+    res.send(`
+      <center>
+      <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>YOU ARE NOT AN LOGGED IN!</h1></div></center>`)
+
+  }
+
+})
+
+app.post("/register", (req, res) => {
+  const { tname, email, location, password } = req.body;
+
+  addUser({ tname: tname, email: email, location: location, password }, (x, data) => {
+
+    console.log(`${data}`)
+    res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>USER ADDED</h1></div></center>`)
+  })
+
+})
 
 
 
@@ -78,10 +119,10 @@ app.post("/login", async (req, res) => {
     const {
       tname,
       password,
-      location
+      location, email
 
     } = req.body;
-    if (tname != null && password != null && location != null) {
+    if (email != null && password != null && location != null) {
 
 
       if (req.cookies.token) {
@@ -96,7 +137,7 @@ app.post("/login", async (req, res) => {
         });
       } else {
         await getUserByNamePass(
-          { tname: tname, password: password, location: location },
+          { email: email, password: password, location: location },
 
           (x, data) => {
 
@@ -109,12 +150,12 @@ app.post("/login", async (req, res) => {
             if (client != null && client.length > 0) {
               // gen token
               console.log("ekk")
-              const jwt_token = jwt.sign({ tname: tname, password: password, location: location }, "JJJ", { expiresIn: "1d" });
+              const jwt_token = jwt.sign({ email: email, password: password, location: location, isAdmin: client[0].isAdmin }, "JJJ", { expiresIn: "1d" });
 
               console.log(jwt_token);
-              if (!client[0].jwttoken) {
-                setUserToken({ jwttoken: jwt_token, id: client[0].id });
-              }
+
+              setUserToken({ jwttoken: jwt_token, id: client[0].id });
+
               //set token
 
               res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 86400 }) &&
@@ -170,9 +211,10 @@ app.get("/home", (req, res) => {
 app.get("/logout/:id", async (req, res) => {
 
   console.log(req.params.id)
-  res.clearCookie('token');
+  res.clearCookie('token', { path: '/' });
   await deleteUserToken({ jwttoken: "", id: req.params.id });
   res.send("You are Logged out!");
+  console.log(req.cookies)
 })
 
 
@@ -265,7 +307,7 @@ app.post("/action_page", (req, res) => {
   //   });
   //   // setSig({ signature: sig1, p_id: req.params.id })
   // }
-  res.send(`<p>https://formnexuses.onrender.com/patient/${id1}</p>`)
+  res.send(`<p>/patient/${id1}</p>`)
 
 
 
@@ -333,7 +375,7 @@ app.get("/generateReport/:id", (req, res) => {
           if (err) {
             res.send(err);
           } else {
-            res.send(`File created successfully <a href="https://formnexuses.onrender.com/generateReport/${id}">Click to view!</a>`);
+            res.send(`File created successfully <a href="/generateReport/${id}">Click to view!</a>`);
 
           }
         });
@@ -377,13 +419,13 @@ app.get("/downloadencbb/:id", (req, res) => {
 
 
 
-            pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}encbb${id}.pdf`, function (err, data) {
+            pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}encbb${id}${data[0].signaturepat}.pdf`, function (err, data) {
               console.log(la)
               if (err) {
                 res.send(`THERE IS AN ERROR ${err}`);
 
               } else {
-                res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}encbb${id}.pdf">Click to view!</a>`);
+                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}encbb${id}.pdf">Click to view!</a>`);
 
               }
 

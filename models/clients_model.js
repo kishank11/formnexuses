@@ -8,8 +8,22 @@ const db = require('../utils/mysql_connection');
 
 function getUserByNamePass(data, callback) {
 
-    let query = `SELECT * FROM user where tname = ? and password = ? and location = ?;`;
-    db.query(query, [data.tname, data.password, data.location], function (err, data, fields) {
+    let query = `SELECT * FROM user where email = ? and password = ? and location = ?;`;
+    db.query(query, [data.email, data.password, data.location], function (err, data, fields) {
+        if (err) {
+            callback(err, null)
+
+        }
+
+        callback(null, data)
+
+    });
+}
+
+function addUser(data, callback) {
+
+    let query = `INSERT INTO user (tname, location, password, email) VALUES (?, ?, ?, ?);`;
+    db.query(query, [data.tname, data.location, data.password, data.email], function (err, data, fields) {
         if (err) {
             callback(err, null)
 
@@ -206,5 +220,5 @@ function addPerson(data, callback) {
 // }
 
 module.exports = {
-    setUserToken, getUserByNamePass, deleteUserToken, setSigP, addPerson, getPersonById
+    setUserToken, getUserByNamePass, deleteUserToken, setSigP, addPerson, getPersonById, addUser
 }

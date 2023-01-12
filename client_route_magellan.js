@@ -166,7 +166,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>https://formnexuses.onrender.com/api/v1/patient/${id1}</p>`)
+    res.send(`<p>/api/v1/patient/${id1}</p>`)
 
 
 
@@ -227,7 +227,7 @@ router.get("/generateReport/:id", (req, res) => {
                     if (err) {
                         res.send(err);
                     } else {
-                        res.send(`File created successfully <a style="color: grey;" href="https://formnexuses.onrender.com/generateReport/${id}">Click to view!</a>`);
+                        res.send(`File created successfully <a style="color: grey;" href="/generateReport/${id}">Click to view!</a>`);
 
                     }
                 });
@@ -278,7 +278,7 @@ router.get("/downloadmag/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
-                                res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}mag${id}.pdf">Click to view!</a>`);
+                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}mag${id}${data[0].signaturepat}.pdf">Click to view!</a>`);
 
                             }
 

@@ -295,7 +295,8 @@ router.post("/action_page", (req, res) => {
 
         contact_code_sun: contact_code_sun,
         signaturet: signaturet,
-        date_signaturet: date_signaturet
+        date_signaturet: date_signaturet,
+        signatureat: signatureat
     })
     // getPersonBySig({ signaturet: req.body.signaturet })
 
@@ -307,7 +308,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>https://formnexuses.onrender.com/api/peer/patient/${id1}</p>`)
+    res.send(`<p>/api/peer/patient/${id1}</p>`)
 
 
 
@@ -336,12 +337,13 @@ router.get("/patient/:id", (req, res) => {
 })
 
 router.post("/patient/:id", (req, res) => {
+
     const { signature_mon, signature_tue, signature_wed, signature_thu, signature_fri, signature_sat, signature_sun } = req.body
     console.log(req.body)
 
 
-
-    setSigP({ id: req.params.id, signature_mon: signature_mon, signature_tue: signature_tue, signature_wed: signature_wed, signature_thu: signature_thu, signature_fri: signature_fri, signature_sat: signature_sat, signature_sat: signature_sat, signature_sun: signature_sun })
+    const signaturepat = new Date();
+    setSigP({ id: req.params.id, signature_mon: signature_mon, signature_tue: signature_tue, signature_wed: signature_wed, signature_thu: signature_thu, signature_fri: signature_fri, signature_sat: signature_sat, signature_sat: signature_sat, signature_sun: signature_sun, signaturepat: signaturepat })
 
     getPersonById({ id: req.params.id }, (x, data) => {
         res.render("peerfinal.ejs", {
@@ -395,28 +397,28 @@ router.get("/downloadpeer/:id", (req, res) => {
                         console.log(req.cookies)
                         const token = authHeader.split(" ")[1];
                         var la = jwt.verify(token, "JJJ")
-            
-            
-            
-            
-                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}peer${id}.pdf`, function (err, data) {
-                          console.log(la)
-                          if (err) {
-                            res.send(`THERE IS AN ERROR ${err}`);
-            
-                          } else {
-                            res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}peer${id}.pdf">Click to view!</a>`);
-            
-                          }
-            
-            
-            
-            
+
+
+
+
+                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}peer${id}${data[0].signaturepat}.pdf`, function (err, data) {
+                            console.log(la)
+                            if (err) {
+                                res.send(`THERE IS AN ERROR ${err}`);
+
+                            } else {
+                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}peer${id}.pdf">Click to view!</a>`);
+
+                            }
+
+
+
+
                         })
-            
-                      } catch (error) {
+
+                    } catch (error) {
                         console.log(`cookie not found ${error}`)
-                      }
+                    }
                 }
             });
 

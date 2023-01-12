@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI</title>
+</head>
+<body>
+    <center >
+        <form action="/register" method="post" align="center-left">
+            <hr />
+            <h1>REGISTER </h1>
+            <hr />
+            <br/>
+            <br/>
+    
+            <table align="center-left" >
+                <tr>
+          <td>Full Name:</td><td><input type="text" name="tname" /></td>
+          
+
+
+          </tr>
+          <tr>
+            <td>Email-id:</td><td><input type="text" name="email" /></td>
+          </tr>
+          <tr>
+         <td> Location:</td><td><select name="location"true>
+          <option value="Allentown">Allentown</option>
+          <option value="Atlantic City">Atlantic City</option>
+          <option value="Bethlehem">Bethlehem</option>
+          <option value="Bristol">Bristol</option>
+          <option value="Camden">Camden</option>
+          <option value="Colmar">Colmar</option>
+          <option value="Ferry Street">Ferry Street</option>
+          <option value="Hazleton">Hazleton</option>
+          <option value="Highland Park">Highland Park</option>
+          <option value="Chester">Chester</option>
+          <option value="Kingston">Kingston</option>
+          <option value="Northampton">Northampton</option>
+          <option value="Phillipsburg">Phillipsburg</option>
+          <option value="Scranton">Scranton</option>
+          <option value="Tobyhanna">Tobyhanna</option>
+          <option value="Upper Darby">Upper Darby</option>
+          <option value="Vineland">Vineland</option>
+        </select></td></tr>
+          <tr>
+            <br/>
+    <td>
+          Password:</td><td><input type="password" id ="password" name="password" required/></td>
+          
+
+    
+    </tr>
+    <tr> <td>Confirm Password:</td> </td><td><input type="password" id="cpassword" name="cpassword" required
+        onkeyup="validate_password()" /></td></tr>
+
+    <tr>
+       <td></td> <td><span id="wrong_pass_alert"></span>
+        <div class="buttons">
+            <button id="create"
+                    class="submit_btn"
+                    onclick="wrong_pass_alert()">
+                Submit
+            </button>
+        </div><td>
+    </tr>
+          </table>
+        </form>
+        <script>
+            function validate_password() {
+     
+                var pass = document.getElementById('password').value;
+                var confirm_pass = document.getElementById('cpassword').value;
+                if (pass != confirm_pass) {
+                    document.getElementById('wrong_pass_alert').style.color = 'red';
+                document.getElementById('wrong_pass_alert').innerHTML
+                  = 'Use same password';
+                document.getElementById('create').disabled = true;
+                document.getElementById('create').style.opacity = (0.4);
+                } else {
+                    document.getElementById('wrong_pass_alert').style.color = 'green';
+                    document.getElementById('wrong_pass_alert').innerHTML =
+                        '🗹 Password Matched';
+                    document.getElementById('create').disabled = false;
+                    document.getElementById('create').style.opacity = (1);
+                }
+            }
+     
+            function wrong_pass_alert() {
+                if (document.getElementById('pass').value != "" &&
+                    document.getElementById('confirm_pass').value != "") {
+                    alert("Your response is submitted");
+                } else {
+                    alert("Please fill all the fields");
+                }
+            }
+        </script>
+</body>
+</html>

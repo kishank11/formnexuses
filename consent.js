@@ -137,7 +137,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>https://formnexuses.onrender.com/api/consent/patient/${id1}</p>`)
+    res.send(`<p>/api/consent/patient/${id1}</p>`)
 
 
 
@@ -198,7 +198,7 @@ router.post("/patient/:id", (req, res) => {
 // //                     if (err) {
 // //                         res.send(err);
 // //                     } else {
-// //                         res.send(`File created successfully <a style="color: grey;" href="https://formnexuses.onrender.com/generateReport/${id}">Click to view!</a>`);
+// //                         res.send(`File created successfully <a style="color: grey;" href="/generateReport/${id}">Click to view!</a>`);
 
 // //                     }
 // //                 });
@@ -239,28 +239,28 @@ router.get("/downloadconsent/:id", (req, res) => {
                         console.log(req.cookies)
                         const token = authHeader.split(" ")[1];
                         var la = jwt.verify(token, "JJJ")
-            
-            
-            
-            
+
+
+
+
                         pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}consent${id}.pdf`, function (err, data) {
-                          console.log(la)
-                          if (err) {
-                            res.send(`THERE IS AN ERROR ${err}`);
-            
-                          } else {
-                            res.send(`File created successfully <a  style="color: grey;" href="https://formnexuses.onrender.com/upload/${la.location}/${la.tname}consent${id}.pdf">Click to view!</a>`);
-            
-                          }
-            
-            
-            
-            
+                            console.log(la)
+                            if (err) {
+                                res.send(`THERE IS AN ERROR ${err}`);
+
+                            } else {
+                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf">Click to view!</a>`);
+
+                            }
+
+
+
+
                         })
-            
-                      } catch (error) {
+
+                    } catch (error) {
                         console.log(`cookie not found ${error}`)
-                      }
+                    }
                 }
             });
 

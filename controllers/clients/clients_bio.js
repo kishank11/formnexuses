@@ -11,16 +11,17 @@ const login = (req, res) => {
 
     const {
       tname,
+      email,
       password,
       location
 
     } = req.body;
-    if (tname != null && password != null && location != null) {
+    if (email != null && password != null && location != null) {
 
 
 
       getUserByName(
-        { tname: tname, password: password, location: location },
+        { email: email, password: password, location: location },
 
         (x, data) => {
 
@@ -40,7 +41,7 @@ const login = (req, res) => {
             setUserToken({ jwttoken: jwt_token, id: client[0].id });
             //send token
             res.setHeader("token", `Bearer ${jwt_token}`)
-        
+
           } else {
             res.json({ error: "User does not exist" });
           }
