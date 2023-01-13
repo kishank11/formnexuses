@@ -137,7 +137,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>/api/consent/patient/${id1}</p>`)
+    res.send(`<p>https://formnexuses.onrender.com/api/consent/patient/${id1}</p>`)
 
 
 
@@ -243,13 +243,13 @@ router.get("/downloadconsent/:id", (req, res) => {
 
 
 
-                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}consent${id}.pdf`, function (err, data) {
+                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}consent${id}${la.signatureat}.pdf`, function (err, data) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
-                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf">Click to view!</a>`);
+                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${la.signatureat}.pdf">Click to view!</a>`);
 
                             }
 

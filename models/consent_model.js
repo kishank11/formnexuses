@@ -64,7 +64,7 @@ function setSigP(data, callback) {
 }
 function addPerson(data, callback) {
     let query = "INSERT INTO consent(id,name_of_client,agree,program,signature,signatureat) VALUES (?,?,?,?,?,?);";
-    const x = db.query(query, [data.id, data.name_of_client, data.program, data.agree, data.signature, data.signatureat], function (err, data, fields) {
+    const x = db.query(query, [data.id, data.name_of_client, data.agree, data.program, data.signature, data.signatureat], function (err, data, fields) {
         if (err) {
             throw err;
         }
