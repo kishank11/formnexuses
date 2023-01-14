@@ -143,7 +143,7 @@
         <td><input type="text" name="name_of_client" /></td>
       </tr>
       <div>
-        <canvas id="signature" width="300" height="100"></canvas>
+        <canvas id="signature" width="300" height="100"></canvas><input type="button" name="confirm" onclick="onClick()" value="Save">
       </div>
       <hr />
       
@@ -182,8 +182,14 @@
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
   <script>
    
+   function onClick(e){
    
+
+signature.value =signaturePad.toDataURL();
+console.log(`Sign${signature.value}`);
+   }
      var canvas = document.getElementById("signature");
+     var cx= canvas.getContext("2d");
     var signature = document.getElementsByName('signature')[0];
     console.log(signature)
      const signaturePad = new SignaturePad(canvas)
@@ -192,6 +198,8 @@ signaturePad.addEventListener("beginStroke",()=>{
   console.log("BEGIN");
 });
 signaturePad.addEventListener("endStroke", () => {
+
+
   signature.value =signaturePad.toDataURL();
 console.log(`Sign${signature.value}`);
 }, { once: true });

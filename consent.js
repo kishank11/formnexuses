@@ -217,7 +217,7 @@ router.get("/downloadconsent/:id", (req, res) => {
     } else {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}` }, (err, data) => {
+            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -243,13 +243,24 @@ router.get("/downloadconsent/:id", (req, res) => {
 
 
 
-                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}consent${id}${la.signatureat}.pdf`, function (err, data) {
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
-                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${la.signatureat}.pdf">Click to view!</a>`);
+                                res.send(`
+                                <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/consent/">New Form</a>
+                                <hr />
+                                File created successfully 
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                </center>
+                                </div>`);
 
                             }
 

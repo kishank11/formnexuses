@@ -150,7 +150,7 @@ app.post("/login", async (req, res) => {
             if (client != null && client.length > 0) {
               // gen token
               console.log("ekk")
-              const jwt_token = jwt.sign({ email: email, password: password, location: location, isAdmin: client[0].isAdmin }, "JJJ", { expiresIn: "1d" });
+              const jwt_token = jwt.sign({ email: email, password: password, location: location, tname: data[0].tname, isAdmin: client[0].isAdmin }, "JJJ", { expiresIn: "1d" });
 
               console.log(jwt_token);
 
