@@ -54,7 +54,7 @@ function deleteUserToken(data, callback) {
 function setSigP(data, callback) {
 
     var id = data.id;
-    let query = "Update mag SET signaturep = ? , signaturepat = ? where id = ?";
+    let query = "Update consent SET signaturep = ? , signaturepat = ? where id = ?";
     db.query(query, [data.signaturep, data.signaturepat, data.id], function (err, data, fields) {
         if (err) {
             throw err;

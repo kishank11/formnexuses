@@ -122,6 +122,7 @@ router.post("/action_page", (req, res) => {
 
         name_of_client: name_of_client,
         signature: signature,
+
         signatureat: signatureat,
         agree: agree,
         program: x,
@@ -159,19 +160,25 @@ router.get("/patient/:id", (req, res) => {
 
 })
 
-router.post("/patient/:id", (req, res) => {
-    let signaturepat = new Date();
+router.post("/patient1/:id", (req, res) => {
+    try {
+        console.log("HIII")
+        let signaturepat = new Date();
+        console.log(req.body)
+        sig = req.body.signaturep;
+        id = req.params.id;
 
-    sig = req.body.signaturep;
-    id = req.params.id;
-
-    if (req.body.signaturep != null) {
-        setSigP({ signaturep: sig, signaturepat: signaturepat, id: req.params.id })
+        if (req.body.signaturep != null) {
+            setSigP({ signaturep: sig, signaturepat: signaturepat, id: req.params.id })
+        }
+        getPersonById({ id: id }, (x, data) => {
+            console.log(`HII${data[0]}`)
+            res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        })
+    } catch (error) {
+        console.log(`Hi${error}`)
     }
-    getPersonById({ id: id }, (x, data) => {
-        console.log(data[0])
-        res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}` })
-    })
+
 })
 
 
@@ -217,7 +224,7 @@ router.get("/downloadconsent/:id", (req, res) => {
     } else {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {

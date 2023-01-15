@@ -2,13 +2,13 @@
   <head> </head>
   <body>
    <table align="centre">
-    <form action="/api/consent/downloadconsent/<%= `${id}` %>" method="GET">
+    <form action="/api/consent/patient1/<%= `${id}` %>" method="POST"> 
       
       <hr />
       <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
       <center>
       <a style="color: grey;" href="/home">HOME</a><br/>
-      <a style="color: grey;" href="/ap/consent/">New Form</a>
+      <a style="color: grey;" href="/api/consent/">New Form</a>
       <hr />
       <table >
       <p >
@@ -125,7 +125,7 @@
       </div>
       <hr />
           
-      <div>Signature of Omni Witness:  <label><input type="hidden" name="signaturep" /></div></label>
+      <div>Signature of Omni Witness:  <label><input type="hidden" name="signaturep" /><input type="button" name="confirm" onclick="onClick()" value="Save"></div></label>
 
      <div>
         <canvas id="sig" width="300" height="100"></canvas>
@@ -151,6 +151,34 @@
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
   <script>
    
+   function onClick(e){
+   
+
+signature.value =signaturePad.toDataURL();
+console.log(`Sign${signature.value}`);
+   }
+     var canvas = document.getElementById("signaturep");
+     var cx= canvas.getContext("2d");
+    var signature = document.getElementsByName('signaturep')[0];
+    console.log(signature)
+     const signaturePad = new SignaturePad(canvas)
+   
+signaturePad.addEventListener("beginStroke",()=>{
+  console.log("BEGIN");
+});
+signaturePad.addEventListener("endStroke", () => {
+
+
+  signature.value =signaturePad.toDataURL();
+console.log(`Sign${signature.value}`);
+}, { once: true });
+signaturePad.addEventListener("beforeUpdateStroke", () => {
+  console.log("SignaturebeforeUpdateStroke");
+}, { once: true });
+signaturePad.addEventListener("afterUpdateStroke", () => {
+  const x  =signaturePad.toDataURL();
+console.log(  `HI ${x}`);
+}, { once: true });
 
   </script>
   </body>
