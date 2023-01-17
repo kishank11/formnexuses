@@ -1,7 +1,6 @@
 console.log("snksn k")
 const mysql = require("mysql2");
-const dotenv = require("dotenv");
-dotenv.config({ path: '.env-dev' })
+
 console.log("hell")
 
 
@@ -26,7 +25,7 @@ var con = mysql.createConnection({
 
 
 console.log("hjebbsknk")
-console.log(process.env.USER);
+
 con.connect(function (err) {
   if (err) throw err;
 
