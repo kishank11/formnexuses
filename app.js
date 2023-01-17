@@ -24,7 +24,9 @@ const verifyToken = require('./middleware/verifytoken.js');
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as json.
-app.use('/', express.static(__dirname + '/')); // Store static files.
+app.use('/', express.static(__dirname + '/'));
+app.use('/', express.static(__dirname + '/upload/Allentown/')); // Store static files.
+// Store static files.
 app.use('/api/v1', require('./client_route_magellan.js'));
 app.use('/api/nj', require('./nj'));
 app.use('/api/se', require('./se'));
