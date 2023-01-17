@@ -4,7 +4,7 @@
   "description": "POS APIs",
   "main": "app.js",
   "scripts": {
-    "start": "export OPENSSL_CONF=/tmp/openssl.cnf && node app.js",
+    "start": "node app.js",
     "test": "echo \"HI TEST\"",
     "build": "echo \"HI\""
   },
