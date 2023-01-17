@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const helmet = require('helmet');
-
+const dotenv = require("dotenv").config();
 var bodyParser = require('body-parser');
 const { addPerson, getPersonById, setSig, getPersonBySig, setSigP, getUserById, setUserToken, getUserByName, deleteUserToken, getUserByNamePass, addUser } = require('./models/clients_model.js');
 const router = express.Router();
@@ -9,8 +9,8 @@ const app = express();
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
-app.use(helmet({ contentSecurityPolicy: false }));
-const PORT = process.env.PORT || 3000;
+
+const PORT = process.env.PORT || 1337;
 app.listen(PORT);
 let cookieParser = require('cookie-parser');
 app.use(cookieParser());
