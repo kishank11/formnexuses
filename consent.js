@@ -276,7 +276,10 @@ router.get("/downloadconsent/:id", (req, res) => {
                     try {
 
 
-
+                        const authHeader = req.cookies.token;
+                        console.log(req.cookies)
+                        const token = authHeader.split(" ")[1];
+                        var la = jwt.verify(token, "JJJ")
 
 
 
