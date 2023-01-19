@@ -142,7 +142,7 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>https://formnexuses.azurewebsites.net/api/consent/patient/${id1}</p>`)
+    res.send(`<p>http://formnexomni.eastasia.cloudapp.azure.com/api/consent/patient/${id1}</p>`)
 
 
 
