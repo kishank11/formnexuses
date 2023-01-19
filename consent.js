@@ -10,9 +10,9 @@ const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
 
 const puppeteer = require('puppeteer-core');
-// const edgePaths = require("edge-paths");
+const edgePaths = require("edge-paths");
 
-// const EDGE_PATH = edgePaths.getEdgePath();
+const EDGE_PATH = edgePaths.getEdgePath();
 let cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
@@ -244,6 +244,7 @@ router.get("/downloadconsent/:id", (req, res) => {
                 const token = authHeader.split(" ")[1];
                 var la = jwt.verify(token, "JJJ")
                 const browser = await puppeteer.launch({
+                    executablePath: EDGE_PATH,
                     headless: true,
                     args: ['--use-gl=egl'],
                 });
