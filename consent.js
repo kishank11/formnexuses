@@ -244,7 +244,7 @@ router.get("/downloadconsent/:id", (req, res) => {
                 const token = authHeader.split(" ")[1];
                 var la = jwt.verify(token, "JJJ")
                 const browser = await puppeteer.launch({
-                    executablePath: '',
+                    executablePath: '../../chrome/chrome',
                     headless: true,
                     args: ['--use-gl=egl'],
                 });
