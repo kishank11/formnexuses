@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
 
 const puppeteer = require('puppeteer-core');
-const edgePaths = require("edge-paths");
+import edgePaths from "edge-paths";
 
 const EDGE_PATH = edgePaths.getEdgePath();
 let cookieParser = require('cookie-parser');
