@@ -238,86 +238,86 @@ router.get("/downloadconsent/:id", (req, res) => {
 
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            (async () => {
-                const authHeader = req.cookies.token;
-                console.log(req.cookies)
-                const token = authHeader.split(" ")[1];
-                var la = jwt.verify(token, "JJJ")
-                const browser = await puppeteer.launch({
-                    executablePath: '../../chrome/chrome',
-                    headless: true,
-                    args: ['--use-gl=egl'],
-                });
-                const page = await browser.newPage();
-                await page.goto(`/api/consent/view/${id}`);
-                await page.screenshot({ path: `./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf` });
+            // (async () => {
+            //     const authHeader = req.cookies.token;
+            //     console.log(req.cookies)
+            //     const token = authHeader.split(" ")[1];
+            //     var la = jwt.verify(token, "JJJ")
+            //     const browser = await puppeteer.launch({
+            //         executablePath: '../../chrome/chrome',
+            //         headless: true,
+            //         args: ['--use-gl=egl'],
+            //     });
+            //     const page = await browser.newPage();
+            //     await page.goto(`/api/consent/view/${id}`);
+            //     await page.screenshot({ path: `./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf` });
 
-                await browser.close();
-                var file = fs.createReadStream(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
-                var stat = fs.statSync(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
-                res.setHeader('Content-Length', stat.size);
-                res.setHeader('Content-Type', 'application/pdf');
-                res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-                file.pipe(res);
-            })();
-            // ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
-            //     if (err) {
-            //         res.send(err);
-            //     } else {
-            //         let options = {
-            //             "height": "11.25in",
-            //             "width": "8.5in",
-            //             "header": {
-            //                 "height": "20mm"
-            //             },
-            //             "footer": {
-            //                 "height": "20mm",
-            //             },
+            //     await browser.close();
+            //     var file = fs.createReadStream(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
+            //     var stat = fs.statSync(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
+            //     res.setHeader('Content-Length', stat.size);
+            //     res.setHeader('Content-Type', 'application/pdf');
+            //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+            //     file.pipe(res);
+            // })();
+            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    let options = {
+                        "height": "11.25in",
+                        "width": "8.5in",
+                        "header": {
+                            "height": "20mm"
+                        },
+                        "footer": {
+                            "height": "20mm",
+                        },
 
-            //         };
-
-
-            //         try {
+                    };
 
 
-            //             const authHeader = req.cookies.token;
-            //             console.log(req.cookies)
-            //             const token = authHeader.split(" ")[1];
-            //             var la = jwt.verify(token, "JJJ")
+                    try {
 
 
-
-            //             pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
-            //                 console.log(la)
-            //                 if (err) {
-            //                     res.send(`THERE IS AN ERROR ${err}`);
-
-            //                 } else {
-            //                     res.send(`
-            //                     <center>
-            //                     <hr />
-            //                     <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
-            //                     <a style="color: grey;" href="/home">HOME</a> <br/>
-            //                     <a style="color: grey;" href="/api/consent/">New Form</a>
-            //                     <hr />
-            //                     File created successfully 
-            //                     <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
-            //                     <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf">Click to view!</a>
-            //                     </center>
-            //                     </div>`);
-
-            //                 }
+                        const authHeader = req.cookies.token;
+                        console.log(req.cookies)
+                        const token = authHeader.split(" ")[1];
+                        var la = jwt.verify(token, "JJJ")
 
 
 
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
+                            console.log(la)
+                            if (err) {
+                                res.send(`THERE IS AN ERROR ${err}`);
 
-            //             })
+                            } else {
+                                res.send(`
+                                <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/consent/">New Form</a>
+                                <hr />
+                                File created successfully 
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                </center>
+                                </div>`);
 
-            //         } catch (error) {
-            //             console.log(`cookie not found ${error}`)
-            //         }
-            //     }
-            // });
+                            }
+
+
+
+
+                        })
+
+                    } catch (error) {
+                        console.log(`cookie not found ${error}`)
+                    }
+                }
+            });
 
         })
 
