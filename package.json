@@ -1,11 +1,29 @@
 {
-  "name": "formnexuses",
+  "name": "forms",
   "version": "1.0.0",
-  "description": "",
+  "description": "POS APIs",
+  "main": "app.js",
   "scripts": {
-    "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "start": "export OPENSSL_CONF=/tmp/openssl.cnf && node --experimental-modules app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "author": "nexuses",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "firebase": "^9.8.3",
+    "fs": "^0.0.1-security",
+    "helmet": "^6.0.1",
+    "html-pdf": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.16",
+    "puppeteer": "^19.4.1",
+    "signature_pad": "^4.1.4"
+  }
 }
