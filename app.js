@@ -160,9 +160,9 @@ app.post("/login", async (req, res) => {
 
                             //set token
 
-                            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 86400 }) &&
-                                res.setHeader("token", `Bearer ${jwt_token}`) &&
-                                res.render("home", { id: data[0].id, name: data[0].tname })
+                            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 86400 })
+
+
 
                         } else {
 
