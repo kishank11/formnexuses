@@ -19,6 +19,10 @@
 
       <table align="center-left" width="600px">
         <tr>
+          <td>Name of Client</td>
+          <td><input type="text" name="name_of_client" /></td>
+        </tr>
+        <tr>
           <td>Empployee Name</td>
           <td><input type="text" name="employee_name" style=" width: 530px"/></td>
         </tr>
@@ -47,7 +51,7 @@
 
         <tr>
           <td>End date</td>
-          <td><input type="text" name="endß_date" style=" width: 480px"/></td>
+          <td><input type="text" name="end_date" style=" width: 480px"/></td>
         </tr>
      
 
@@ -56,6 +60,10 @@
         <tr>
           <td>Assigned specialist</td>
           <td><input type="text" name="assigned_specialist" style=" width: 480px" /></td>
+        </tr>
+        <tr>
+          <td>Peer specialist Hours</td>
+          <td><input type="text" name="peer_specialist_hours" style=" width: 480px" /></td>
         </tr>
       </table>
       <br />
@@ -402,7 +410,7 @@ Phone=P
           <td><canvas id="signaturet" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signaturet" type="text"/></td>
+        <input type="hidden" name="signaturet" type="text"/><input type="button" name="confirm" onclick="onClick()" value="Save"></td>
 
         </tr>
         <tr>
@@ -413,21 +421,26 @@ Phone=P
      <br/>
       <input type="submit" name="submit form" value="submit form" />
     </form>
-    <script script-src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script>
         
-
-var canvas = document.getElementById("signaturet");
+      var canvas = document.getElementById("signaturet");
       var signature = document.getElementsByName('signaturet')[0];
-
+      
       console.log(signature)
-       const signaturePad = new SignaturePad(canvas)
-
-  signaturePad.addEventListener("endStroke", () => {
-    signature.value =signaturePad.toDataURL();
-  console.log(signature.value);
-  }, { once: true });
-
+      const signaturePad = new SignaturePad(canvas)
+      
+      signaturePad.addEventListener("endStroke", () => {
+        signature.value =signaturePad.toDataURL();
+        console.log(signature.value);
+      }, { once: true });
+      function onClick(e){
+  
+  
+  signature.value =signaturePad.toDataURL();
+  console.log(`Sign${signature.value}`);
+    }
+      
     </script>
   </body>
 </html>

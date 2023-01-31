@@ -142,7 +142,20 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>http://formnexomni.eastasia.cloudapp.azure.com/api/consent/patient/${id1}</p>`)
+    res.end(`<p>
+    <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/se/">New Form</a>
+                                <hr />
+                                PLEASE COPY AND PASTE THE LINK BELOW IN ZOOM CALL
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                http://formnexomni.eastasia.cloudapp.azure.com/api/consent/patient/${id1}
+                                </center>
+                                </div>`
+    )
+
 
 
 
@@ -287,7 +300,7 @@ router.get("/downloadconsent/:id", (req, res) => {
 
 
 
-                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}${data[0].name_of_client}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);
@@ -302,7 +315,7 @@ router.get("/downloadconsent/:id", (req, res) => {
                                 <hr />
                                 File created successfully 
                                 <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
-                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}${data[0].name_of_client}consent${id}${data[0].signatureat}.pdf">Click to view!</a>
                                 </center>
                                 </div>`);
 

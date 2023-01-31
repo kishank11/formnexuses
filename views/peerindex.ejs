@@ -100,7 +100,7 @@
           <td><canvas id="signature_mon" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signature_mon" /></td>
+        <input type="hidden" name="signature_mon" /><input type="button" name="confirm" onclick="onClickM()" value="Save"></td>
         </tr>
   
 
@@ -146,7 +146,7 @@
             <canvas id="signature_tue" width="480" height="100"></canvas>
       
           <hr />
-      <input type="hidden" name="signature_tue" />
+      <input type="hidden" name="signature_tue" /><input type="button" name="confirm" onclick="onClickT()" value="Save">
           </td>
         </tr>
   
@@ -154,7 +154,7 @@
   
         <tr>
           <td>Contact code</td>
-          <td><<%=`${contact_code_tue}`%></td>
+          <td><%=`${contact_code_tue}`%></td>
         </tr>
 
         <th colSpan="2">Wednesday</th>
@@ -194,7 +194,8 @@
             <canvas id="signature_wed" width="300" height="100"></canvas>
       
           <hr />
-      <input type="hidden" name="signature_wed" /></td>
+      <input type="hidden" name="signature_wed" /><input type="button" name="confirm" onclick="onClickW()" value="Save">
+    </td>
         </tr>
   
 
@@ -239,7 +240,7 @@
           <td><canvas id="signature_thu" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signature_thu" /></td>
+        <input type="hidden" name="signature_thu" /><input type="button" name="confirm" onclick="onClickThu()" value="Save"></td>
         </tr>
   
 
@@ -285,7 +286,7 @@
             <canvas id="signature_fri" width="300" height="100"></canvas>
       
           <hr />
-      <input type="hidden" name="signature_fri" value="" />
+      <input type="hidden" name="signature_fri" value="" /> <input type="button" name="confirm" onclick="onClickF()" value="Save">
           </td>
         </tr>
   
@@ -332,7 +333,7 @@
           <td><canvas id="signature_sat" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signature_sat" /></td>
+        <input type="hidden" name="signature_sat" /><input type="button" name="confirm" onclick="onClickS()" value="Save"></td>
         </tr>
   
 
@@ -378,7 +379,7 @@
           <td><canvas id="signature_sun" width="300" height="100"></canvas>
       
             <hr />
-        <input type="hidden" name="signature_sun" value="" /></td>
+        <input type="hidden" name="signature_sun" value="" /><input type="button" name="confirm" onclick="onClickSun()" value="Save"></td>
         </tr>
   
 
@@ -412,7 +413,7 @@
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script>
         
-
+      
 var canvas_mon = document.getElementById("signature_mon");
       var signature_mon = document.getElementsByName('signature_mon')[0];
       console.log(signature_mon)
@@ -484,7 +485,49 @@ var canvas_sun = document.getElementById("signature_sun");
 
   }, { once: true });
 
-
+  function onClickM(e){
+    
+    
+    signature_mon.value =signaturePad_mon.toDataURL();
+    console.log(`Sign${signature_mon.value}`);
+    }
+    function onClickT(e){
+    
+    
+    signature_tue.value =signaturePad_tue.toDataURL();
+    console.log(`Sign${signature_tue.value}`);
+    }
+    function onClickW(e){
+    
+    
+    signature_wed.value =signaturePad_wed.toDataURL();
+    console.log(`Sign${signature_wed.value}`);
+    }
+    
+    function onClickThu(e){
+    
+    
+    signature_thu.value =signaturePad_thu.toDataURL();
+    console.log(`Sign${signature_thu.value}`);
+    }
+    function onClickF(e){
+    
+    
+    signature_fri.value =signaturePad_fri.toDataURL();
+    console.log(`Sign${signature_fri.value}`);
+    }
+    function onClickS(e){
+    
+    
+    signature_sat.value =signaturePad_sat.toDataURL();
+    console.log(`Sign${signature_sat.value}`);
+    }
+    function onClickSun(e){
+    
+    
+    signature_sat.value =signaturePad_sun.toDataURL();
+    console.log(`Sign${signature_sat.value}`);
+    }
     </script>
     </center>
   </body>

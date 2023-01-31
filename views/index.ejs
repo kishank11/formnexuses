@@ -224,7 +224,7 @@
         <canvas id="signaturep" width="300" height="100"></canvas>
       </div>
       <hr />
-      <div>Client/Guardian/Responsible Party Signature<label><input type="hidden" name="signaturep" value=""/></div></label>
+      <div>Client/Guardian/Responsible Party Signature<label><input type="hidden" name="signaturep" value=""/><input type="button" name="confirm" onclick="onClick()" value="Save"></div></label>
 
      <div>
         <canvas id="sig" width="300" height="100"></canvas>
@@ -243,7 +243,12 @@
     var signature = document.getElementsByName('signaturep')[0];
     console.log(signature)
      const signaturePad = new SignaturePad(canvas)
+ function onClick(e){
+   
 
+   signature.value =signaturePad.toDataURL();
+   console.log(`Sign${signature.value}`);
+      }
 signaturePad.addEventListener("beginStroke",()=>{
   console.log("BEGIN");
 });

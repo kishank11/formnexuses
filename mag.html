@@ -31,6 +31,10 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
     </p>
         <table align="center-left">
           <tr>
+            <td>Name of Client</td>
+            <td><input type="text" name="name_of_client" /></td>
+          </tr>
+          <tr>
             <td>Select</td>
             <td>
               <label
@@ -523,7 +527,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
           <canvas id="signature" width="300" height="100"></canvas>
         </div>
         <hr />
-        <div>Psychiatrist/Psychologist/Therapist Print Name<input type="hidden" name="signature" /></div>
+        <div>Psychiatrist/Psychologist/Therapist Print Name<input type="hidden" name="signature" /> <input type="button" name="confirm" onclick="onClick()" value="Save"></div>
   
         <div>
           <canvas id="signaturep" width="300" height="100"></canvas>
@@ -555,7 +559,12 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
       var signature = document.getElementsByName('signature')[0];
       console.log(signature)
        const signaturePad = new SignaturePad(canvas)
-     
+       function onClick(e){
+   
+
+   signature.value =signaturePad.toDataURL();
+   console.log(`Sign${signature.value}`);
+      }
   signaturePad.addEventListener("beginStroke",()=>{
     console.log("BEGIN");
   });

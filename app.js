@@ -108,12 +108,21 @@ app.get('/', (req, res) => {
 
 
 
+app.get("/login",(req,res)=>{
+    if (req.cookies.token) {
+        const authHeader = req.cookies.token;
+        const token = authHeader.split(" ")[1];
+        jwt.verify(token, "JJJ", (err, user) => {
+            if (err) res.status(403).json("Token is not valid!");
+            res.render("home.ejs", { id: user.id, name: user.tname })
+            req.user = user;
+            console.log(user);
 
-app.get("/login", (req, res) => {
-
+        });
+}else{
     res.render("login")
+}})
 
-})
 
 app.post("/login", async (req, res) => {
     try {
@@ -127,17 +136,7 @@ app.post("/login", async (req, res) => {
         if (email != null && password != null && location != null) {
 
 
-            if (req.cookies.token) {
-                const authHeader = req.cookies.token;
-                const token = authHeader.split(" ")[1];
-                jwt.verify(token, "JJJ", (err, user) => {
-                    if (err) res.status(403).json("Token is not valid!");
-                    res.render("home.ejs", { id: user.id, name: user.tname })
-                    req.user = user;
-                    console.log(user);
-
-                });
-            } else {
+          
                 await getUserByNamePass(
                     { email: email, password: password, location: location },
 
@@ -152,19 +151,25 @@ app.post("/login", async (req, res) => {
                         if (client != null && client.length > 0) {
                             // gen token
                             console.log("ekk")
-                            const jwt_token = jwt.sign({ email: email, password: password, location: location, tname: data[0].tname, isAdmin: client[0].isAdmin }, "JJJ", {});
+                            const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: client[0].isAdmin }, "JJJ", {});
 
                             console.log(jwt_token);
 
-                            setUserToken({ jwttoken: jwt_token, id: client[0].id });
+                         
 
                             //set token
+                            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 3153600000000, httpOnly: true })
+                            if(req.cookies){
+                            res.send(`<center>
+                            <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>You are logged in!<a href="/home">CLICK HERE TO CONTINUE</a></h1></div></center>`)
+                            }
 
-                            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 86400 })
 
 
-
-                        } else {
+                        } 
+                        
+                        
+                        else {
 
                             res.send(`<center>
               <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
@@ -173,7 +178,7 @@ app.post("/login", async (req, res) => {
                     }
 
                 );
-            }
+     
 
         } else {
             console.log("NPPP")
@@ -210,11 +215,11 @@ app.get("/home", (req, res) => {
 
 
 
-app.get("/logout/:id", async (req, res) => {
-
+app.get("/logout", async (req, res) => {
+    console.log("H")
     console.log(req.params.id)
     res.clearCookie('token', { path: '/' });
-    await deleteUserToken({ jwttoken: "", id: req.params.id });
+    // await deleteUserToken({ jwttoken: "", id: req.params.id });
     res.send("You are Logged out!");
     console.log(req.cookies)
 })
@@ -223,6 +228,7 @@ app.get("/logout/:id", async (req, res) => {
 app.post("/action_page", (req, res) => {
 
     const {
+        name_of_client,
         signature,
         _select,
         reason_for_audio_only,
@@ -273,7 +279,7 @@ app.post("/action_page", (req, res) => {
 
 
     const data = addPerson({
-
+name_of_client:name_of_client,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -309,7 +315,20 @@ app.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>/patient/${id1}</p>`)
+    res.end(`<p>
+    <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/se/">New Form</a>
+                                <hr />
+                                PLEASE COPY AND PASTE THE LINK BELOW IN ZOOM CALL
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                http://formnexomni.eastasia.cloudapp.azure.com/patient/${id1}
+                                </center>
+                                </div>`
+    )
+
 
 
 
@@ -389,14 +408,39 @@ app.get("/generateReport/:id", (req, res) => {
 
 })
 
+
 app.get("/downloadencbb/:id", (req, res) => {
+
     if (fs.existsSync(`./encbb${req.params.id}.pdf`)) {
-        res.render("download.ejs", { id: req.params.id })
+        res.render("encbbdownload.ejs", { id: req.params.id })
         console.log("fil ")
     } else {
+
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+            // (async () => {
+            //     const authHeader = req.cookies.token;
+            //     console.log(req.cookies)
+            //     const token = authHeader.split(" ")[1];
+            //     var la = jwt.verify(token, "JJJ")
+            //     const browser = await puppeteer.launch({
+            //         executablePath: '../../chrome/chrome',
+            //         headless: true,
+            //         args: ['--use-gl=egl'],
+            //     });
+            //     const page = await browser.newPage();
+            //     await page.goto(`/api/consent/view/${id}`);
+            //     await page.screenshot({ path: `./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf` });
+
+            //     await browser.close();
+            //     var file = fs.createReadStream(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
+            //     var stat = fs.statSync(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
+            //     res.setHeader('Content-Length', stat.size);
+            //     res.setHeader('Content-Type', 'application/pdf');
+            //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+            //     file.pipe(res);
+            // })();
+            ejs.renderFile(path.join(__dirname, './views/', "view.ejs"),{ id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -409,7 +453,10 @@ app.get("/downloadencbb/:id", (req, res) => {
                         "footer": {
                             "height": "20mm",
                         },
+
                     };
+
+
                     try {
 
 
@@ -420,14 +467,24 @@ app.get("/downloadencbb/:id", (req, res) => {
 
 
 
-
-                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}encbb${id}${data[0].signaturepat}.pdf`, function (err, data) {
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}${data[0].name_of_client}encbb${id}${data[0].signatureat}.pdf`, function (err, data2) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
-                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}encbb${id}.pdf">Click to view!</a>`);
+                                res.send(`
+                                <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/">New Form</a>
+                                <hr />
+                                File created successfully 
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}${data[0].name_of_client}encbb${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                </center>
+                                </div>`);
 
                             }
 
@@ -439,9 +496,6 @@ app.get("/downloadencbb/:id", (req, res) => {
                     } catch (error) {
                         console.log(`cookie not found ${error}`)
                     }
-
-
-
                 }
             });
 
@@ -450,6 +504,68 @@ app.get("/downloadencbb/:id", (req, res) => {
     }
 
 })
+
+// app.get("/downloadencbb/:id", (req, res) => {
+//     if (fs.existsSync(`./encbb${req.params.id}.pdf`)) {
+//         res.render("download.ejs", { id: req.params.id })
+//         console.log("fil ")
+//     } else {
+//         let id = req.params.id
+//         getPersonById({ id: id }, (x, data) => {
+//             ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+//                 if (err) {
+//                     res.send(err);
+//                 } else {
+//                     let options = {
+//                         "height": "11.25in",
+//                         "width": "8.5in",
+//                         "header": {
+//                             "height": "20mm"
+//                         },
+//                         "footer": {
+//                             "height": "20mm",
+//                         },
+//                     };
+//                     try {
+
+
+//                         const authHeader = req.cookies.token;
+//                         console.log(req.cookies)
+//                         const token = authHeader.split(" ")[1];
+//                         var la = jwt.verify(token, "JJJ")
+
+
+
+
+//                         pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}encbb${id}${data[0].signaturepat}.pdf`, function (err, data) {
+//                             console.log(la)
+//                             if (err) {
+//                                 res.send(`THERE IS AN ERROR ${err}`);
+
+//                             } else {
+//                                 res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}encbb${id}.pdf">Click to view!</a>`);
+
+//                             }
+
+
+
+
+//                         })
+
+//                     } catch (error) {
+//                         console.log(`cookie not found ${error}`)
+//                     }
+
+
+
+//                 }
+//             });
+
+//         })
+
+//     }
+
+// })
 app.get("/test", (req, res) => {
     let aa = `end_date, peer_specialist_hours, agency_name, employee_name, recipient_name, id, insurance, start_date, total_hours_in_all, assigned_specialist, date_mon, start_mon, end_mon, total_hours_mon, contact_code_mon, date_tue, start_tue, end_tue, total_hours_tue, contact_code_tue, date_wed, start_wed, end_wed, total_hours_wed, contact_code_wed, date_thu, start_thu, end_thu, total_hours_thu, contact_code_thu, date_fri, start_fri, end_fri, total_hours_fri, contact_code_fri, date_sat, start_sat, end_sat, total_hours_sat, contact_code_sat, date_sun, start_sun, end_sun, total_hours_sun, contact_code_sun, signaturet, date_signaturet`
     let x = aa.split(",");

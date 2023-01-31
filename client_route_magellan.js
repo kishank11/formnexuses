@@ -85,6 +85,7 @@ router.get("/pdf/:id", async (req, res) => {
 router.post("/action_page", (req, res) => {
 
     const {
+        name_of_client,
         signature,
         _select,
         reason_for_audio_only,
@@ -132,7 +133,7 @@ router.post("/action_page", (req, res) => {
 
     let signatureat = new Date();
     const data = addPerson({
-
+        name_of_client:name_of_client,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -166,8 +167,20 @@ router.post("/action_page", (req, res) => {
     //   });
     //   // setSig({ signature: sig1, p_id: req.params.id })
     // }
-    res.send(`<p>/api/v1/patient/${id1}</p>`)
-
+    res.end(`<p>
+    <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/se/">New Form</a>
+                                <hr />
+                                PLEASE COPY AND PASTE THE LINK BELOW IN ZOOM CALL
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                http://formnexomni.eastasia.cloudapp.azure.com/api/v1/patient/${id1}
+                                </center>
+                                </div>`
+    )
+ 
 
 
 
@@ -239,14 +252,39 @@ router.get("/generateReport/:id", (req, res) => {
 
 })
 
+
 router.get("/downloadmag/:id", (req, res) => {
+
     if (fs.existsSync(`./mag${req.params.id}.pdf`)) {
         res.render("magdownload.ejs", { id: req.params.id })
         console.log("fil ")
     } else {
+
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
-            ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+            // (async () => {
+            //     const authHeader = req.cookies.token;
+            //     console.log(req.cookies)
+            //     const token = authHeader.split(" ")[1];
+            //     var la = jwt.verify(token, "JJJ")
+            //     const browser = await puppeteer.launch({
+            //         executablePath: '../../chrome/chrome',
+            //         headless: true,
+            //         args: ['--use-gl=egl'],
+            //     });
+            //     const page = await browser.newPage();
+            //     await page.goto(`/api/consent/view/${id}`);
+            //     await page.screenshot({ path: `./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf` });
+
+            //     await browser.close();
+            //     var file = fs.createReadStream(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
+            //     var stat = fs.statSync(`./upload/${la.location}/${la.tname}consent${id}${data[0].signatureat}.pdf`);
+            //     res.setHeader('Content-Length', stat.size);
+            //     res.setHeader('Content-Type', 'application/pdf');
+            //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+            //     file.pipe(res);
+            // })();
+            ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"),{ id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -259,10 +297,12 @@ router.get("/downloadmag/:id", (req, res) => {
                         "footer": {
                             "height": "20mm",
                         },
+
                     };
 
 
                     try {
+
 
                         const authHeader = req.cookies.token;
                         console.log(req.cookies)
@@ -271,14 +311,24 @@ router.get("/downloadmag/:id", (req, res) => {
 
 
 
-
-                        pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}mag${id}.pdf`, function (err, data) {
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}${data[0].name_of_client}mag${id}${data[0].signatureat}.pdf`, function (err, data2) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
-                                res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}mag${id}${data[0].signaturepat}.pdf">Click to view!</a>`);
+                                res.send(`
+                                <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/v1/">New Form</a>
+                                <hr />
+                                File created successfully 
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}${data[0].name_of_client}mag${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                </center>
+                                </div>`);
 
                             }
 
@@ -298,6 +348,66 @@ router.get("/downloadmag/:id", (req, res) => {
     }
 
 })
+
+// router.get("/downloadmag/:id", (req, res) => {
+//     if (fs.existsSync(`./mag${req.params.id}.pdf`)) {
+//         res.render("magdownload.ejs", { id: req.params.id })
+//         console.log("fil ")
+//     } else {
+//         let id = req.params.id
+//         getPersonById({ id: id }, (x, data) => {
+//             ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+//                 if (err) {
+//                     res.send(err);
+//                 } else {
+//                     let options = {
+//                         "height": "11.25in",
+//                         "width": "8.5in",
+//                         "header": {
+//                             "height": "20mm"
+//                         },
+//                         "footer": {
+//                             "height": "20mm",
+//                         },
+//                     };
+
+
+//                     try {
+
+//                         const authHeader = req.cookies.token;
+//                         console.log(req.cookies)
+//                         const token = authHeader.split(" ")[1];
+//                         var la = jwt.verify(token, "JJJ")
+
+
+
+
+//                         pdf.create(data, options).toFile(`./upload/${la.location}/${la.tname}mag${id}.pdf`, function (err, data) {
+//                             console.log(la)
+//                             if (err) {
+//                                 res.send(`THERE IS AN ERROR ${err}`);
+
+//                             } else {
+//                                 res.send(`File created successfully <a  style="color: grey;" href="/upload/${la.location}/${la.tname}mag${id}${data[0].signaturepat}.pdf">Click to view!</a>`);
+
+//                             }
+
+
+
+
+//                         })
+
+//                     } catch (error) {
+//                         console.log(`cookie not found ${error}`)
+//                     }
+//                 }
+//             });
+
+//         })
+
+//     }
+
+// })
 
 // router.post("/api/v1/get-client-bio", ClientsBio.clientBio);
 
