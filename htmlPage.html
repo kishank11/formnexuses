@@ -38,28 +38,28 @@
               ><input
                 type="checkbox"
                 name="_select[]"
-                value="In person Session"
+                value="In person Session" required
               />In person Session</label
             >
             <label
               ><input
                 type="checkbox"
                 name="_select[]"
-                value="Telehealth only Verbal consent obtained"
+                value="Telehealth only Verbal consent obtained" required
               />Telehealth only Verbal consent obtained</label
             >
             <label
               ><input
                 type="checkbox"
                 name="_select[]"
-                value="Audio and video"
+                value="Audio and video" required
               />Audio and video</label
             >
             <label
               ><input
                 type="checkbox"
                 name="_select[]"
-                value="Audio Only-Ph number"
+                value="Audio Only-Ph number" required
               />Audio Only-Ph number</label
             >
           </td>
@@ -73,6 +73,7 @@
                 type="checkbox"
                 name="reason_for_audio_only[]"
                 value="Client at home"
+                required
               />Client at home</label
             >
             <label
@@ -80,7 +81,7 @@
                 type="checkbox"
                 name="reason_for_audio_only[]"
                 value="Client outside the home
-      "
+      "required
               />Client outside the home&#13;</label
             >
           </td>
@@ -179,16 +180,17 @@
                 type="checkbox"
                 name="county[]"
                 value="Lacka"
+                required
               />Lacka</label
             >
             <label
-              ><input type="checkbox" name="county[]" value="Luz" />Luz</label
+              ><input type="checkbox" name="county[]" value="Luz" required />Luz</label
             >
             <label
-              ><input type="checkbox" name="county[]" value="Sus" />Sus</label
+              ><input type="checkbox" name="county[]" value="Sus" required/>Sus</label
             >
             <label
-              ><input type="checkbox" name="county[]" value="Oyo" />Oyo</label
+              ><input type="checkbox" name="county[]" value="Oyo" required/>Oyo</label
             >
             <label
               ><input
@@ -198,10 +200,10 @@
               />Carbon</label
             >
             <label
-              ><input type="checkbox" name="county[]" value="Mon" />Mon</label
+              ><input type="checkbox" name="county[]" value="Mon" required />Mon</label
             >
             <label
-              ><input type="checkbox" name="county[]" value="Pike" />Pike</label
+              ><input type="checkbox" name="county[]" value="Pike" required/>Pike</label
             >
           </td>
         </tr>
@@ -216,29 +218,32 @@
               ><input
                 type="checkbox"
                 name="insurance_carrier[]"
-                value="MA"
+                value="MA" 
+                required
               />MA</label
             >
             <label
               ><input
                 type="checkbox"
-                name="insurance_carrier[]"
+                name="insurance_carrier[]" 
                 value="Medicare"
+                required
               />Medicare</label
             >
             <label
               ><input
                 type="checkbox"
-                name="insurance_carrier[]"
+                name="insurance_carrier[]" 
                 value="Self Pay"
+                required
               />Self Pay</label
             >
             <label
               ><input
                 type="checkbox"
-                name="insurance_carrier[]"
+                name="insurance_carrier[]" 
                 value="Commercial Insurance
-      "
+      " required
               />Commercial Insurance&#13;</label
             >
           </td>
@@ -258,7 +263,7 @@
               />yes</label
             >
             <label
-              ><input type="radio" name="assessment_done" value="no" />no</label
+              ><input type="radio" name="assessment_done" value="no" required/>no</label
             >
           </td>
         </tr>
@@ -266,8 +271,8 @@
         <tr>
           <td>D/a?</td>
           <td>
-            <label><input type="radio" name="dora" value="yes" />yes</label>
-            <label><input type="radio" name="dora" value="no" />no</label>
+            <label><input type="radio" name="dora" value="yes" required/>yes</label>
+            <label><input type="radio" name="dora" value="no" required/>no</label>
           </td>
         </tr>
      
@@ -277,10 +282,10 @@
           <td>In treatment?</td>
           <td>
             <label
-              ><input type="radio" name="in_treatment" value="yes" />yes</label
+              ><input type="radio" name="in_treatment" value="yes" required/>yes</label
             >
             <label
-              ><input type="radio" name="in_treatment" value="no" />no</label
+              ><input type="radio" name="in_treatment" value="no" required/>no</label
             >
           </td>
         </tr>
@@ -290,8 +295,8 @@
         <tr>
           <td>Referred?</td>
           <td>
-            <label><input type="radio" name="referred" value="yes" />yes</label>
-            <label><input type="radio" name="referred" value="no" />no</label>
+            <label><input type="radio" name="referred" value="yes" required/>yes</label>
+            <label><input type="radio" name="referred" value="no" required/>no</label>
           </td>
         </tr>
 
@@ -311,7 +316,7 @@
               ></label><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90837 Initial Bio Psychosocial	Max 1 hr and 30 mins"
+                value="90837 Initial Bio Psychosocial	Max 1 hr and 30 mins" required
               /></td><td>90837</td><td> Initial Bio Psychosocial Max 1 hr and 30 mins</td></label>
           </tr>
           <tr>
@@ -319,7 +324,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90791 Initial Psych Assessment(CRNP/PA) (Per Evaluation)"
+                value="90791 Initial Psych Assessment(CRNP/PA) (Per Evaluation)" required
               /><td>90791</td><td>Initial Psych Assessment(CRNP/PA) (Per Evaluation)</td> </label
             >
            </tr>
@@ -328,7 +333,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90792	Psychological Evaluation BHRS (Per Evaluation)"
+                value="90792	Psychological Evaluation BHRS (Per Evaluation)" required
               /><td>90792</td><td>Psychological Evaluation BHRS (Per Evaluation)</td> </label
             >
            </tr>
@@ -337,7 +342,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90832	Individual Psychotherapy (38-52 Minutes)"
+                value="90832	Individual Psychotherapy (38-52 Minutes)" required
               /><td>90832</td><td>Individual Psychotherapy (38-52 Minutes)</td> </label
             >
            </tr>
@@ -346,7 +351,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90834	Individual Psychotherapy 45 Minutes"
+                value="90834	Individual Psychotherapy 45 Minutes" required
               /><td>90832</td><td>Individual Psychotherapy (38-52 Minutes)</td> </label
             >
            </tr>
@@ -355,7 +360,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90837	Individual Psychotherapy (52+ Minutes)"
+                value="90837	Individual Psychotherapy (52+ Minutes)" required
               /><td>90837</td><td>Individual Psychotherapy (52+ Minutes)</td> </label
             >
            </tr>
@@ -364,7 +369,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90846	Collateral Family Psychotherapy  (15 Minutes Units)"
+                value="90846	Collateral Family Psychotherapy  (15 Minutes Units)" required
               /><td>90846</td><td>Individual Psychotherapy (52+ Minutes)</td> </label
             >
            </tr>
@@ -373,7 +378,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90847	Family Psychotherapy  (15 Minutes Units)"
+                value="90847	Family Psychotherapy  (15 Minutes Units)" required
               /><td>90847</td><td>Family Psychotherapy (15 Minutes Units)</td> </label
             >
            </tr>
@@ -382,7 +387,7 @@
               ><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="99213	Pharmacological Management (15 Minutes)"
+                value="99213	Pharmacological Management (15 Minutes)" required
               /></td><td>99213</td><td>Pharmacological Management (15 Minutes)</td> </label
               >
            </tr>
@@ -392,7 +397,7 @@
                 type="checkbox"
                 name="clinician_services[]"
                 value="90853	Group Psychotherapy	(Max 2 hours)
-      "
+      "required
               /></td><td>90853</td><td>Group Psychotherapy (Max 2 hours)&#13;</td> </label
               >
            </tr>

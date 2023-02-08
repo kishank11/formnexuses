@@ -108,7 +108,7 @@ app.get('/', (req, res) => {
 
 
 
-app.get("/login",(req,res)=>{
+app.get("/login", (req, res) => {
     if (req.cookies.token) {
         const authHeader = req.cookies.token;
         const token = authHeader.split(" ")[1];
@@ -119,9 +119,10 @@ app.get("/login",(req,res)=>{
             console.log(user);
 
         });
-}else{
-    res.render("login")
-}})
+    } else {
+        res.render("login")
+    }
+})
 
 
 app.post("/login", async (req, res) => {
@@ -136,49 +137,49 @@ app.post("/login", async (req, res) => {
         if (email != null && password != null && location != null) {
 
 
-          
-                await getUserByNamePass(
-                    { email: email, password: password, location: location },
 
-                    (x, data) => {
+            await getUserByNamePass(
+                { email: email, password: password, location: location },
 
-                        console.log(data);
+                (x, data) => {
 
-
-
-                        var client = data;
-                        console.log(client);
-                        if (client != null && client.length > 0) {
-                            // gen token
-                            console.log("ekk")
-                            const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: client[0].isAdmin }, "JJJ", {});
-
-                            console.log(jwt_token);
-
-                         
-
-                            //set token
-                            res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 3153600000000, httpOnly: true })
-                            if(req.cookies){
-                            res.send(`<center>
-                            <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>You are logged in!<a href="/home">CLICK HERE TO CONTINUE</a></h1></div></center>`)
-                            }
+                    console.log(data);
 
 
 
-                        } 
-                        
-                        
-                        else {
+                    var client = data;
+                    console.log(client);
+                    if (client != null && client.length > 0) {
+                        // gen token
+                        console.log("ekk")
+                        const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: client[0].isAdmin }, "JJJ", {});
 
-                            res.send(`<center>
-              <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
+                        console.log(jwt_token);
 
+
+
+                        //set token
+                        res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 3153600000000, httpOnly: true })
+                        if (req.cookies) {
+                            res.send(`You are logged in!`)
                         }
+
+
+
                     }
 
-                );
-     
+
+                    else {
+
+                        res.send(`<center>
+              <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div>
+              </center>`)
+
+                    }
+                }
+
+            );
+
 
         } else {
             console.log("NPPP")
@@ -279,7 +280,7 @@ app.post("/action_page", (req, res) => {
 
 
     const data = addPerson({
-name_of_client:name_of_client,
+        name_of_client: name_of_client,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -440,7 +441,7 @@ app.get("/downloadencbb/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "view.ejs"),{ id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -591,3 +592,6 @@ app.get('/d', (req, res) => {
     }
 
 })
+app.on('close', function () {
+    db.end();
+});
