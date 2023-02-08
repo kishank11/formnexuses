@@ -160,9 +160,9 @@ app.post("/login", async (req, res) => {
 
                         //set token
                         res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 3153600000000, httpOnly: true })
-                        if (req.cookies) {
+                    
                             res.send(`You are logged in!`)
-                        }
+                      
 
 
 
@@ -171,9 +171,7 @@ app.post("/login", async (req, res) => {
 
                     else {
 
-                        res.send(`<center>
-              <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div>
-              </center>`)
+                        res.send(`INVALID CREDENTIALS!`)
 
                     }
                 }
@@ -186,8 +184,8 @@ app.post("/login", async (req, res) => {
 
 
 
-            res.send(`<center>
-      <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS!</h1></div></center>`)
+            res.send(`
+      INVALID CREDENTIALS!`)
 
         }
     } catch (error) {
