@@ -159,10 +159,10 @@ app.post("/login", async (req, res) => {
 
 
                         //set token
-                        res.cookie("token", `Bearer ${jwt_token}`, { maxAge: 3153600000000, httpOnly: true })
-                    
-                            res.send(`You are logged in!`)
-                      
+                        res.cookie("token", `Bearer ${jwt_token}`)
+
+                        res.send(`You are logged in!`)
+
 
 
 

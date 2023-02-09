@@ -9,7 +9,7 @@ const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
 
-const puppeteer = require('puppeteer-core');
+
 // const edgePaths = require("edge-paths");
 
 // const EDGE_PATH = edgePaths.getEdgePath();
