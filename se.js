@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
         const authHeader = req.cookies.token;
         console.log(req.cookies)
-        const token = authHeader.split(" ")[1];
+        const token = req.session
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
 
             if (req.cookies.token) {
                 const authHeader = req.cookies.token;
-                const token = authHeader.split(" ")[1];
+                const token = req.session
                 jwt.verify(token, "JJJ", (err, user) => {
                     if (err) res.status(403).json("Token is not valid!");
                     res.render("home.ejs", { id: user.id, name: user.tname })
@@ -131,7 +131,7 @@ router.post("/login", async (req, res) => {
 router.get("/home", (req, res) => {
     if (req.cookies.token) {
         const authHeader = req.cookies.token;
-        const token = authHeader.split(" ")[1];
+        const token = req.session
         jwt.verify(token, "JJJ", (err, user) => {
             if (err) res.status(403).json("Token is not valid!");
             res.render("home.ejs", { id: user.id, name: user.tname })
@@ -190,12 +190,12 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select.join(",")
-    const y = reason_for_audio_only.join(",")
-    const z = county.join(",")
-    const office1 = office.join(",");
-    const p = insurance_carrier.join(",")
-    const q = clinician_services.join(",")
+    const x = _select?.join(",")
+    const y = reason_for_audio_only?.join(",")
+    const z = county?.join(",")
+    const office1 = office?.join(",");
+    const p = insurance_carrier?.join(",")
+    const q = clinician_services?.join(",")
 
 
 
@@ -213,7 +213,7 @@ router.post("/action_page", (req, res) => {
 
 
     const data = addPerson({
-        name_of_client:name_of_client,
+        name_of_client: name_of_client,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -416,7 +416,7 @@ router.get("/downloadse/:id", (req, res) => {
             // (async () => {
             //     const authHeader = req.cookies.token;
             //     console.log(req.cookies)
-            //     const token = authHeader.split(" ")[1];
+            //     const token = req.session
             //     var la = jwt.verify(token, "JJJ")
             //     const browser = await puppeteer.launch({
             //         executablePath: '../../chrome/chrome',
@@ -435,7 +435,7 @@ router.get("/downloadse/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "seview.ejs"),{ id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, office: `${data[0].office}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "seview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, office: `${data[0].office}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(`this iss${err}`);
                 } else {
@@ -457,7 +457,7 @@ router.get("/downloadse/:id", (req, res) => {
 
                         const authHeader = req.cookies.token;
                         console.log(req.cookies)
-                        const token = authHeader.split(" ")[1];
+                        const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 
 
@@ -538,7 +538,7 @@ router.get("/downloadse/:id", (req, res) => {
 
 //                         const authHeader = req.cookies.token;
 //                         console.log(req.cookies)
-//                         const token = authHeader.split(" ")[1];
+//                         const token = req.session
 //                         var la = jwt.verify(token, "JJJ")
 
 

@@ -1,7 +1,7 @@
 
 const express = require('express');
 const helmet = require('helmet');
-
+const session = require('express-session');
 var bodyParser = require('body-parser');
 const { addPerson, getPersonById, setSig, getPersonBySig, setSigP, getUserById, setUserToken, getUserByName, deleteUserToken, getUserByNamePass, addUser } = require('./models/clients_model.js');
 const router = express.Router();
@@ -12,8 +12,15 @@ const db = require('./utils/mysql_connection');
 
 const PORT = process.env.PORT || 1337;
 app.listen(PORT);
-let cookieParser = require('cookie-parser');
-app.use(cookieParser());
+// let cookieParser = require('cookie-parser');
+// app.use(cookieParser());
+
+
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 const form = "encbb"
 let ejs = require("ejs");
 let pdf = require("html-pdf");
@@ -23,7 +30,7 @@ const { group } = require('console');
 const verifyToken = require('./middleware/verifytoken.js');
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as json.
+app.use(bodyParser.urlencoded({ extended: true }));   //Parse body req as json.
 app.use('/', express.static(__dirname + '/'));
 app.use('/', express.static(__dirname + '/upload/Allentown/')); // Store static files.
 // Store static files.
@@ -40,10 +47,10 @@ app.use('/api/ibhs', require('./ibhs'));
 
 
 app.get("/register", (req, res) => {
-    console.log(req.cookies)
-    const authHeader = req.cookies.token;
+    console.log(req.session)
+    const authHeader = req.session.token;
     if (authHeader) {
-        console.log(req.cookies)
+        console.log(req.session)
         const token = authHeader.split(" ")[1];
         console.log(token)
         jwt.verify(token, "JJJ", (err, user) => {
@@ -85,10 +92,10 @@ app.post("/register", (req, res) => {
 
 
 app.get('/', (req, res) => {
-    if (req.cookies.token) {
+    if (req.session.token) {
 
-        const authHeader = req.cookies.token;
-        console.log(req.cookies)
+        const authHeader = req.session.token;
+        console.log(req.session)
         const token = authHeader.split(" ")[1];
         jwt.verify(token, "JJJ", (err, user) => {
 
@@ -109,96 +116,68 @@ app.get('/', (req, res) => {
 
 
 app.get("/login", (req, res) => {
-    if (req.cookies.token) {
-        const authHeader = req.cookies.token;
-        const token = authHeader.split(" ")[1];
-        jwt.verify(token, "JJJ", (err, user) => {
-            if (err) res.status(403).json("Token is not valid!");
-            res.render("home.ejs", { id: user.id, name: user.tname })
-            req.user = user;
-            console.log(user);
 
-        });
+    if (req.session.loggedin) {
+
+        if (req.session.token) {
+            const authHeader = req.session.token;
+
+            jwt.verify(req.session.token, "JJJ", (err, user) => {
+                if (err) res.status(403).json("Token is not valid!");
+                res.render("home.ejs", { id: user.id, name: user.tname })
+                req.user = user;
+                console.log(user);
+
+            });
+        } else {
+
+        }
+
     } else {
         res.render("login")
     }
 })
+app.post('/login', function (req, response) {
+    // Capture the input fields
 
+    let password = req.body.password;
+    let email = req.body.email;
+    let location = req.body.location;
 
-app.post("/login", async (req, res) => {
-    try {
+    // Ensure the input fields exists and are not empty
+    if (password && email && location) {
+        // Execute SQL query that'll select the account from the database based on the specified username and password
+        db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
+            // If there is an issue with the query, output the error
+            if (error) throw error;
+            // If the account exists
+            if (data.length > 0) {
+                const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: data[0].isAdmin }, "JJJ", {});
 
-        const {
-            tname,
-            password,
-            location, email
-
-        } = req.body;
-        if (email != null && password != null && location != null) {
-
-
-
-            await getUserByNamePass(
-                { email: email, password: password, location: location },
-
-                (x, data) => {
-
-                    console.log(data);
-
-
-
-                    var client = data;
-                    console.log(client);
-                    if (client != null && client.length > 0) {
-                        // gen token
-                        console.log("ekk")
-                        const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: client[0].isAdmin }, "JJJ", {});
-
-                        console.log(jwt_token);
-
-
-
-                        //set token
-                        res.cookie("token", `Bearer ${jwt_token}`)
-
-                        res.send(`You are logged in!`)
-
-
-
-
-                    }
-
-
-                    else {
-
-                        res.send(`INVALID CREDENTIALS!`)
-
-                    }
-                }
-
-            );
-
-
-        } else {
-            console.log("NPPP")
-
-
-
-            res.send(`
-      INVALID CREDENTIALS!`)
-
-        }
-    } catch (error) {
-        console.log(error)
+                // Authenticate the user
+                req.session.loggedin = true;
+                req.session.token = `${jwt_token}`;
+                // Redirect to home page
+                response.redirect('/home');
+            } else {
+                response.send('Incorrect Username and/or Password and/or Location! ');
+            }
+            response.end();
+        });
+    } else {
+        response.send('Please enter Username,Location and Password !');
+        response.end();
     }
-
 });
 
+
+
 app.get("/home", (req, res) => {
-    if (req.cookies.token) {
-        const authHeader = req.cookies.token;
-        const token = authHeader.split(" ")[1];
-        jwt.verify(token, "JJJ", (err, user) => {
+    console.log(req.session.token)
+    if (req.session.loggedin) {
+        const authHeader = req.session.token;
+
+        jwt.verify(req.session.token, "JJJ", (err, user) => {
             if (err) res.status(403).json("Token is not valid!");
             res.render("home.ejs", { id: user.id, name: user.tname })
             req.user = user;
@@ -215,12 +194,11 @@ app.get("/home", (req, res) => {
 
 
 app.get("/logout", async (req, res) => {
-    console.log("H")
-    console.log(req.params.id)
-    res.clearCookie('token', { path: '/' });
+    req.session.loggedin = false
+
     // await deleteUserToken({ jwttoken: "", id: req.params.id });
     res.send("You are Logged out!");
-    console.log(req.cookies)
+    console.log(req.session)
 })
 
 
@@ -256,11 +234,11 @@ app.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select.join(",")
-    const y = reason_for_audio_only.join(",")
-    const z = county.join(",")
-    const p = insurance_carrier.join(",")
-    const q = clinician_services.join(",")
+    const x = _select?.join(",")
+    const y = reason_for_audio_only?.join(",")
+    const z = county?.join(",")
+    const p = insurance_carrier?.join(",")
+    const q = clinician_services?.join(",")
 
 
 
@@ -381,10 +359,10 @@ app.get("/generateReport/:id", (req, res) => {
                         "height": "20mm",
                     },
                 };
-                if (req.cookies.token) {
+                if (req.session.token) {
 
-                    const authHeader = req.cookies.token;
-                    console.log(req.cookies)
+                    const authHeader = req.session.token;
+                    console.log(req.session)
                     const token = authHeader.split(" ")[1];
                     const l = jwt.verify(token, "JJJ")
 
@@ -418,8 +396,8 @@ app.get("/downloadencbb/:id", (req, res) => {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
             // (async () => {
-            //     const authHeader = req.cookies.token;
-            //     console.log(req.cookies)
+            //     const authHeader = req.session.token;
+            //     console.log(req.session)
             //     const token = authHeader.split(" ")[1];
             //     var la = jwt.verify(token, "JJJ")
             //     const browser = await puppeteer.launch({
@@ -459,9 +437,9 @@ app.get("/downloadencbb/:id", (req, res) => {
                     try {
 
 
-                        const authHeader = req.cookies.token;
-                        console.log(req.cookies)
-                        const token = authHeader.split(" ")[1];
+                        const authHeader = req.session.token;
+                        console.log(req.session.token)
+                        const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 
 
@@ -528,8 +506,8 @@ app.get("/downloadencbb/:id", (req, res) => {
 //                     try {
 
 
-//                         const authHeader = req.cookies.token;
-//                         console.log(req.cookies)
+//                         const authHeader = req.session.token;
+//                         console.log(req.session)
 //                         const token = authHeader.split(" ")[1];
 //                         var la = jwt.verify(token, "JJJ")
 

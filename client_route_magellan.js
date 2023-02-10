@@ -23,10 +23,10 @@ app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as js
 app.use('/', express.static(__dirname + '/'));
 
 router.get('/', (req, res) => {
-    if (req.cookies.token) {
+    if (req.session.token) {
 
-        const authHeader = req.cookies.token;
-        console.log(req.cookies)
+        const authHeader = req.session.token;
+        console.log(req.session)
         const token = authHeader.split(" ")[1];
         jwt.verify(token, "JJJ", (err, user) => {
 
@@ -56,7 +56,7 @@ router.get("/view/:id", (req, res) => {
 router.get("/pdf/:id", async (req, res) => {
     const id = req.params.id;
 
-    
+
     const page = await browser.newPage();
 
     await page.goto(`http://localhost:3000/api/v1/view/${id}`, {
@@ -109,13 +109,13 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select.join(",")
-    const y = reason_for_audio_only.join(",")
-    const z = city.join(",")
-    const p = insurance_carrier.join(",")
-    const q = clinician_services.join(",")
-    const t = medical_services.join(",")
-    const s = smoking_history.join(",");
+    const x = _select?.join(",")
+    const y = reason_for_audio_only?.join(",")
+    const z = city?.join(",")
+    const p = insurance_carrier?.join(",")
+    const q = clinician_services?.join(",")
+    const t = medical_services?.join(",")
+    const s = smoking_history?.join(",");
 
 
 
@@ -133,7 +133,7 @@ router.post("/action_page", (req, res) => {
 
     let signatureat = new Date();
     const data = addPerson({
-        name_of_client:name_of_client,
+        name_of_client: name_of_client,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -180,7 +180,7 @@ router.post("/action_page", (req, res) => {
                                 </center>
                                 </div>`
     )
- 
+
 
 
 
@@ -263,8 +263,8 @@ router.get("/downloadmag/:id", (req, res) => {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
             // (async () => {
-            //     const authHeader = req.cookies.token;
-            //     console.log(req.cookies)
+            //     const authHeader = req.session.token;
+            //     console.log(req.session)
             //     const token = authHeader.split(" ")[1];
             //     var la = jwt.verify(token, "JJJ")
             //     const browser = await puppeteer.launch({
@@ -284,7 +284,7 @@ router.get("/downloadmag/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"),{ id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "magview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -304,9 +304,9 @@ router.get("/downloadmag/:id", (req, res) => {
                     try {
 
 
-                        const authHeader = req.cookies.token;
-                        console.log(req.cookies)
-                        const token = authHeader.split(" ")[1];
+                        const authHeader = req.session.token;
+                        console.log(req.session)
+                        const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 
 
@@ -374,8 +374,8 @@ router.get("/downloadmag/:id", (req, res) => {
 
 //                     try {
 
-//                         const authHeader = req.cookies.token;
-//                         console.log(req.cookies)
+//                         const authHeader = req.session.token;
+//                         console.log(req.session)
 //                         const token = authHeader.split(" ")[1];
 //                         var la = jwt.verify(token, "JJJ")
 

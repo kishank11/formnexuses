@@ -23,11 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as js
 app.use('/', express.static(__dirname + '/'));
 
 router.get('/', (req, res) => {
-    if (req.cookies.token) {
+    if (req.session.token) {
 
-        const authHeader = req.cookies.token;
-        console.log(req.cookies)
-        const token = authHeader.split(" ")[1];
+        const authHeader = req.session.token;
+        console.log(req.session)
+        const token = req.session
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -110,16 +110,16 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select.join(",")
-    const y = reason_for_audio_only.join(",")
+    const x = _select?.join(",")
+    const y = reason_for_audio_only?.join(",")
 
-    const p = insurance_carrier.join(",")
-    const ap = adult_psychotherapy.join(",")
-    const cp = child_psychotherapy.join(",")
-    const amr = adult_medication_review.join(",");
-    const cmr = child_medication_review.join(",");
-    const ape = adult_psychiatric_evaluations.join(",");
-    const cpe = child_psychiatric_evaluations.join(",");
+    const p = insurance_carrier?.join(",")
+    const ap = adult_psychotherapy?.join(",")
+    const cp = child_psychotherapy?.join(",")
+    const amr = adult_medication_review?.join(",");
+    const cmr = child_medication_review?.join(",");
+    const ape = adult_psychiatric_evaluations?.join(",");
+    const cpe = child_psychiatric_evaluations?.join(",");
 
 
 
@@ -142,7 +142,7 @@ router.post("/action_page", (req, res) => {
 
     let signatureat = new Date();
     const data = addPerson({
-        name_of_client:name_of_client,
+        name_of_client: name_of_client,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -193,7 +193,7 @@ router.post("/action_page", (req, res) => {
                                 </center>
                                 </div>`
     )
- 
+
 
 
 
@@ -277,9 +277,9 @@ router.get("/downloadnj/:id", (req, res) => {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
             // (async () => {
-            //     const authHeader = req.cookies.token;
-            //     console.log(req.cookies)
-            //     const token = authHeader.split(" ")[1];
+            //     const authHeader = req.session.token;
+            //     console.log(req.session)
+            //     const token = req.session
             //     var la = jwt.verify(token, "JJJ")
             //     const browser = await puppeteer.launch({
             //         executablePath: '../../chrome/chrome',
@@ -298,7 +298,7 @@ router.get("/downloadnj/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "njview.ejs"),{ id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "njview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -318,9 +318,9 @@ router.get("/downloadnj/:id", (req, res) => {
                     try {
 
 
-                        const authHeader = req.cookies.token;
-                        console.log(req.cookies)
-                        const token = authHeader.split(" ")[1];
+                        const authHeader = req.session.token;
+                        console.log(req.session)
+                        const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 
 
@@ -389,9 +389,9 @@ router.get("/downloadnj/:id", (req, res) => {
 
 //                     try {
 
-//                         const authHeader = req.cookies.token;
-//                         console.log(req.cookies)
-//                         const token = authHeader.split(" ")[1];
+//                         const authHeader = req.session.token;
+//                         console.log(req.session)
+//                         const token = req.session
 //                         var la = jwt.verify(token, "JJJ")
 
 

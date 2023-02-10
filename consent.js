@@ -27,10 +27,10 @@ app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as js
 app.use('/', express.static(__dirname + '/'));
 
 router.get('/', (req, res) => {
-    if (req.cookies.token) {
+    if (req.session.token) {
 
-        const authHeader = req.cookies.token;
-        console.log(req.cookies)
+        const authHeader = req.session.token;
+        console.log(req.session)
         const token = authHeader.split(" ")[1];
         jwt.verify(token, "JJJ", (err, user) => {
 
@@ -100,7 +100,7 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = program.join(",");
+    const x = program?.join(",");
 
 
 
@@ -242,6 +242,7 @@ router.get("/view/:id", (req, res) => {
     })
 
 })
+
 router.get("/downloadconsent/:id", (req, res) => {
 
     if (fs.existsSync(`./consent${req.params.id}.pdf`)) {
@@ -252,8 +253,8 @@ router.get("/downloadconsent/:id", (req, res) => {
         let id = req.params.id
         getPersonById({ id: id }, (x, data) => {
             // (async () => {
-            //     const authHeader = req.cookies.token;
-            //     console.log(req.cookies)
+            //     const authHeader = req.session.token;
+            //     console.log(req.session)
             //     const token = authHeader.split(" ")[1];
             //     var la = jwt.verify(token, "JJJ")
             //     const browser = await puppeteer.launch({
@@ -293,9 +294,9 @@ router.get("/downloadconsent/:id", (req, res) => {
                     try {
 
 
-                        const authHeader = req.cookies.token;
-                        console.log(req.cookies)
-                        const token = authHeader.split(" ")[1];
+                        const authHeader = req.session.token;
+                        console.log(req.session.token)
+                        const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 
 
