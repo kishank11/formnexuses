@@ -147,23 +147,29 @@ app.post('/login', function (req, response) {
     // Ensure the input fields exists and are not empty
     if (password && email && location) {
         // Execute SQL query that'll select the account from the database based on the specified username and password
-        db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
-            // If there is an issue with the query, output the error
-            if (error) throw error;
-            // If the account exists
-            if (data.length > 0) {
-                const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: data[0].isAdmin }, "JJJ", {});
+        try {
+            db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
+                // If there is an issue with the query, output the error
+                db.end();
+                if (error) throw error;
+                // If the account exists
+                if (data.length > 0) {
+                    const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: data[0].isAdmin }, "JJJ", {});
 
-                // Authenticate the user
-                req.session.loggedin = true;
-                req.session.token = `${jwt_token}`;
-                // Redirect to home page
-                response.redirect('/home');
-            } else {
-                response.send('Incorrect Username and/or Password and/or Location! ');
-            }
-            response.end();
-        });
+                    // Authenticate the user
+                    req.session.loggedin = true;
+                    req.session.token = `${jwt_token}`;
+                    // Redirect to home page
+                    response.redirect('/home');
+                } else {
+                    response.send('Incorrect Username and/or Password and/or Location! ');
+                }
+                response.end();
+            });
+        } catch (err) {
+            console.log("error")
+
+        }
     } else {
         response.send('Please enter Username,Location and Password !');
         response.end();
