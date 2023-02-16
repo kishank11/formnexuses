@@ -10,7 +10,7 @@ function getUserByNamePass(data, callback) {
 
     let query = `SELECT * FROM user where tname = ? and password = ? and location = ?;`;
     db.query(query, [data.tname, data.password, data.location], function (err, data, fields) {
-        db.end();
+        
         if (err) {
             callback(err, null)
 
@@ -80,7 +80,7 @@ function getClientById(data, callback) {
 function getPersonById(data, callback) {
     let query = "SELECT * FROM ibhs where id = ?";
     db.query(query, [data.id], function (err, data, fields) {
-        db.end();
+        
         if (err) {
             callback(err, null);
         }
@@ -91,7 +91,7 @@ function getPersonById(data, callback) {
 function getPersonBySig(data, callback) {
     let query = "SELECT * FROM person where signature = ?";
     const x = db.query(query, [data.signature], function (err, data, fields) {
-        db.end();
+        
         if (err) {
             console.log(err)
             callback(err, null);
@@ -118,7 +118,7 @@ function setUserToken(data, callback) {
     var id = data.id;
     let query = "Update user SET jwttoken = ? where id = ?;";
     db.query(query, [data.jwttoken, data.id], function (err, data, fields) {
-        db.end();
+        
         if (err) {
             throw err;
         }
@@ -131,7 +131,7 @@ function deleteUserToken(data, callback) {
     var id = data.id;
     let query = "Update user SET jwttoken = ? where id = ?;";
     db.query(query, [data.jwttoken, data.id], function (err, data, fields) {
-        db.end();
+        
         if (err) {
             throw err;
         }
@@ -157,7 +157,7 @@ function setSigP(data, callback) {
     var id = data.id;
     let query = "Update ibhs SET signature_mon = ?, signature_tue = ?,signature_wed = ?,signature_thu = ?,signature_fri = ?,signature_sat = ?,signature_sun = ? where id = ?";
     db.query(query, [data.signature_mon, data.signature_tue, data.signature_wed, data.signature_thu, data.signature_fri, data.signature_sat, data.signature_sun, data.id], function (err, data, fields) {
-        db.end();
+        
         if (err) {
             console.log(`${err}`)
         }

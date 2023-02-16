@@ -147,10 +147,10 @@ app.post('/login', function (req, response) {
     // Ensure the input fields exists and are not empty
     if (password && email && location) {
         // Execute SQL query that'll select the account from the database based on the specified username and password
-        try {
+ 
             db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
                 // If there is an issue with the query, output the error
-                db.end();
+
                 if (error) throw error;
                 // If the account exists
                 if (data.length > 0) {
@@ -166,13 +166,10 @@ app.post('/login', function (req, response) {
                 }
                 response.end();
             });
-        } catch (err) {
-            console.log("error")
 
-        }
     } else {
         response.send('Please enter Username,Location and Password !');
-        response.end();
+
     }
 });
 
