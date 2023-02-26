@@ -259,7 +259,7 @@ router.post("/action_page", (req, res) => {
                                 <hr />
                                 PLEASE COPY AND PASTE THE LINK BELOW IN ZOOM CALL
                                 <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
-                                http://formnexomni.eastasia.cloudapp.azure.com/api/se/patient/${id1}
+                                https://formnexomni.eastasia.cloudapp.azure.com/api/se/patient/${id1}
                                 </center>
                                 </div>`
     )
