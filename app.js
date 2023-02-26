@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
 var path = require("path")
 var fs = require("fs");
-const PORT = process.env.PORT || 1337; app.listen(PORT);
+const PORT = process.env.PORT || 1337; 
 // let cookieParser = require('cookie-parser');
 // app.use(cookieParser());
 

@@ -124,7 +124,7 @@ router.post("/action_page", (req, res) => {
 
 
 
-    const s = smoking_history.join(",");
+    const s = smoking_history?.join(",");
 
 
 

@@ -354,7 +354,7 @@ router.post("/patient1/:id", (req, res) => {
 
 })
 
-router.get("/patient1/view/:id", (req, res) => {
+router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         console.log(`HII${data[0]}`)
         res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
