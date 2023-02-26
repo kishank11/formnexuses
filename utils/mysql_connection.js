@@ -33,7 +33,7 @@ console.log("hell")
 // });
 //localhost
 var con = mysql.createPool({
-  "host": "localhost",
+  "host": "20.231.45.2",
   "user": "nexuses-forms-dbo",
   "password": "T3sting01nex!",
   "database": "signature",
@@ -48,11 +48,11 @@ var con = mysql.createPool({
 console.log("hjebbsknk")
 
 
-con.getConnection(function (err) {
+con.getConnection(function (err, connection) {
   if (err) throw err;
 
   console.log("Connected to MySQL Server!");
-  Db.end
+  connection.release();
 });
 
 

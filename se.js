@@ -23,11 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as js
 app.use('/', express.static(__dirname + '/'));
 
 router.get('/', (req, res) => {
-    if (req.cookies.token) {
+    if (req.session.token) {
 
-        const authHeader = req.cookies.token;
-        console.log(req.cookies)
-        const token = req.session
+        const authHeader = req.session.token;
+        console.log(req.session)
+        const token = req.session.token
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -346,14 +346,19 @@ router.post("/patient1/:id", (req, res) => {
         if (req.body.signaturep != null) {
             setSigP({ signaturep: sig, signaturepat: signaturepat, id: req.params.id })
         }
-        getPersonById({ id: id }, (x, data) => {
-            console.log(`HII${data[0]}`)
-            res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
-        })
+        res.redirect(`/api/se/view/${req.params.id}`)
+
     } catch (error) {
         console.log(`Hi${error}`)
     }
 
+})
+
+router.get("/patient1/view/:id", (req, res) => {
+    getPersonById({ id: id }, (x, data) => {
+        console.log(`HII${data[0]}`)
+        res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+    })
 })
 
 
@@ -455,8 +460,8 @@ router.get("/downloadse/:id", (req, res) => {
                     try {
 
 
-                        const authHeader = req.cookies.token;
-                        console.log(req.cookies)
+                        const authHeader = req.session.token;
+                        console.log(req.session)
                         const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 

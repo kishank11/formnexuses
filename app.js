@@ -1,4 +1,4 @@
-
+const https = require("https");
 const express = require('express');
 const helmet = require('helmet');
 const session = require('express-session');
@@ -9,7 +9,8 @@ const app = express();
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
-
+var path = require("path")
+var fs = require("fs");
 const PORT = process.env.PORT || 1337;
 app.listen(PORT);
 // let cookieParser = require('cookie-parser');
@@ -21,11 +22,22 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+var options = {
+    key: fs.readFileSync('./ssl/omniforms_online.key'),
+    cert: fs.readFileSync('./ssl/omniforms_online.crt'),
+    ca: fs.readFileSync('./ssl/omniforms_online.ca-bundle')
+};
+var httpsport = 1337;
+var server = https.createServer(options, app).listen(httpsport, function () {
+    console.log("Express server listening on port " + httpsport);
+});
+var server = app.listen(httpsport, function () {
+    console.log("Express server listening on port " + httpsport);
+});
 const form = "encbb"
 let ejs = require("ejs");
 let pdf = require("html-pdf");
-var path = require("path")
-var fs = require("fs");
+
 const { group } = require('console');
 const verifyToken = require('./middleware/verifytoken.js');
 app.set('views', path.join(__dirname, 'views'))
@@ -47,11 +59,11 @@ app.use('/api/ibhs', require('./ibhs'));
 
 
 app.get("/register", (req, res) => {
-    console.log(req.session)
+    console.log(req.session.token)
     const authHeader = req.session.token;
     if (authHeader) {
         console.log(req.session)
-        const token = authHeader.split(" ")[1];
+        const token = authHeader;
         console.log(token)
         jwt.verify(token, "JJJ", (err, user) => {
             console.log(user)
@@ -96,7 +108,7 @@ app.get('/', (req, res) => {
 
         const authHeader = req.session.token;
         console.log(req.session)
-        const token = authHeader.split(" ")[1];
+        const token = authHeader
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -147,25 +159,27 @@ app.post('/login', function (req, response) {
     // Ensure the input fields exists and are not empty
     if (password && email && location) {
         // Execute SQL query that'll select the account from the database based on the specified username and password
- 
-            db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
-                // If there is an issue with the query, output the error
 
-                if (error) throw error;
-                // If the account exists
-                if (data.length > 0) {
-                    const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: data[0].isAdmin }, "JJJ", {});
+        db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
+            // If there is an issue with the query, output the error
 
-                    // Authenticate the user
-                    req.session.loggedin = true;
-                    req.session.token = `${jwt_token}`;
-                    // Redirect to home page
-                    response.redirect('/home');
-                } else {
-                    response.send('Incorrect Username and/or Password and/or Location! ');
-                }
-                response.end();
-            });
+            if (error) throw error;
+            // If the account exists
+
+            if (data.length > 0) {
+                console.log(`${data[0]}slmalma`)
+                const jwt_token = jwt.sign({ id: data[0].id, email: email, password: password, location: location, tname: data[0].tname, isAdmin: data[0].isAdmin }, "JJJ", {});
+
+                // Authenticate the user
+                req.session.loggedin = true;
+                req.session.token = `${jwt_token}`;
+                // Redirect to home page
+                response.redirect('/home');
+            } else {
+                response.send('Incorrect Username and/or Password and/or Location! ');
+            }
+            response.end();
+        });
 
     } else {
         response.send('Please enter Username,Location and Password !');
@@ -339,11 +353,14 @@ app.post("/patient/:id", (req, res) => {
     if (req.body.signaturep != null) {
         setSigP({ signaturep: sig, id: req.params.id, signaturepat: signaturepat })
     }
+    res.redirect(`/view/${req.params.id}`)
+
+})
+app.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         res.render("final.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
     })
 })
-
 
 app.get("/generateReport/:id", (req, res) => {
     let id = req.params.id

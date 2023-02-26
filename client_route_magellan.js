@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
         const authHeader = req.session.token;
         console.log(req.session)
-        const token = authHeader.split(" ")[1];
+        const token = authHeader
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -210,12 +210,15 @@ router.post("/patient/:id", (req, res) => {
     if (req.body.signaturep != null) {
         setSigP({ signaturep: sig, signaturepat: signaturepat, id: req.params.id })
     }
+    res.redirect(`/api/v1/view/${req.params.id}`)
+
+})
+router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
         res.render("magfinal.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, city: `${data[0].city}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, clinician_services: `${data[0].clinician_services}`, medical_services: `${data[0].medical_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
     })
 })
-
 
 router.get("/generateReport/:id", (req, res) => {
     let id = req.params.id

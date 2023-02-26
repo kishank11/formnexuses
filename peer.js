@@ -23,11 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));   //Parse body request as js
 app.use('/', express.static(__dirname + '/'));
 
 router.get('/', (req, res) => {
-    if (req.cookies.token) {
+    if (req.session.token) {
 
-        const authHeader = req.cookies.token;
-        console.log(req.cookies)
-        const token = authHeader.split(" ")[1];
+        const authHeader = req.session.token;
+        console.log(req.session)
+        const token = authHeader
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -360,6 +360,9 @@ router.post("/patient/:id", (req, res) => {
     const signaturepat = new Date();
     setSigP({ id: req.params.id, signature_mon: signature_mon, signature_tue: signature_tue, signature_wed: signature_wed, signature_thu: signature_thu, signature_fri: signature_fri, signature_sat: signature_sat, signature_sat: signature_sat, signature_sun: signature_sun, signaturepat: signaturepat })
 
+    res.redirect(`/api/peer/view/${req.params.id}`)
+})
+router.get("/view/:id", (req, res) => {
     getPersonById({ id: req.params.id }, (x, data) => {
         res.render("peerfinal.ejs", {
             id: data[0].id,
@@ -372,7 +375,6 @@ router.post("/patient/:id", (req, res) => {
         })
     })
 })
-
 
 
 router.get("/downloadpeer/:id", (req, res) => {

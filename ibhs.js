@@ -340,7 +340,13 @@ router.get("/patient/:id", (req, res) => {
     id = req.params.id;
     console.log(req.params.id)
     // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
+    res.redirect(`/api/ibhs/view/${req.params.id}`)
 
+
+
+    // getPerson({})
+})
+router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
         res.render("ibhsindex.ejs", {
@@ -354,9 +360,6 @@ router.get("/patient/:id", (req, res) => {
             assigned_bc: data[0].assigned_bc, mt_hours: data[0].mt_hours, assigned_mt: data[0].assigned_mt, school: data[0].school, home: data[0].home, camp: data[0].camp, other: data[0].other, assigned_school: data[0].assigned_school, assigned_home: data[0].assigned_home, assigned_camp: data[0].assigned_camp, assigned_other: data[0].assigned_other, id: data[0].id, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet
         })
     })
-
-
-    // getPerson({})
 })
 
 router.post("/patient/:id", (req, res) => {
@@ -520,7 +523,7 @@ router.get("/downloadibhs/:id", (req, res) => {
 
                         const authHeader = req.session.token;
                         console.log(req.session)
-                        const token = req.session
+                        const token = req.session.token
                         var la = jwt.verify(token, "JJJ")
 
 

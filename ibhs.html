@@ -20,19 +20,19 @@
       <table align="center-left" width="600px">
         <tr>
           <td>Name of Client</td>
-          <td><input type="text" name="name_of_client" /></td>
+          <td><input type="text" name="name_of_client"  required/></td>
         </tr>
         <tr>
             <td>Employee Name</td>
-            <td><input type="text" name="employee_name" style=" width: 530px"/></td>
+            <td><input type="text" name="employee_name" style=" width: 530px" required/></td>
           </tr>
           <tr>
             <td>Recipient Name</td>
-            <td><input type="text" name="recipient_name" style=" width: 530px"/></td>
+            <td><input type="text" name="recipient_name" style=" width: 530px" required/></td>
           </tr>
           <tr>
             <td>Treatment plan covering period</td>
-            <td><input type="text" name="plan" style=" width: 530px"/></td>
+            <td><input type="text" name="plan" style=" width: 530px" required/></td>
           </tr>
        
         <tr>
@@ -43,7 +43,7 @@
                   type="radio"
                   name="service"
                   value="Face to Face"
-                />Face to Face</label
+                required />Face to Face</label
               >
               <label
                 ><input type="radio" name="service" value="Telehealth" />Telehealth</label
@@ -58,10 +58,11 @@
                   type="radio"
                   name="type_of_service"
                   value="BC Licensed"
-                />BC Licensed</label
+                 required/>BC Licensed</label
               >
+          
               <label
-                ><input type="radio" name="type_of_service" value="BC non Licensed" />BC Licensed</label
+                ><input type="radio" name="type_of_service" value="BC non Licensed" required />BC Licensed</label
               >
               <label
               ><input type="radio" name="type_of_service" value="MT Licensed" />MT Licensed</label
@@ -71,6 +72,7 @@
           > <label
           ><input type="radio" name="type_of_service" value="BHT" />BHT</label
         >
+            
             </td>
           </tr>
        
@@ -508,12 +510,12 @@
         console.log(signature.value);
       }, { once: true });
       function onClick(e){
-  
+ 
   
   signature.value =signaturePad.toDataURL();
   console.log(`Sign${signature.value}`);
     }
-      
+   
     </script>
   </body>
 </html>

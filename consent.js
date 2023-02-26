@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 
         const authHeader = req.session.token;
         console.log(req.session)
-        const token = authHeader.split(" ")[1];
+        const token = authHeader
         jwt.verify(token, "JJJ", (err, user) => {
 
             req.user = user;
@@ -188,14 +188,18 @@ router.post("/patient1/:id", (req, res) => {
         if (req.body.signaturep != null) {
             setSigP({ signaturep: sig, signaturepat: signaturepat, id: req.params.id })
         }
-        getPersonById({ id: id }, (x, data) => {
-            console.log(`HII${data[0]}`)
-            res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
-        })
+        res.redirect(`/api/consent/view/${req.params.id}`)
+
     } catch (error) {
         console.log(`Hi${error}`)
     }
 
+})
+router.get("/view/:id", (req, res) => {
+    getPersonById({ id: id }, (x, data) => {
+        console.log(`HII${data[0]}`)
+        res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+    })
 })
 
 
@@ -235,13 +239,13 @@ router.post("/patient1/:id", (req, res) => {
 // })
 
 
-router.get("/view/:id", (req, res) => {
-    getPersonById({ id: id }, (x, data) => {
-        console.log(`HII${data[0]}`)
-        res.render("consentview.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
-    })
+// router.get("/view/:id", (req, res) => {
+//     getPersonById({ id: id }, (x, data) => {
+//         console.log(`HII${data[0]}`)
+//         res.render("consentview.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+//     })
 
-})
+// })
 
 router.get("/downloadconsent/:id", (req, res) => {
 

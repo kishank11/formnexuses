@@ -1,9 +1,0 @@
-{
-  "db": {
-    "host": "jc-live.cluster-capptdgd97sd.us-east-1.rds.amazonaws.com",
-    "user": "jcadmin",
-    "port": 3306,
-    "password": "RechelleBalanzat333",
-    "database": "jc-production"
-  }
-}

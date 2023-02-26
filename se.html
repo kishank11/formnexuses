@@ -28,7 +28,7 @@
         <table align="center-left">
           <tr>
             <td>Name of Client</td>
-            <td><input type="text" name="name_of_client" /></td>
+            <td><input type="text" name="name_of_client" required/></td>
           </tr>
           <tr>
             <td>Select</td>
@@ -38,7 +38,7 @@
                   type="checkbox"
                   name="_select[]"
                   value="In person Session" 
-                />In person Session</label
+                required/>In person Session</label
               >
               <label
                 ><input
@@ -72,7 +72,7 @@
                   type="checkbox"
                   name="reason_for_audio_only[]"
                   value="Client at home" 
-                />Client at home</label
+                required/>Client at home</label
               >
               <label
                 ><input
@@ -179,7 +179,7 @@
                   type="checkbox"
                   name="county[]"
                   value="Delaware" 
-                />Delaware</label
+               required />Delaware</label
               >
          
             </td>
@@ -194,7 +194,7 @@
                 ><input
                   type="checkbox"
                   name="office[]"
-                  value="Chester" 
+                  value="Chester" required
                 />Chester</label
               >
               <label
@@ -217,7 +217,7 @@
                 ><input
                   type="checkbox"
                   name="insurance_carrier[]"
-                  value="MA" 
+                  value="MA" required
                 />MA</label
               >
               <label
@@ -257,7 +257,7 @@
                 ><input
                   type="radio"
                   name="assessment_done"
-                  value="yes" 
+                  value="yes" required
                 />yes</label
               >
               <label
@@ -269,7 +269,7 @@
           <tr>
             <td>D/a?</td>
             <td>
-              <label><input type="radio" name="dora" value="yes" />yes</label>
+              <label><input type="radio" name="dora" value="yes" required />yes</label>
               <label><input type="radio" name="dora" value="no" />no</label>
             </td>
           </tr>
@@ -280,7 +280,7 @@
             <td>In treatment?</td>
             <td>
               <label
-                ><input type="radio" name="in_treatment" value="yes"  />yes</label
+                ><input type="radio" name="in_treatment" value="yes" required />yes</label
               >
               <label
                 ><input type="radio" name="in_treatment" value="no"  />no</label
@@ -293,7 +293,7 @@
           <tr>
             <td>Referred?</td>
             <td>
-              <label><input type="radio" name="referred" value="yes" />yes</label>
+              <label><input type="radio" name="referred" value="yes" required/>yes</label>
               <label><input type="radio" name="referred" value="no" />no</label>
             </td>
           </tr>
@@ -314,7 +314,7 @@
                 ></label><td><input
                   type="checkbox"
                   name="clinician_services[]"
-                  value="90791	Initial Bio-Psychosocial  	(Max 1.5 hours)" 
+                  value="90791	Initial Bio-Psychosocial  	(Max 1.5 hours)" required
                 /></td><td>90791</td><td> Initial Bio-Psychosocial  	(Max 1.5 hours)</td></label>
             </tr>
             <tr>
