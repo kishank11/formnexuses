@@ -11,10 +11,17 @@ const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
 var path = require("path")
 var fs = require("fs");
-const PORT = process.env.PORT || 1337; 
+const PORT = process.env.PORT || 1337;
 // let cookieParser = require('cookie-parser');
 // app.use(cookieParser());
+const fullPath = path.join(__dirname)
 
+fs.readdirSync(fullPath, (error, files) => {
+    if (error) console.log(error)
+    files.forEach(element => {
+        console.log(element)
+    });
+})
 
 app.use(session({
     secret: 'secret',
@@ -37,6 +44,7 @@ let pdf = require("html-pdf");
 
 const { group } = require('console');
 const verifyToken = require('./middleware/verifytoken.js');
+const { ifError } = require("assert");
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));   //Parse body req as json.
@@ -218,7 +226,7 @@ app.get("/logout", async (req, res) => {
 
 app.post("/action_page", (req, res) => {
 
-    const {
+    const { name_of_thera,
         name_of_client,
         signature,
         _select,
@@ -270,6 +278,7 @@ app.post("/action_page", (req, res) => {
 
 
     const data = addPerson({
+        name_of_thera: name_of_thera,
         name_of_client: name_of_client,
         _select: x,
         reason_for_audio_only: y,
@@ -334,7 +343,7 @@ app.get("/patient/:id", (req, res) => {
 
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}` })
+        res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}` })
     })
 
 
@@ -362,7 +371,7 @@ app.get("/view/:id", (req, res) => {
 app.get("/generateReport/:id", (req, res) => {
     let id = req.params.id
     getPersonById({ id: id }, (x, data) => {
-        ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data) => {
+        ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}` }, (err, data) => {
             if (err) {
                 res.send(err);
             } else {
@@ -434,7 +443,7 @@ app.get("/downloadencbb/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "view.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -560,6 +569,70 @@ app.get("/downloadencbb/:id", (req, res) => {
 //     }
 
 // })
+
+app.get("/therapist", (req, res) => {
+    console.log(req.session)
+    const authHeader = req.session.token;
+    if (authHeader) {
+        console.log(req.session)
+        const token = authHeader;
+        console.log(token)
+        jwt.verify(token, "JJJ", (err, user) => {
+            console.log(user);
+            if (user) {
+                console.log(fullPath)
+                fs.readdir(`${fullPath}/upload/${user.location}/`, (error, files) => {
+
+
+                    try {
+                        console.log(files)
+                        const files1 = JSON.stringify(files)
+                        console.log(files1)
+                        let y = [];
+                        files.filter((name) => {
+                            y.push(name.match(/Mihir Kishan*/))
+                        });
+                        let x = []
+                        y.forEach((element, i) => {
+                            if (element != null)
+                                x.push([element.input])
+
+                        })
+                        console.log(x)
+
+                        res.render("thera.ejs", { name: user.tname, location: user.location, input: x })
+                    } catch (error) {
+                        console.log(error)
+                    }
+
+                })
+                // const x = await fetch(`/${user.location}/`);
+                // x.forEach(element => {
+                //     console.log(element)
+                // });
+
+
+            } else {
+
+                res.end(`<p>
+                         <center>
+                                <hr />
+                                <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+                                <a style="color: grey;" href="/home">HOME</a> <br/>
+                                <a style="color: grey;" href="/api/se/">New Form</a>
+                                <hr />
+                                
+                                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
+                                
+                                </center>
+                                </div>`
+                )
+            }
+        }
+        )
+    }
+
+})
 app.get("/test", (req, res) => {
     let aa = `end_date, peer_specialist_hours, agency_name, employee_name, recipient_name, id, insurance, start_date, total_hours_in_all, assigned_specialist, date_mon, start_mon, end_mon, total_hours_mon, contact_code_mon, date_tue, start_tue, end_tue, total_hours_tue, contact_code_tue, date_wed, start_wed, end_wed, total_hours_wed, contact_code_wed, date_thu, start_thu, end_thu, total_hours_thu, contact_code_thu, date_fri, start_fri, end_fri, total_hours_fri, contact_code_fri, date_sat, start_sat, end_sat, total_hours_sat, contact_code_sat, date_sun, start_sun, end_sun, total_hours_sun, contact_code_sun, signaturet, date_signaturet`
     let x = aa.split(",");
@@ -588,3 +661,5 @@ app.get('/d', (req, res) => {
 app.on('close', function () {
     db.end();
 });
+
+

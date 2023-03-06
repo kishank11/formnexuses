@@ -74,7 +74,7 @@
                 type="checkbox"
                 name="program[]"
                 value="Outpatient"
-      required
+      checked
               /></td><td>Outpatient:</td><td>Individual, group, couples, family therapy and/or medication management.</td> </label
               >
            </tr>
@@ -134,13 +134,23 @@
           type="checkbox"
           name="agree[]"
           value="​​​YES" 
-required
+checked
         /> I have had the behavioral health services offered in my OMNI Program explained, and I agree to receive treatment at OMNI Health Services, Inc.<br/><b> ( Field: Must be checked to receive any services)</b> </label
         >
       </p>
       <tr>
-        <td>Printed Name of Client</td>
+        
+        <td>Printed Name of Therapist</td>
         <td><input type="text" name="name_of_client" required/></td>
+        
+      </tr>
+      <br/>
+      <br/>
+
+      <tr>
+        <td>Printed Name of Client</td>
+        <td><input type="text" name="name_of_thera" required/></td>
+        
       </tr>
       <div>
         <canvas id="signature" width="300" height="100"></canvas><input type="button" name="confirm" onclick="onClick()" value="Save">

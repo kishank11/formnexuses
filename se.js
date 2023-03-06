@@ -161,6 +161,7 @@ router.post("/action_page", (req, res) => {
 
     const {
         name_of_client,
+        name_of_thera,
         signature,
         _select,
         reason_for_audio_only,
@@ -214,6 +215,7 @@ router.post("/action_page", (req, res) => {
 
     const data = addPerson({
         name_of_client: name_of_client,
+        name_of_thera: name_of_thera,
         _select: x,
         reason_for_audio_only: y,
         chart_id: chart_id,
@@ -277,7 +279,7 @@ router.get("/patient/:id", (req, res) => {
 
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("seindex.ejs", { id: `${data[0].id}`, office: `${data[0].office}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}` })
+        res.render("seindex.ejs", { id: `${data[0].id}`, office: `${data[0].office}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, consumer_name: `${data[0].consumer_name}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}` })
     })
 
 
@@ -401,7 +403,7 @@ router.get("/view/:id", (req, res) => {
 router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         console.log(`HII${data[0]}`)
-        res.render("seview.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        res.render("seview.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}` })
     })
 
 })

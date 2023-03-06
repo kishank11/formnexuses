@@ -159,7 +159,7 @@ router.get("/logout/:id", async (req, res) => {
 
 router.post("/action_page", (req, res) => {
 
-    const {
+    const { name_of_thera,
         name_of_client,
         id,
         insurance,
@@ -245,6 +245,7 @@ router.post("/action_page", (req, res) => {
     console.log(signatureat)
 
     const data = addPerson({
+        name_of_thera: name_of_thera,
         name_of_client: name_of_client,
         id: id1,
         insurance: insurance,
@@ -343,7 +344,7 @@ router.get("/patient/:id", (req, res) => {
             employee_name: data[0].employee_name,
             recipient_name: data[0].recipient_name,
             end_date: data[0].end_date,
-            peer_specialist_hours: data[0].peer_specialist_hours, insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet
+            peer_specialist_hours: data[0].peer_specialist_hours, insurance: data[0].insurance, start_date: data[0].start_date, total_hours_in_all: data[0].total_hours_in_all, assigned_specialist: data[0].assigned_specialist, date_mon: data[0].date_mon, start_mon: data[0].start_mon, end_mon: data[0].end_mon, total_hours_mon: data[0].total_hours_mon, signature_mon: data[0].signature_mon, contact_code_mon: data[0].contact_code_mon, date_tue: data[0].date_tue, start_tue: data[0].start_tue, end_tue: data[0].end_tue, total_hours_tue: data[0].total_hours_tue, signature_tue: data[0].signature_tue, contact_code_tue: data[0].contact_code_tue, date_wed: data[0].date_wed, start_wed: data[0].start_wed, end_wed: data[0].end_wed, total_hours_wed: data[0].total_hours_wed, signature_wed: data[0].signature_wed, contact_code_wed: data[0].contact_code_wed, date_thu: data[0].date_thu, start_thu: data[0].start_thu, end_thu: data[0].end_thu, total_hours_thu: data[0].total_hours_thu, signature_thu: data[0].signature_thu, contact_code_thu: data[0].contact_code_thu, date_fri: data[0].date_fri, start_fri: data[0].start_fri, end_fri: data[0].end_fri, total_hours_fri: data[0].total_hours_fri, signature_fri: data[0].signature_fri, contact_code_fri: data[0].contact_code_fri, date_sat: data[0].date_sat, start_sat: data[0].start_sat, end_sat: data[0].end_sat, total_hours_sat: data[0].total_hours_sat, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet, name_of_thera: `${data[0].name_of_thera}`
         })
     })
 
@@ -414,7 +415,7 @@ router.get("/downloadpeer/:id", (req, res) => {
                 employee_name: data[0].employee_name,
                 recipient_name: data[0].recipient_name,
                 end_date: data[0].end_date,
-                peer_specialist_hours: data[0].peer_specialist_hours, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet
+                peer_specialist_hours: data[0].peer_specialist_hours, signature_sat: data[0].signature_sat, contact_code_sat: data[0].contact_code_sat, date_sun: data[0].date_sun, start_sun: data[0].start_sun, end_sun: data[0].end_sun, total_hours_sun: data[0].total_hours_sun, signature_sun: data[0].signature_sun, contact_code_sun: data[0].contact_code_sun, sigt: data[0].signaturet, date_signaturet: data[0].date_signaturet, name_of_thera: `${data[0].name_of_thera}`
             }, (err, data1) => {
                 if (err) {
                     res.send(err);

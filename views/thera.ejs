@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMNI Documents</title>
+  </head>
+  <body>
+
+    <center>
+        <hr />
+        <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
+   
+        <hr />
+        HELLO! <%=name%>
+  <table border="1">
+        <% input.forEach((result)=>{ %>
+            <tr>
+                <td>File Name:</td>
+                <td>
+            <a style="color:grey ;" href='/upload/<%= location %>/<%= result %>'><%= result %></a>
+        </td>
+            </tr>
+        <%  }); %>
+    </table>
+      
+        </center>
+        </div>`
+
+  </body>
+
+  <script>
+
+
+  </script>
+</html>

@@ -29,7 +29,11 @@
       <table align="center-left">
         <tr>
           <td>Name of Client</td>
-          <td><input type="text" name="name_of_client" required/></td>
+          <td><input type="text" name="name_of_client" checked/></td>
+        </tr>
+        <tr>
+          <td>Name of Therapist</td>
+          <td><input type="text" name="name_of_thera"  checked/></td>
         </tr>
         <tr>
           <td>Select</td>
@@ -39,7 +43,7 @@
                 type="checkbox"
                 name="_select[]"
                 value="In person Session" 
-              required/>In person Session</label
+              checked/>In person Session</label
             >
             <label
               ><input
@@ -73,7 +77,7 @@
                 type="checkbox"
                 name="reason_for_audio_only[]"
                 value="Client at home"
-                required
+                checked
               />Client at home</label
             >
             <label
@@ -180,7 +184,7 @@
                 type="checkbox"
                 name="county[]"
                 value="Lacka"
-                required
+                checked
               />Lacka</label
             >
             <label
@@ -197,7 +201,7 @@
                 type="checkbox"
                 name="county[]"
                 value="Carbon"
-                required
+                checked
               />Carbon</label
             >
             <label
@@ -220,7 +224,7 @@
                 type="checkbox"
                 name="insurance_carrier[]"
                 value="MA" 
-                required
+                checked
               />MA</label
             >
             <label
@@ -260,7 +264,7 @@
               ><input
                 type="radio"
                 name="assessment_done"
-                value="yes" required
+                value="yes" checked
               />yes</label
             >
             <label
@@ -272,7 +276,7 @@
         <tr>
           <td>D/a?</td>
           <td>
-            <label><input type="radio" name="dora" value="yes" required/>yes</label>
+            <label><input type="radio" name="dora" value="yes" checked/>yes</label>
             <label><input type="radio" name="dora" value="no" />no</label>
           </td>
         </tr>
@@ -283,7 +287,7 @@
           <td>In treatment?</td>
           <td>
             <label
-              ><input type="radio" name="in_treatment" value="yes" required/>yes</label
+              ><input type="radio" name="in_treatment" value="yes" checked/>yes</label
             >
             <label
               ><input type="radio" name="in_treatment" value="no" />no</label
@@ -296,7 +300,7 @@
         <tr>
           <td>Referred?</td>
           <td>
-            <label><input type="radio" name="referred" value="yes" required />yes</label>
+            <label><input type="radio" name="referred" value="yes" checked />yes</label>
             <label><input type="radio" name="referred" value="no" />no</label>
           </td>
         </tr>
@@ -317,7 +321,7 @@
               ></label><td><input
                 type="checkbox"
                 name="clinician_services[]"
-                value="90837 Initial Bio Psychosocial	Max 1 hr and 30 mins"  required
+                value="90837 Initial Bio Psychosocial	Max 1 hr and 30 mins"  checked
               /></td><td>90837</td><td> Initial Bio Psychosocial Max 1 hr and 30 mins</td></label>
           </tr>
           <tr>
@@ -425,14 +429,15 @@
         <canvas id="signature" width="300" height="100"></canvas>
       </div>
       <hr />
-      <div>Psychiatrist/Psychologist/Therapist Print Name <input type="hidden" name="signature" />
+      
+      <div>Psychiatrist/Psychologist/Therapist Print Name<input type="hidden" name="signature" />
         <input type="button" name="confirm" onclick="onClick()" value="Save"></div>
 
       <div>
         <canvas id="signaturep" width="300" height="100"></canvas>
       </div>
       <hr />
-      	
+      
       <div>Client/Guardian/Responsible Party Signature<label><input type="hidden" name="signaturep" /></div></label>
 
      <div>

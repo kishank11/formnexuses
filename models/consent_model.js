@@ -6,7 +6,7 @@ function getUserByNamePass(data, callback) {
 
     let query = `SELECT * FROM user where tname = ? and password = ? and location = ?;`;
     db.query(query, [data.tname, data.password, data.location], function (err, data, fields) {
-        
+
         if (err) {
             callback(err, null)
 
@@ -21,7 +21,7 @@ function getUserByNamePass(data, callback) {
 function getPersonById(data, callback) {
     let query = "SELECT * FROM consent where id = ?";
     db.query(query, [data.id], function (err, data, fields) {
-        
+
         if (err) {
             callback(err, null);
         }
@@ -35,7 +35,7 @@ function setUserToken(data, callback) {
     var id = data.id;
     let query = "Update user SET jwttoken = ? where id = ?;";
     db.query(query, [data.jwttoken, data.id], function (err, data, fields) {
-        
+
         if (err) {
             throw err;
         }
@@ -48,7 +48,7 @@ function deleteUserToken(data, callback) {
     var id = data.id;
     let query = "Update user SET jwttoken = ? where id = ?;";
     db.query(query, [data.jwttoken, data.id], function (err, data, fields) {
-        
+
         if (err) {
             throw err;
         }
@@ -61,7 +61,7 @@ function setSigP(data, callback) {
     var id = data.id;
     let query = "Update consent SET signaturep = ? , signaturepat = ? where id = ?";
     db.query(query, [data.signaturep, data.signaturepat, data.id], function (err, data, fields) {
-        
+
         if (err) {
             throw err;
         }
@@ -69,9 +69,9 @@ function setSigP(data, callback) {
     });
 }
 function addPerson(data, callback) {
-    let query = "INSERT INTO consent(id,name_of_client,agree,program,signature,signatureat) VALUES (?,?,?,?,?,?);";
-    const x = db.query(query, [data.id, data.name_of_client, data.agree, data.program, data.signature, data.signatureat], function (err, data, fields) {
-        
+    let query = "INSERT INTO consent(id,name_of_client,agree,program,signature,signatureat,name_of_thera) VALUES (?,?,?,?,?,?,?);";
+    const x = db.query(query, [data.id, data.name_of_client, data.agree, data.program, data.signature, data.signatureat, data.name_of_thera], function (err, data, fields) {
+
         if (err) {
             throw err;
         }

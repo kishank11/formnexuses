@@ -5,6 +5,7 @@
     <form action="/api/ibhs/action_page" method="POST"> 
       <hr />
       <h1>Encounter Form Peer</h1>
+      
       <hr />
      
 
@@ -12,7 +13,7 @@
         Omni Health Service, Inc.
         <br />
 
-        Peer Specialist Encounter Form
+        IBHS Encounter Form
         <br />
       </h2>
 
@@ -22,6 +23,11 @@
           <td>Name of Client</td>
           <td><input type="text" name="name_of_client"  required/></td>
         </tr>
+        <tr>
+          <td>Name of Therapist</td>
+          <td><input type="text" name="name_of_thera"  required/></td>
+        </tr>
+        
         <tr>
             <td>Employee Name</td>
             <td><input type="text" name="employee_name" style=" width: 530px" required/></td>
@@ -178,7 +184,7 @@
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_mon" width="300" height="100"></canvas>
       
             <hr />
@@ -223,7 +229,7 @@
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td>
             <canvas id="signature_tue" width="480" height="100"></canvas>
       
@@ -271,7 +277,7 @@
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td>
             <canvas id="signature_wed" width="300" height="100"></canvas>
       
@@ -317,7 +323,7 @@
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_thu" width="300" height="100"></canvas>
       
             <hr />
@@ -328,41 +334,41 @@
   
         <tr>
           <td>Contact code</td>
-          <td><input type="text" name="contact_code_thu" style=" width: 480px"/></td>
+          <td><input type="text" name="contact_code_thu" style=" width: 480px" required/></td>
         </tr>
         <th colSpan="2">Friday</th>
 
       
         <tr>
           <td>Date</td>
-          <td><input type="text" name="date_fri" style=" width: 480px"/></td>
+          <td><input type="text" name="date_fri" style=" width: 480px" required/></td>
         </tr>
       
 
    
         <tr>
           <td>Start</td>
-          <td><input type="text" name="start_fri" style=" width: 480px"/></td>
+          <td><input type="text" name="start_fri" style=" width: 480px" required/></td>
         </tr>
   
 
       
         <tr>
           <td>End</td>
-          <td><input type="text" name="end_fri" style=" width: 480px"/></td>
+          <td><input type="text" name="end_fri" style=" width: 480px" required/></td>
         </tr>
      
 
       
         <tr>
           <td>Total hours</td>
-          <td><input type="text" name="total_hours_fri" style=" width: 480px"/></td>
+          <td><input type="text" name="total_hours_fri" style=" width: 480px" required/></td>
         </tr>
      
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td>
             <canvas id="signature_fri" width="300" height="100"></canvas>
       
@@ -410,7 +416,7 @@
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_sat" width="300" height="100"></canvas>
       
             <hr />
@@ -436,14 +442,14 @@
    
         <tr>
           <td>Start</td>
-          <td><input type="text" name="start_sun" style=" width: 480px"/></td>
+          <td><input type="text" name="start_sun" style=" width: 480px" required/></td>
         </tr>
   
 
       
         <tr>
           <td>End</td>
-          <td><input type="text" name="end_sun" style=" width: 480px"/></td>
+          <td><input type="text" name="end_sun" style=" width: 480px" required/></td>
         </tr>
      
 
@@ -456,7 +462,7 @@
 
     
         <tr>
-          <td>Daily Signature: (Please circle one) Parent/Guardian/Teacher/ Recipient 14 years or older</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_sun" width="300" height="100"></canvas>
       
             <hr />
@@ -467,13 +473,13 @@
   
         <tr>
           <td>Contact code</td>
-          <td><input type="text" name="contact_code_sun" style=" width: 480px"/></td>
+          <td><input type="text" name="contact_code_sun" style=" width: 480px" required/></td>
         </tr>
 
      
         <tr>
           <td><b>Total hours in all</b></td>
-          <td><input type="text" name="total_hours_in_all" style=" width: 480px"/></td>
+          <td><input type="text" name="total_hours_in_all" style=" width: 480px" required/></td>
         </tr>
       </table>
 <p>I certify that this information on this encounter form is true, correct and accurate.  I understand that payment and satisfaction of this claim will be from federal and state funds, <br/>and that false claims, statements, documents or concealment of material <br/>may be prosecuted under applicable federal and state laws.<br/>

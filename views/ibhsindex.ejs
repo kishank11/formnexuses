@@ -5,19 +5,29 @@
     <form action="/api/ibhs/patient/<%= `${id}` %>" method="POST"> 
       <hr />
       <h1>Encounter Form Peer</h1>
+   
       <hr />
      
 
       <h2>
         Omni Health Service, Inc.
         <br />
+        
 
-        Peer Specialist Encounter Form
+        IBHS Encounter Form
         <br />
       </h2>
 
 
       <table align="center-left" width="600px">
+        <tr>
+          <td>Name of Client</td>
+          <td><%=name_of_client%></td>
+        </tr>
+        <tr>
+          <td>Name of Therapist</td>
+          <td><%=name_of_thera%></td>
+        </tr>
         <tr>
           <td>Empployee Name</td>
           <td><%=employee_name%></td>
@@ -132,7 +142,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_mon" width="300" height="100"></canvas>
       
             <hr />
@@ -177,7 +187,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td>
             <canvas id="signature_tue" width="480" height="100"></canvas>
       
@@ -225,7 +235,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td>
             <canvas id="signature_wed" width="300" height="100"></canvas>
       
@@ -272,7 +282,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_thu" width="300" height="100"></canvas>
       
             <hr />
@@ -318,7 +328,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td>
             <canvas id="signature_fri" width="300" height="100"></canvas>
       
@@ -366,7 +376,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_sat" width="300" height="100"></canvas>
       
             <hr />
@@ -412,7 +422,7 @@
 
     
         <tr>
-          <td>Client signature</td>
+          <td>Client Signature</td>
           <td><canvas id="signature_sun" width="300" height="100"></canvas>
       
             <hr />
@@ -435,7 +445,7 @@
 
       <table>
         <tr>
-          <td>Peer specialist signature</td>
+          <td>Therapist Signature</td>
           <td><img src= <%= `${sigt}`%> ></td>
 
         </tr>

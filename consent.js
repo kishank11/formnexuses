@@ -92,7 +92,7 @@ router.post("/action_page", (req, res) => {
         signature,
         name_of_client,
         program,
-        agree
+        agree, name_of_thera
 
 
     } = req.body
@@ -126,7 +126,7 @@ router.post("/action_page", (req, res) => {
 
         name_of_client: name_of_client,
         signature: signature,
-
+        name_of_thera: name_of_thera,
         signatureat: signatureat,
         agree: agree,
         program: x,
@@ -170,7 +170,7 @@ router.get("/patient/:id", (req, res) => {
 
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("consentindex.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}` })
+        res.render("consentindex.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}` })
     })
 
 
@@ -278,7 +278,7 @@ router.get("/downloadconsent/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {

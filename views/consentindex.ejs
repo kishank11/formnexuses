@@ -7,8 +7,7 @@
       <hr />
       <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
       <center>
-      <a style="color: grey;" href="/home">HOME</a><br/>
-      <a style="color: grey;" href="/api/consent/">New Form</a>
+    
       <hr />
       <table >
       <p >
@@ -113,20 +112,25 @@
         <td>Printed Name of Client</td>
         <td><%=name_of_client%></td>
       </tr>
+      <br/>
+      <br/>
+      <tr>
+        <td>Printed Name of Therapist</td>
+        <td><%=name_of_thera%></td>
+      </tr>
       
       <hr />
       
-      <div> Signature of Omni Witness:<img src= <%= `${sigt}`%> ></div>
+      <div> Signature of Client: OR Parent/Guardian if under 14 years of age/PA;<br/>If under 18 Years of age/NJ  
+
+        ​​Check if consent received verbally:(Requires second witness) Psychiatrist/Psychologist/Therapist Print Name<img src= <%= `${sigt}`%> ></div>
 
       <div>
         <canvas id="signaturep" width="300" height="100"></canvas>
       </div>
       <hr />
           
-      <div>Signature of Client: OR Parent/Guardian if under 14 years of age/PA;<br/>If under 18 Years of age/NJ  
-
-        ​​Check if consent received verbally:(Requires second witness) Psychiatrist/Psychologist/Therapist Print Name
-         <label><input type="hidden" name="signaturep" required /><input type="button" name="confirm" onclick="onClick()" value="Save"></div></label>
+      <div>Signature of Omni: <label><input type="hidden" name="signaturep" required /><input type="button" name="confirm" onclick="onClick()" value="Save"></div></label>
 
      <div>
         <canvas id="sig" width="300" height="100"></canvas>
