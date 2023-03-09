@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const db = require('./utils/mysql_connection');
 var path = require("path")
 var fs = require("fs");
+const async = require("async")
 const PORT = process.env.PORT || 1337;
 // let cookieParser = require('cookie-parser');
 // app.use(cookieParser());
@@ -45,6 +46,8 @@ let pdf = require("html-pdf");
 const { group } = require('console');
 const verifyToken = require('./middleware/verifytoken.js');
 const { ifError } = require("assert");
+const { promise } = require("./utils/mysql_connection");
+const { promisify } = require("util");
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));   //Parse body req as json.
@@ -481,22 +484,21 @@ app.get("/downloadencbb/:id", (req, res) => {
                                 <hr />
                                 <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
                                 <a style="color: grey;" href="/home">HOME</a> <br/>
-                                <a style="color: grey;" href="/">New Form</a>
+                                <a style="color: grey;" href="/api/se/">New Form</a>
                                 <hr />
-                                File created successfully 
+                                File sent successfully 
                                 <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
-                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}${data[0].name_of_client}encbb${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                
                                 </center>
                                 </div>`);
 
                             }
 
 
-
-
                         })
 
                     } catch (error) {
+                        promisify.
                         console.log(`cookie not found ${error}`)
                     }
                 }
@@ -581,26 +583,68 @@ app.get("/therapist", (req, res) => {
             console.log(user);
             if (user) {
                 console.log(fullPath)
-                fs.readdir(`${fullPath}/upload/${user.location}/`, (error, files) => {
+                fs.readdir(`${fullPath}/upload/${user.location}/`, async (error, files) => {
 
 
                     try {
-                        console.log(files)
-                        const files1 = JSON.stringify(files)
-                        console.log(files1)
+
+
                         let y = [];
-                        files.filter((name) => {
-                            y.push(name.match(/Mihir Kishan*/))
+                        var dirPath = `${fullPath}/upload/${user.location}/`;
+                        // this will get you list of all files. in directory
+                        var files = fs.readdirSync(dirPath);
+                        var objToReturn = {};
+                        // then using async do like this
+                        var data = [];
+                        async.eachSeries(files, function (file, callback) {
+                            var filePath = path.join(dirPath, file);
+                            const dnt = fs.stat(filePath, function (err, stats) {
+                                // write stats data into objToReturn 
+
+                                callback(null, data.push({
+
+                                    name: file,
+                                    time: stats.mtime.getTime()
+                                }));
+
+                            });
+
+
+                        }, function (err) {
+
+                            console.log(data)
+                            const files1 = data;
+                            const files2 =
+                                files1.sort((a, b) => a.time - b.time)
+                                    .map(file => file.name);
+                            const x1 = `${user.tname}`
+                            files2.filter((name1) => {
+
+                                y.push(name1.match(x1))
+                            });
+                            // console.log(y)
+                            let x = []
+                            y.forEach((element, i) => {
+                                // console.log(element)
+                                if (element != null)
+                                    x.push([element.input])
+
+                            })
+                            console.log(x)
+
+                            res.render("thera.ejs", { name: user.tname, location: user.location, input: x })
+                            // final callback when all files completed here send objToReturn to client
                         });
-                        let x = []
-                        y.forEach((element, i) => {
-                            if (element != null)
-                                x.push([element.input])
 
-                        })
-                        console.log(x)
 
-                        res.render("thera.ejs", { name: user.tname, location: user.location, input: x })
+
+                        // };
+
+
+                        // const files1 = await getSortedFiles();
+
+                        // const files1 = Object.values(files2.name)
+
                     } catch (error) {
                         console.log(error)
                     }

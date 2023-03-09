@@ -316,11 +316,11 @@ router.get("/downloadconsent/:id", (req, res) => {
                                 <hr />
                                 <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
                                 <a style="color: grey;" href="/home">HOME</a> <br/>
-                                <a style="color: grey;" href="/api/consent/">New Form</a>
+                                <a style="color: grey;" href="/api/se/">New Form</a>
                                 <hr />
-                                File created successfully 
+                                File sent successfully 
                                 <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
-                                <a  style="color: grey;" href="/upload/${la.location}/${la.tname}${data[0].name_of_client}consent${id}${data[0].signatureat}.pdf">Click to view!</a>
+                                
                                 </center>
                                 </div>`);
 
