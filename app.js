@@ -499,7 +499,7 @@ app.get("/downloadencbb/:id", (req, res) => {
 
                     } catch (error) {
                         promisify.
-                        console.log(`cookie not found ${error}`)
+                            console.log(`cookie not found ${error}`)
                     }
                 }
             });
@@ -615,7 +615,7 @@ app.get("/therapist", (req, res) => {
                             console.log(data)
                             const files1 = data;
                             const files2 =
-                                files1.sort((a, b) => a.time - b.time)
+                                files1.sort((a, b) => b.time - a.time)
                                     .map(file => file.name);
                             const x1 = `${user.tname}`
                             files2.filter((name1) => {
