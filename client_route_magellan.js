@@ -327,7 +327,7 @@ router.get("/downloadmag/:id", (req, res) => {
                                 <hr />
                                 <h1>OMNI HEALTH SERVICES CONSENT TO TREATMENT</h1>
                                 <a style="color: grey;" href="/home">HOME</a> <br/>
-                                <a style="color: grey;" href="/api/se/">New Form</a>
+                                <a style="color: grey;" href="/api/v1/">New Form</a>
                                 <hr />
                                 File sent successfully 
                                 <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;">
