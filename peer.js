@@ -159,7 +159,7 @@ router.get("/logout/:id", async (req, res) => {
 
 router.post("/action_page", (req, res) => {
 
-    const { name_of_thera,
+    const {
         name_of_client,
         id,
         insurance,
@@ -215,7 +215,11 @@ router.post("/action_page", (req, res) => {
         contact_code_sun,
         signaturet,
         date_signaturet } = req.body
-
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    const name_of_thera = la.tname
 
     console.log(req.body)
 
@@ -449,6 +453,12 @@ router.get("/downloadpeer/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update peer SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`
                                 <center>
                                 <hr />

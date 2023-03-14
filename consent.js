@@ -92,10 +92,15 @@ router.post("/action_page", (req, res) => {
         signature,
         name_of_client,
         program,
-        agree, name_of_thera
+        agree,
 
 
     } = req.body
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    const name_of_thera = la.tname
     console.log(req.body)
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
@@ -310,7 +315,16 @@ router.get("/downloadconsent/:id", (req, res) => {
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
+
+
                             } else {
+                                let query = `Update consent SET flag = 1 where id = ?`
+                                db.query(query, [id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
+
                                 res.send(`
                                 <center>
                                 <hr />

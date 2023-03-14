@@ -475,6 +475,12 @@ router.get("/downloadse/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update se SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`
                                 <center>
                                 <hr />

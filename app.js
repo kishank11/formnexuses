@@ -48,6 +48,7 @@ const verifyToken = require('./middleware/verifytoken.js');
 const { ifError } = require("assert");
 const { promise } = require("./utils/mysql_connection");
 const { promisify } = require("util");
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));   //Parse body req as json.
@@ -229,7 +230,7 @@ app.get("/logout", async (req, res) => {
 
 app.post("/action_page", (req, res) => {
 
-    const { name_of_thera,
+    const {
         name_of_client,
         signature,
         _select,
@@ -256,7 +257,11 @@ app.post("/action_page", (req, res) => {
     let signatureat = new Date();
 
     console.log(req.body)
-
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    const name_of_thera = la.tname
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
     const x = _select?.join(",")
@@ -479,6 +484,12 @@ app.get("/downloadencbb/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update ibhs SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`
                                 <center>
                                 <hr />
@@ -572,6 +583,229 @@ app.get("/downloadencbb/:id", (req, res) => {
 
 // })
 
+app.get("/therapist/consent", (req, res) => {
+    name = "consent"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+
+
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+        if (data.length != 0) {
+
+            console.log(data)
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<center><table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/consent/downloadconsent/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+    })
+
+})
+app.get("/therapist/encbb", (req, res) => {
+    name = "encbb"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+        if (data.length != 0) {
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/encbb/downloadencbb/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+    })
+
+})
+app.get("/therapist/mag", (req, res) => {
+    name = "consent"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+        if (data.length != 0) {
+
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<center><table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/v1/downloadmag/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+
+
+    })
+
+})
+app.get("/therapist/nj", (req, res) => {
+    name = "consent"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+        if (data.length != 0) {
+
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<center><table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/nj/downloadnj/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+
+
+
+    })
+
+})
+app.get("/therapist/se", (req, res) => {
+    name = "se"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+
+
+        if (data.length != 0) {
+
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<center><table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/se/downloadse/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+
+
+    })
+
+})
+app.get("/therapist/peer", (req, res) => {
+    name = "peer"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+        console.log(data)
+        if (data.length != 0) {
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<center><table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/peer/downloadpeer/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+
+
+    })
+
+})
+app.get("/therapist/ibhs", (req, res) => {
+    name = "consent"
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+
+    let query = `SELECT * FROM ${name} where name_of_thera = ? and flag = ?;`
+    db.query(query, [la.tname, 0], function (err, data, fields) {
+        if (err) {
+            throw err;
+
+        }
+
+        if (data.length != 0) {
+
+            res.setHeader("content-type", 'text/html')
+            data.forEach((data) => {
+                res.write(`<center><table border="1"><tr><td>${data.id}</td><td><a style=" color:grey;" href="/api/ibhs/downloadibhs/${data.id}">${data.name_of_thera}<a></td></tr></table>`)
+            })
+
+        }
+        else {
+            res.send("NOTHING TO DOWNLOAD")
+        }
+
+
+
+
+
+
+    })
+
+})
+
+
 app.get("/therapist", (req, res) => {
     console.log(req.session)
     const authHeader = req.session.token;
@@ -586,7 +820,12 @@ app.get("/therapist", (req, res) => {
                 fs.readdir(`${fullPath}/upload/${user.location}/`, async (error, files) => {
 
 
+
+
+
                     try {
+
+
 
 
                         let y = [];

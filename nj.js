@@ -106,6 +106,12 @@ router.post("/action_page", (req, res) => {
         am_or_pm,
         insurance_carrier,
     } = req.body
+
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    const name_of_thera = la.tname
     console.log(req.body)
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
@@ -157,7 +163,7 @@ router.post("/action_page", (req, res) => {
         time_out: time_out,
         am_or_pm: am_or_pm,
         icd_10: icd_10,
-
+        name_of_thera: name_of_thera,
         insurance_carrier: p,
         smoking_history: s,
         adult_psychotherapy: ap,
@@ -336,6 +342,12 @@ router.get("/downloadnj/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update nj SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`
                                 <center>
                                 <hr />

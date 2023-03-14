@@ -160,7 +160,7 @@ router.get("/logout/:id", async (req, res) => {
 router.post("/action_page", (req, res) => {
 
     const {
-        name_of_thera,
+
         name_of_client,
         id,
         employee_name,
@@ -218,7 +218,11 @@ router.post("/action_page", (req, res) => {
         signaturet,
         date_signaturet } = req.body
     let signatureat = new Date();
-
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    const name_of_thera = la.tname
     console.log(req.body)
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
@@ -436,6 +440,12 @@ router.post("/downloadibhs/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update ibhs SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`File created successfully <a  style="color: grey;" href="/${la.location}/${la.tname}ibhs${id}.pdf">Click to view!</a>`);
 
                             }
@@ -536,6 +546,12 @@ router.get("/downloadibhs/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update ibhs SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`
                                 <center>
                                 <hr />

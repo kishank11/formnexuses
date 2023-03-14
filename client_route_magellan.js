@@ -85,7 +85,7 @@ router.get("/pdf/:id", async (req, res) => {
 router.post("/action_page", (req, res) => {
 
     const {
-        name_of_thera,
+
         name_of_client,
         signature,
         _select,
@@ -106,6 +106,11 @@ router.post("/action_page", (req, res) => {
         am_or_pm,
         insurance_carrier,
         clinician_services, medical_services } = req.body
+    const authHeader = req.session.token;
+    console.log(req.session.token)
+    const token = req.session.token
+    var la = jwt.verify(token, "JJJ")
+    const name_of_thera = la.tname
     console.log(req.body)
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
@@ -322,6 +327,12 @@ router.get("/downloadmag/:id", (req, res) => {
                                 res.send(`THERE IS AN ERROR ${err}`);
 
                             } else {
+                                let query = `Update mag SET flag = ? where id = ?`
+                                db.query(query, [1, id], function (err, data, fields) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
                                 res.send(`
                                 <center>
                                 <hr />

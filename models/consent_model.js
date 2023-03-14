@@ -80,6 +80,8 @@ function addPerson(data, callback) {
     });
 
 }
+
+
 module.exports = {
-    setUserToken, getUserByNamePass, deleteUserToken, setSigP, addPerson, getPersonById
+    setUserToken, getUserByNamePass, deleteUserToken, setSigP, addPerson, getPersonById,
 }
