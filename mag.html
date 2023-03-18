@@ -32,7 +32,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
         <table align="center-left">
           <tr>
             <td>Name of Client</td>
-            <td><input type="text" name="name_of_client" /></td>
+            <td><input type="text" name="name_of_client"  required/></td>
           </tr>
         
           
@@ -45,7 +45,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                   type="checkbox"
                   name="_select[]"
                   value="In person Session" 
-                />In person Session</label
+                 checked />In person Session</label
               >
               <label
                 ><input
@@ -79,6 +79,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                   type="checkbox"
                   name="reason_for_audio_only[]"
                   value="Client at home" 
+                  checked
                 />Client at home</label
               >
               <label
@@ -185,6 +186,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                   type="checkbox"
                   name="city[]"
                   value="Allentown" 
+                  checked
                 />Allentown</label
               >
               <label
@@ -205,6 +207,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                 type="checkbox"
                 name="smoking_history[]"
                 value="Non Smoker" 
+                checked
               />Non Smoker</label
             >
             <label
@@ -224,6 +227,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                   type="checkbox"
                   name="insurance_carrier[]"
                   value="MA" 
+                  checked
                 />MA</label
               >
               <label
@@ -269,6 +273,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                   type="checkbox"
                   name="clinician_services[]"
                   value="90791	Initial Diagnostic Assessment- Intake by clinician - billed 30 min increments" 
+                  checked
                 /></td><td>90791</td><td> Initial Diagnostic Assessment- Intake by clinician - billed 30 min increments</td></label>
             </tr>
             <tr>
@@ -404,6 +409,7 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
                   type="checkbox"
                   name="medical_services[]"
                   value="99211	Medication Review 5-10 mins  MD" 
+                  checked
                 /></td><td>99211</td><td> Medication Review 5-10 mins  MD</td></label>
             </tr>
             <tr>
