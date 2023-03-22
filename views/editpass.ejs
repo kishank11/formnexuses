@@ -1,0 +1,62 @@
+<html>
+  <head> </head>
+  <body>
+   <table align="centre">
+    <form action="/edit/<%=id%>" method="POST">
+      <hr />
+      <h1>OMNI HEALTH SERVICES </h1>
+      <hr />
+      <tr>
+        <br/>
+<td>
+      Password:</td><td><input type="password" id ="password" name="password" required/></td>
+      
+
+
+</tr>
+<tr> <td>Confirm Password:</td> </td><td><input type="password" id="cpassword" name="cpassword" required
+    onkeyup="validate_password()" /></td></tr>
+
+<tr>
+   <td></td> <td><span id="wrong_pass_alert"></span>
+    <div class="buttons">
+        <button id="create"
+                class="submit_btn"
+                onclick="wrong_pass_alert()">
+            Submit
+        </button>
+    </div><td>
+</tr>
+      </table>
+    </form>
+    <script>
+        function validate_password() {
+ 
+            var pass = document.getElementById('password').value;
+            var confirm_pass = document.getElementById('cpassword').value;
+            if (pass != confirm_pass) {
+                document.getElementById('wrong_pass_alert').style.color = 'red';
+            document.getElementById('wrong_pass_alert').innerHTML
+              = 'Use same password';
+            document.getElementById('create').disabled = true;
+            document.getElementById('create').style.opacity = (0.4);
+            } else {
+                document.getElementById('wrong_pass_alert').style.color = 'green';
+                document.getElementById('wrong_pass_alert').innerHTML =
+                    '🗹 Password Matched';
+                document.getElementById('create').disabled = false;
+                document.getElementById('create').style.opacity = (1);
+            }
+        }
+ 
+        function wrong_pass_alert() {
+            if (document.getElementById('pass').value != "" &&
+                document.getElementById('confirm_pass').value != "") {
+                alert("Your response is submitted");
+            } else {
+                alert("Please fill all the fields");
+            }
+        }
+    </script>
+  </body>
+</html>
