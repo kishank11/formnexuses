@@ -5,15 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OMNI</title>
+  <style>
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:0;
+  margin:0;
+  color:white;
+  background-color:grey;
+  font-size:18px;
+}
+ul{
+  display:flex;
+  padding:0;
+  margin:0;
+  
+}
+li{
+  padding: 1em 1.5em;
+  list-style-type:none;
+  cursor:pointer;
+}
+li:not(:last-of-type){
+  border-right:2px solid white;
+}
+li:hover{
+  background-color:goldenrod;
+}
+  </style>
   </head>
+  
   <body>
     <center>
+      <nav>
+        <ul>
+          <li><a style="color: black;" href="/logout/">LOGOUT</a></li>
+          <li> <a style="color: black;" href="/register">REGISTER</a></li>
+          <li><a style="color: black;" href="/therapist">Therapist</a></li>
+          <li> <a style="color: black;" href="/admin">ADMIN</a></li>
+        </ul>
+        
+        </nav>
     <hr />
     <h1>Omni Health Services, Inc Outpatient Service Encounter Forms</h1>Welcome <%=name%>
-  <a style="color: grey;" href="/logout/">LOGOUT</a><br>
-  <a style="color: grey;" href="/register">REGISTER</a><br/>
-  <a style="color: grey;" href="/therapist">Therapist</a><br/>
-  <a style="color: grey;" href="/admin">ADMIN</a>
+
+  <!-- <a style="color: grey;  " href="/logout/">LOGOUT</a><br> -->
+  <!-- <a style="color: grey;" href="/register">REGISTER</a><br/> -->
+  <!-- <a style="color: grey;" href="/therapist">Therapist</a><br/> -->
+  <!-- <a style="color: grey;" href="/admin">ADMIN</a> -->
 
 
     <hr />
