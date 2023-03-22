@@ -72,7 +72,7 @@ app.get("/edit/:id", (req, res) => {
 
 app.post("/edit/:id", (req, res) => {
 
-    query = `Update user set password = ${req.body.password} where id=${req.params.id}`
+    query = `Update user set password = "${req.body.password}" where id=${req.params.id}`
     db.query(query, function (err, data, fields) {
         if (err) {
             throw err;
