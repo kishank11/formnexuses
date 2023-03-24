@@ -122,13 +122,19 @@
       <hr />
       
       <div> Psychiatrist/Psychologist/Therapist Print Name<img src= <%= `${sigt}`%> ></div>
-
+<hr/>
       <div>
         <canvas id="signaturep" width="300" height="100"></canvas>
       </div>
-      <hr />
+ 
           
-      <div>Signature of Omni: <label><input type="hidden" name="signaturep" required /><input type="button" name="confirm" onclick="onClick()" value="Save"></div></label>
+      Signature of Client: OR Parent/Guardian if under 14 years of age/PA;<br/>If under 18 Years of age/NJ  
+
+      ​​Check if consent received verbally:(Requires second witness)
+      <input type="hidden" name="signaturep" /><input type="button" name="confirm" onclick="onClick()" value="Save">
+    </div>
+    <hr/>
+      <div>Signature of Omni: </div></label>
 
      <div>
         <canvas id="sig" width="300" height="100"></canvas>
