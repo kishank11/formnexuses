@@ -109,29 +109,57 @@
   
         <td>I have had the behavioral health services offered in my OMNI Program explained, and I agree to receive treatment at OMNI Health Services, Inc.<br/><b> (Required Field: Must be checked to receive any services) ACCEPTED:<%=agree%></b>
       </p>
-      <tr>
-        <td>Printed Name of Client</td>
-        <td><%=name_of_client%></td>
-      </tr>
+      
       
       <hr />
+      <table>
+   <tr>
+    <td>Psychiatrist/Psychologist/Therapist Print Name</td>
+    <td><img src= <%= `${sigt}`%> ></td>
+
+   </tr>
+   <tr>
+    <td>
+      Name of Therapist:
+    </td>
+    <td><%=name_of_thera%></td>
+   </tr>
+   <tr>
+    <td>
+      Timestamp:
+    </td>
+    <td><%=signatureat%></td>
+   </tr>
+  </table>
+  <hr/>
+  <table>
+    <tr>
+     <td> Signature of Client: OR Parent/Guardian if under 14 years of age/PA;<br/>If under 18 Years of age/NJ  
+  
+      ​​Check if consent received verbally:(Requires second witness) 
       
-      <div> Signature of Omni Witness:<img src= <%= `${sigt}`%> ></div>
+      Name of Client:</td>
+     <td><img src= <%= `${sigt}`%> ></td>
+ 
+    </tr>
+    <tr>
+     <td>
+       Name of Client:
+     </td>
+     <td><%=name_of_client%></td>
+    </tr>
+    <tr>
+     <td>
+       Timestamp:
+     </td>
+     <td><%=signatureat%></td>
+    </tr>
+   </table>
+         
 
-     
-      <hr />
-          
-      <div>Signature of Client: OR Parent/Guardian if under 14 years of age/PA;<br/>If under 18 Years of age/NJ  
-
-        ​​Check if consent received verbally:(Requires second witness) Psychiatrist/Psychologist/Therapist Print Name <label><img src= <%= `${sigtp}`%> >
-        <hr/>
-    </div>
-</label>
-
-     <div>
-        <canvas id="sig" width="300" height="100"></canvas>
-      </div>
-      <hr />
+<hr/>
+   
+   
       <div>​Second Omni Witness for Verbal Consent Signature: (Only needed for verbal consent)<input type="hidden" name="sig" /></div> 
       <br/>
       <div>

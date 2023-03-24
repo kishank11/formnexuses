@@ -155,8 +155,8 @@ function setSig(data, callback) {
 function setSigP(data, callback) {
 
     var id = data.id;
-    let query = "Update ibhs SET signature_mon = ?, signature_tue = ?,signature_wed = ?,signature_thu = ?,signature_fri = ?,signature_sat = ?,signature_sun = ? where id = ?";
-    db.query(query, [data.signature_mon, data.signature_tue, data.signature_wed, data.signature_thu, data.signature_fri, data.signature_sat, data.signature_sun, data.id], function (err, data, fields) {
+    let query = "Update ibhs SET signature_mon = ?, signature_tue = ?,signature_wed = ?,signature_thu = ?,signature_fri = ?,signature_sat = ?,signature_sun = ?,signaturepat=? where id = ?";
+    db.query(query, [data.signature_mon, data.signature_tue, data.signature_wed, data.signature_thu, data.signature_fri, data.signature_sat, data.signature_sun, data.signaturepat, data.id], function (err, data, fields) {
 
         if (err) {
             console.log(`${err}`)

@@ -92,7 +92,7 @@ router.post("/action_page", (req, res) => {
         chart_id,
         insurance_id,
         dob,
-        
+
 
         medicare,
         icd_10,
@@ -154,7 +154,7 @@ router.post("/action_page", (req, res) => {
         chart_id: chart_id,
         insurance_id: insurance_id,
         dob: dob,
-    
+
         medicare: medicare,
         name_of_supervising_physician: name_of_supervising_physician,
         co_pay_amount: co_pay_amount,
@@ -214,7 +214,7 @@ router.get("/patient/:id", (req, res) => {
 
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("njindex.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        res.render("njindex.ejs", { id: `${data[0].id}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
     })
 
 
@@ -237,7 +237,7 @@ router.post("/patient/:id", (req, res) => {
 router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         console.log(data[0])
-        res.render("njfinal.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        res.render("njfinal.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}` })
     })
 })
 
@@ -309,7 +309,7 @@ router.get("/downloadnj/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "njview.ejs"), { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "njview.ejs"), { id: `${data[0].id}`, name_of_client: `${data[0].name_of_client}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -336,7 +336,7 @@ router.get("/downloadnj/:id", (req, res) => {
 
 
 
-                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}${data[0].name_of_client}nj${id}${data[0].signatureat}.pdf`, function (err, data2) {
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}_${data[0].name_of_client}nj${id}${data[0].signatureat}.pdf`, function (err, data2) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);

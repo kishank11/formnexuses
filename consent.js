@@ -203,7 +203,7 @@ router.post("/patient1/:id", (req, res) => {
 router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {
         console.log(`HII${data[0]}`)
-        res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` })
     })
 })
 
@@ -283,7 +283,7 @@ router.get("/downloadconsent/:id", (req, res) => {
             //     res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             //     file.pipe(res);
             // })();
-            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}` }, (err, data1) => {
+            ejs.renderFile(path.join(__dirname, './views/', "consentview.ejs"), { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` }, (err, data1) => {
                 if (err) {
                     res.send(err);
                 } else {
@@ -310,7 +310,7 @@ router.get("/downloadconsent/:id", (req, res) => {
 
 
 
-                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}${data[0].name_of_client}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
+                        pdf.create(data1, options).toFile(`./upload/${la.location}/${la.tname}_${data[0].name_of_client}consent${id}${data[0].signatureat}.pdf`, function (err, data2) {
                             console.log(la)
                             if (err) {
                                 res.send(`THERE IS AN ERROR ${err}`);

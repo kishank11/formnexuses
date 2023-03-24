@@ -31,14 +31,8 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
 
 
       <table align="center-left">
-        <tr>
-          <td>Name of Client</td>
-          <td><%=name_of_client%></td>
-        </tr>
-        <tr>
-          <td>Name of Therapist</td>
-          <td><%=name_of_thera%></td>
-        </tr>
+        
+        
         <tr>
           <td>Select:</td>
           <td>
@@ -235,12 +229,28 @@ This session was conducted by phone due to Emergency Authorization by Magellan B
       <table>
         
         <tr><td>Psychiatrist/Psychologist/Therapist Print Name</td><td><img src= <%= `${sigt}`%>></td> </tr>
+        <tr>
+          <td>Name of Therapist</td>
+          <td><%=name_of_thera%></td>
+        </tr>
+        <tr>
+          <td>Timestamp</td>
+          <td><%=signatureat%></td>
+        </tr>
       </table>
     
       <hr />
     
       <table>
         <tr><td>Client/Guardian/Responsible Party Signature</td><td><img src= <%= `${sigtp}`%>></td> </tr>
+        
+          <td>Name of Client</td>
+          <td><%=name_of_client%></td>
+        </tr>
+        <tr>
+          <td>Timestamp</td>
+          <td><%=signaturepat%></td>
+        </tr>
       </table>
       <hr/>
      <table>
