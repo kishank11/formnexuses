@@ -767,7 +767,7 @@ app.get("/therapist/mag", (req, res) => {
 
 })
 app.get("/therapist/nj", (req, res) => {
-    name = "consent"
+    name = "nj"
     const authHeader = req.session.token;
     console.log(req.session.token)
     const token = req.session.token
