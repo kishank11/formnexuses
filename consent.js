@@ -124,9 +124,26 @@ router.post("/action_page", (req, res) => {
     const id1 = id0.toString()
 
     console.log(id1.toString())
+    function changeTimeZone(date, timeZone) {
+        if (typeof date === 'string') {
+            return new Date(
+                new Date(date).toLocaleString('en-US', {
+                    timeZone,
+                }),
+            );
+        }
+
+        return new Date(
+            date.toLocaleString('en-US', {
+                timeZone,
+            }),
+        );
+    }
     // console.log(signature)
 
-    let signatureat = new Date();
+    let signatureat1 = new Date();
+    const signatureat = changeTimeZone(new Date(), 'America/New_York')
+    console.log(signatureat)
     const data = addPerson({
 
         name_of_client: name_of_client,

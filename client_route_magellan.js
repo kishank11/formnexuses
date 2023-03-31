@@ -137,7 +137,11 @@ router.post("/action_page", (req, res) => {
     console.log(id1.toString())
     // console.log(signature)
 
-    let signatureat = new Date();
+    let signatureat1 = new Date();
+    let signatureat = signatureat1.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+    })
+    console.log(signatureat)
     const data = addPerson({
         name_of_client: name_of_client,
         name_of_thera: name_of_thera,
@@ -209,7 +213,11 @@ router.get("/patient/:id", (req, res) => {
 })
 
 router.post("/patient/:id", (req, res) => {
-    let signaturepat = new Date();
+    let signaturepat1 = new Date();
+    let signaturepat = signaturepat1.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+    })
+    console.log(signaturepat)
 
     sig = req.body.signaturep;
     id = req.params.id;

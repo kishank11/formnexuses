@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 var bodyParser = require('body-parser');
-const { setSigP, addPerson, getPersonById } = require('./models/mag_model');
+const { setSigP, addPerson, getPersonById } = require('./models/nj_model');
 const router = express.Router();
 const app = express();
 
@@ -92,9 +92,7 @@ router.post("/action_page", (req, res) => {
         chart_id,
         insurance_id,
         dob,
-
-
-        medicare,
+ medicare,
         icd_10,
         name_of_supervising_physician,
         co_pay_amount,

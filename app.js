@@ -338,8 +338,11 @@ app.post("/action_page", (req, res) => {
         in_treatment,
         referred,
         clinician_services } = req.body
-    let signatureat = new Date();
-
+    let signatureat1 = new Date();
+    let signatureat = signatureat1.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+    })
+    console.log(signatureat)
     console.log(req.body)
     const authHeader = req.session.token;
     console.log(req.session.token)
@@ -446,7 +449,10 @@ app.post("/patient/:id", (req, res) => {
 
     sig = req.body.signaturep;
     id = req.params.id;
-    let signaturepat = new Date();
+    let signaturepat1 = new Date();
+    let signaturepat = signaturepat1.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+    })
 
     if (req.body.signaturep != null) {
         setSigP({ signaturep: sig, id: req.params.id, signaturepat: signaturepat })
@@ -1002,7 +1008,7 @@ app.get("/therapist", (req, res) => {
 
 })
 app.get("/test", (req, res) => {
-    let aa = `end_date, peer_specialist_hours, agency_name, employee_name, recipient_name, id, insurance, start_date, total_hours_in_all, assigned_specialist, date_mon, start_mon, end_mon, total_hours_mon, contact_code_mon, date_tue, start_tue, end_tue, total_hours_tue, contact_code_tue, date_wed, start_wed, end_wed, total_hours_wed, contact_code_wed, date_thu, start_thu, end_thu, total_hours_thu, contact_code_thu, date_fri, start_fri, end_fri, total_hours_fri, contact_code_fri, date_sat, start_sat, end_sat, total_hours_sat, contact_code_sat, date_sun, start_sun, end_sun, total_hours_sun, contact_code_sun, signaturet, date_signaturet`
+    let aa = `data.id, data._select, data.reason_for_audio_only, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.city, data.insurance_carrier, data.smokinghistory, data.clinician_services, data.medical_services, data.signature, data.signatureat, data.name_of_client, data.name_of_thera`
     let x = aa.split(",");
     console.log(x.length)
 
