@@ -189,11 +189,17 @@ router.get("/patient/:id", (req, res) => {
     id = req.params.id;
     console.log(req.params.id)
     // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
+    if (id != null) {
+        getPersonById({ id: id }, (x, data) => {
+            console.log(data[0])
+            res.render("consentindex.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}` })
+        })
 
-    getPersonById({ id: id }, (x, data) => {
-        console.log(data[0])
-        res.render("consentindex.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}` })
-    })
+    } else {
+        res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
 
 
 

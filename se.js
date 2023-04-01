@@ -180,10 +180,10 @@ router.post("/action_page", (req, res) => {
         am_or_pm,
         office,
         insurance_carrier,
-        assessment_done1,
-        dora1,
-        in_treatment1,
-        referred1,
+        assessment_done,
+        dora,
+        in_treatment,
+        referred,
         clinician_services } = req.body
     let signatureat = new Date();
     const authHeader = req.session.token;
@@ -202,11 +202,10 @@ router.post("/action_page", (req, res) => {
     const p = insurance_carrier != null ? insurance_carrier : "-"
     const q = clinician_services != null ? clinician_services : "-"
 
-
-    const assessment_done = assessment_done1 != null ? assessment_done1?.join(",") : "-"
-    const dora = dora1 != null ? dora1?.join(",") : "-"
-    const in_treatment = in_treatment1 != null ? in_treatment1.join(",") : "-"
-    const referred = referred1 != null ? referred1.join(",") : "-"
+    const assessment_done1 = assessment_done != null ? assessment_done : "-"
+    const dora1 = dora != null ? dora : "-"
+    const in_treatment1 = in_treatment != null ? in_treatment : "-"
+    const referred1 = referred != null ? referred : "-"
 
 
 
@@ -242,10 +241,10 @@ router.post("/action_page", (req, res) => {
         icd_10: icd_10,
         county: z,
         insurance_carrier: p,
-        assessment_done: assessment_done,
-        dora: dora,
-        in_treatment: in_treatment,
-        referred: referred,
+        assessment_done: assessment_done1,
+        dora: dora1,
+        in_treatment: in_treatment1,
+        referred: referred1,
         clinician_services: q,
         signature: signature,
         signatureat: signatureat,
@@ -286,11 +285,17 @@ router.get("/patient/:id", (req, res) => {
     id = req.params.id;
     console.log(req.params.id)
     // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
+    if (id != null) {
 
-    getPersonById({ id: id }, (x, data) => {
-        console.log(data[0])
-        res.render("seindex.ejs", { id: `${data[0].id}`, office: `${data[0].office}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}` })
-    })
+        getPersonById({ id: id }, (x, data) => {
+            console.log(data[0])
+            res.render("seindex.ejs", { id: `${data[0].id}`, office: `${data[0].office}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}` })
+        })
+    } else {
+        res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
 
 
     // getPerson({})

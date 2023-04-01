@@ -345,12 +345,15 @@ router.get("/patient/:id", (req, res) => {
 
     id = req.params.id;
     console.log(req.params.id)
-    // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
-    res.redirect(`/api/ibhs/view/${req.params.id}`)
+    if (id != null) {
 
-
-
-    // getPerson({})
+        res.redirect(`/api/ibhs/view/${req.params.id}`)
+    } else {
+        res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
+    // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "")
 })
 router.get("/view/:id", (req, res) => {
     getPersonById({ id: id }, (x, data) => {

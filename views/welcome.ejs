@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMNI</title>
+    <style>
+      nav {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        color: white;
+        background-color: grey;
+        font-size: 18px;
+      }
+      ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        padding: 1em 1.5em;
+        list-style-type: none;
+        cursor: pointer;
+      }
+      li:not(:last-of-type) {
+        border-right: 2px solid white;
+      }
+      li:hover {
+        background-color: goldenrod;
+      }
+      .x {
+        margin: auto;
+        width: 100%;
+        padding: 20%;
+        font-family: "Lexend Deca", sans-serif;
+        color: #2e475d;
+      }
+      .title-word {
+        animation: color-animation 4s linear infinite;
+      }
+
+      .title-word-1 {
+        --color-1: goldenrod;
+
+        --color-2: #111416;
+        --color-3: grey;
+      }
+
+      .title-word-2 {
+        --color-1: goldenrod;
+
+        --color-2: #111416;
+        --color-3: grey;
+      }
+
+      .title-word-3 {
+        --color-1: goldenrod;
+
+        --color-2: #111416;
+        --color-3: grey;
+      }
+
+      .title-word-4 {
+        --color-1: goldenrod;
+        --color-2: #111416;
+        --color-3: grey;
+      }
+
+      @keyframes color-animation {
+        0% {
+          color: var(--color-1);
+        }
+        32% {
+          color: var(--color-1);
+        }
+        33% {
+          color: var(--color-2);
+        }
+        65% {
+          color: var(--color-2);
+        }
+        66% {
+          color: var(--color-3);
+        }
+        99% {
+          color: var(--color-3);
+        }
+        100% {
+          color: var(--color-1);
+        }
+      }
+
+      /* Here are just some visual styles. 🖌 */
+
+      .container {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        height: 100vh;
+      }
+
+      .title {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 200;
+        font-size: 5vw;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a style="color: black" href="/login/">LOGIN</a></li>
+        <li><a style="color: black" href="/register">REGISTER</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h2 class="title">
+        <span class="title-word title-word-1">WELCOME</span><br />
+        <span class="title-word title-word-2">TO</span><br />
+        <span class="title-word title-word-3">OMNI</span>
+        <span class="title-word title-word-4">HEALTH SERVICES</span>
+      </h2>
+    </div>
+  </body>
+</html>

@@ -154,7 +154,7 @@ app.get("/admin", (req, res) => {
 app.get("/register", (req, res) => {
     console.log(req.session.token)
     const authHeader = req.session.token;
-    if (authHeader) {
+    if (req.session.loggedin) {
         console.log(req.session)
         const token = authHeader;
         console.log(token)
@@ -211,9 +211,7 @@ app.get('/', (req, res) => {
         res.sendFile(`${__dirname}/htmlPage.html`)
     }
     else {
-        res.send(`
-    <center>
-    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE LOGIN!</h1></div></center>`)
+        res.render("welcome.ejs");
     }
 
 })
@@ -256,7 +254,12 @@ app.post('/login', function (req, response) {
         db.query('SELECT * FROM user WHERE password = ? AND email = ? AND location = ?', [password, email, location], function (error, data, fields) {
             // If there is an issue with the query, output the error
 
-            if (error) throw error;
+            if (error) {
+                response.send(`
+                <center>
+                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>SESSION EXPIRED LOG IN AGAIN</h1></div></center>`)
+
+            }
             // If the account exists
 
             if (data.length > 0) {
@@ -269,13 +272,19 @@ app.post('/login', function (req, response) {
                 // Redirect to home page
                 response.redirect('/home');
             } else {
-                response.send('Incorrect Username and/or Password and/or Location! ');
+                response.send(`
+                <center>
+                <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>INVALID CREDENTIALS</h1></div></center>`)
+
             }
             response.end();
         });
 
     } else {
-        response.send('Please enter Username,Location and Password !');
+        response.send(`
+        <center>
+        <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE ENTER DETAILS!</h1></div></center>`)
+
 
     }
 });
@@ -295,7 +304,9 @@ app.get("/home", (req, res) => {
 
         });
     } else {
-        res.send("PLEASE LOGIN")
+        res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE LOGIN!</h1></div></center>`)
     }
 })
 
@@ -307,7 +318,11 @@ app.get("/logout", async (req, res) => {
     req.session.loggedin = false
 
     // await deleteUserToken({ jwttoken: "", id: req.params.id });
-    res.send("You are Logged out!");
+
+    res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>You are Logged out!!</h1></div></center>`)
+
     console.log(req.session)
 })
 
@@ -333,10 +348,10 @@ app.post("/action_page", (req, res) => {
         time_out,
         am_or_pm,
         insurance_carrier,
-        assessment_done1,
-        dora1,
-        in_treatment1,
-        referred1,
+        assessment_done,
+        dora,
+        in_treatment,
+        referred,
         clinician_services } = req.body
     let signatureat = new Date();
 
@@ -355,10 +370,10 @@ app.post("/action_page", (req, res) => {
     const p = insurance_carrier != null ? insurance_carrier?.join(",") : "-"
     const q = clinician_services != null ? clinician_services?.join(",") : "-"
 
-    const assessment_done = assessment_done1 != null ? assessment_done1?.join(",") : "-"
-    const dora = dora1 != null ? dora1?.join(",") : "-"
-    const in_treatment = in_treatment1 != null ? in_treatment1.join(",") : "-"
-    const referred = referred1 != null ? referred1.join(",") : "-"
+    const assessment_done1 = assessment_done != null ? assessment_done : "-"
+    const dora1 = dora != null ? dora : "-"
+    const in_treatment1 = in_treatment != null ? in_treatment : "-"
+    const referred1 = referred != null ? referred : "-"
 
 
 
@@ -393,10 +408,10 @@ app.post("/action_page", (req, res) => {
         icd_10: icd_10,
         county: z,
         insurance_carrier: p,
-        assessment_done: assessment_done,
-        dora: dora,
-        in_treatment: in_treatment,
-        referred: referred,
+        assessment_done: assessment_done1,
+        dora: dora1,
+        in_treatment: in_treatment1,
+        referred: referred1,
         clinician_services: q,
         signature: signature,
         signatureat: signatureat,
@@ -436,15 +451,16 @@ app.get("/patient/:id", (req, res) => {
 
     id = req.params.id;
     console.log(req.params.id)
-    // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
-
-    getPersonById({ id: id }, (x, data) => {
-        console.log(data[0])
-        res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}` })
-    })
-
-
-    // getPerson({})
+    if (id != null) {
+        getPersonById({ id: id }, (x, data) => {
+            console.log(data[0])
+            res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}` })
+        })
+    } else {
+        res.send(`
+        <center>
+        <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
 })
 
 app.post("/patient/:id", (req, res) => {
