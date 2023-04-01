@@ -467,10 +467,8 @@ app.post("/patient/:id", (req, res) => {
 
     sig = req.body.signaturep;
     id = req.params.id;
-    let signaturepat1 = new Date();
-    let signaturepat = signaturepat1.toLocaleString('en-US', {
-        timeZone: 'America/New_York',
-    })
+    let signaturepat = new Date();
+
 
     if (req.body.signaturep != null) {
         setSigP({ signaturep: sig, id: req.params.id, signaturepat: signaturepat })
