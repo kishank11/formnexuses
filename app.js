@@ -333,15 +333,13 @@ app.post("/action_page", (req, res) => {
         time_out,
         am_or_pm,
         insurance_carrier,
-        assessment_done,
-        dora,
-        in_treatment,
-        referred,
+        assessment_done1,
+        dora1,
+        in_treatment1,
+        referred1,
         clinician_services } = req.body
-    let signatureat1 = new Date();
-    let signatureat = signatureat1.toLocaleString('en-US', {
-        timeZone: 'America/New_York',
-    })
+    let signatureat = new Date();
+
     console.log(signatureat)
     console.log(req.body)
     const authHeader = req.session.token;
@@ -351,18 +349,22 @@ app.post("/action_page", (req, res) => {
     const name_of_thera = la.tname
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select?.join(",")
-    const y = reason_for_audio_only?.join(",")
-    const z = county?.join(",")
-    const p = insurance_carrier?.join(",")
-    const q = clinician_services?.join(",")
+    const x = _select != null ? _select : "-"
+    const y = reason_for_audio_only != null ? reason_for_audio_only : "-"
+    const z = county != null ? county : "-"
+    const p = insurance_carrier != null ? insurance_carrier?.join(",") : "-"
+    const q = clinician_services != null ? clinician_services?.join(",") : "-"
 
+    const assessment_done = assessment_done1 != null ? assessment_done1?.join(",") : "-"
+    const dora = dora1 != null ? dora1?.join(",") : "-"
+    const in_treatment = in_treatment1 != null ? in_treatment1.join(",") : "-"
+    const referred = referred1 != null ? referred1.join(",") : "-"
 
 
 
 
     console.log(x)
-    console.log(_select)
+
 
 
     const id0 = crypto.randomUUID();
@@ -1032,8 +1034,16 @@ app.get('/d', (req, res) => {
     }
 
 })
+
+app.get("/hello", (req, res) => {
+    const arr = "signatureat,name_of_client, signature, _select, reason_for_audio_only, chart_id, insurance_id, dob, medicare, icd_10, name_of_supervising_physician, co_pay_amount, paid_amount, smoking_history, time_in, adult_psychotherapy, child_psychotherapy, adult_medication_review, child_medication_review, adult_psychiatric_evaluations, child_psychiatric_evaluations, time_out, am_or_pm, insurance_carrier,name_of_thera";
+    const ss = arr.split(",")
+    console.log(ss)
+    ss.forEach((data) => {
+        console.log(`ALTER TABLE nj ALTER COLUMN ${data} SET DEFAULT '-';`)
+    })
+})
 app.on('close', function () {
     db.end();
 });
-
 

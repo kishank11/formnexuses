@@ -115,13 +115,13 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select?.join(",")
-    const y = reason_for_audio_only?.join(",")
-    const z = city?.join(",")
-    const p = insurance_carrier?.join(",")
-    const q = clinician_services?.join(",")
-    const t = medical_services?.join(",")
-    const s = smoking_history?.join(",");
+    const x = _select != null ? _select : "-";
+    const y = reason_for_audio_only != null ? reason_for_audio_only : "-"
+    const z = city != null ? city : "-"
+    const p = insurance_carrier != null ? insurance_carrier?.join(",") : "-"
+    const q = clinician_services != null ? clinician_services?.join(",") : "-"
+    const t = medical_services != null ? medical_services?.join(",") : "-"
+    const s = smoking_history != null ? smoking_history : "-"
 
 
 
@@ -137,10 +137,8 @@ router.post("/action_page", (req, res) => {
     console.log(id1.toString())
     // console.log(signature)
 
-    let signatureat1 = new Date();
-    let signatureat = signatureat1.toLocaleString('en-US', {
-        timeZone: 'America/New_York',
-    })
+    let signatureat = new Date();
+
     console.log(signatureat)
     const data = addPerson({
         name_of_client: name_of_client,
@@ -213,10 +211,10 @@ router.get("/patient/:id", (req, res) => {
 })
 
 router.post("/patient/:id", (req, res) => {
-    let signaturepat1 = new Date();
-    let signaturepat = signaturepat1.toLocaleString('en-US', {
-        timeZone: 'America/New_York',
-    })
+    let signaturepat = new Date();
+    // let signaturepat = signaturepat1.toLocaleString('en-US', {
+    //     timeZone: 'America/New_York',
+    // })
     console.log(signaturepat)
 
     sig = req.body.signaturep;

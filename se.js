@@ -180,10 +180,10 @@ router.post("/action_page", (req, res) => {
         am_or_pm,
         office,
         insurance_carrier,
-        assessment_done,
-        dora,
-        in_treatment,
-        referred,
+        assessment_done1,
+        dora1,
+        in_treatment1,
+        referred1,
         clinician_services } = req.body
     let signatureat = new Date();
     const authHeader = req.session.token;
@@ -195,12 +195,18 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = _select?.join(",")
-    const y = reason_for_audio_only?.join(",")
-    const z = county?.join(",")
-    const office1 = office?.join(",");
-    const p = insurance_carrier?.join(",")
-    const q = clinician_services?.join(",")
+    const x = _select != null ? _select : "-"
+    const y = reason_for_audio_only != null ? reason_for_audio_only : "-"
+    const z = county != null ? county : "-"
+    const office1 = office != null ? office : "-";
+    const p = insurance_carrier != null ? insurance_carrier : "-"
+    const q = clinician_services != null ? clinician_services : "-"
+
+
+    const assessment_done = assessment_done1 != null ? assessment_done1?.join(",") : "-"
+    const dora = dora1 != null ? dora1?.join(",") : "-"
+    const in_treatment = in_treatment1 != null ? in_treatment1.join(",") : "-"
+    const referred = referred1 != null ? referred1.join(",") : "-"
 
 
 

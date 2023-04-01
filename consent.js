@@ -105,8 +105,8 @@ router.post("/action_page", (req, res) => {
 
     // var base64Data = signature.replace(/^data:image\/png;base64,/, "");
 
-    const x = program?.join(",");
-
+    const x = program != null ? program.join(",") : "-";
+    const y = agree != null ? agree : "-";
 
 
 
@@ -150,7 +150,7 @@ router.post("/action_page", (req, res) => {
         signature: signature,
         name_of_thera: name_of_thera,
         signatureat: signatureat,
-        agree: agree,
+        agree: y,
         program: x,
         id: id1
     })

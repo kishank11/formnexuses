@@ -69,7 +69,7 @@ function setSigP(data, callback) {
 }
 function addPerson(data, callback) {
     let query = "INSERT INTO mag (id, _select, reason_for_audio_only, chart_id, insurance_id, dob, consumer_name, icd_10, medicare, name_of_supervising_physician, co_pay_amount, paid_amount, time_in, time_out, am_or_pm, city, insurance_carrier,smoking_history, clinician_services,medical_services,signature,signatureat,name_of_client,name_of_thera) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
-    const x = db.query(query, [data.id, data._select, data.reason_for_audio_only, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.city, data.insurance_carrier, data.smokinghistory, data.clinician_services, data.medical_services, data.signature, data.signatureat, data.name_of_client, data.name_of_thera], function (err, data, fields) {
+    const x = db.query(query, [data.id, data._select, data.reason_for_audio_only, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.city, data.insurance_carrier, data.smoking_history, data.clinician_services, data.medical_services, data.signature, data.signatureat, data.name_of_client, data.name_of_thera], function (err, data, fields) {
 
         if (err) {
             throw err;
