@@ -124,25 +124,25 @@ router.post("/action_page", (req, res) => {
     const id1 = id0.toString()
 
     console.log(id1.toString())
-    function changeTimeZone(date, timeZone) {
-        if (typeof date === 'string') {
-            return new Date(
-                new Date(date).toLocaleString('en-US', {
-                    timeZone,
-                }),
-            );
-        }
+    // function changeTimeZone(date, timeZone) {
+    //     if (typeof date === 'string') {
+    //         return new Date(
+    //             new Date(date).toLocaleString('en-US', {
+    //                 timeZone,
+    //             }),
+    //         );
+    //     }
 
-        return new Date(
-            date.toLocaleString('en-US', {
-                timeZone,
-            }),
-        );
-    }
+    //     return new Date(
+    //         date.toLocaleString('en-US', {
+    //             timeZone,
+    //         }),
+    //     );
+    // }
     // console.log(signature)
 
-    let signatureat1 = new Date();
-    const signatureat = changeTimeZone(new Date(), 'America/New_York')
+    // let signatureat1 = new Date();
+    const signatureat = new Date();
     console.log(signatureat)
     const data = addPerson({
 
@@ -190,10 +190,13 @@ router.get("/patient/:id", (req, res) => {
     console.log(req.params.id)
     // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
     if (id != null) {
-        getPersonById({ id: id }, (x, data) => {
+
+        db.query(`SELECT * FROM consent where id = ?;`, [id], function (error, data, fields) {
             console.log(data[0])
             res.render("consentindex.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}` })
+
         })
+
 
     } else {
         res.send(`
@@ -224,10 +227,24 @@ router.post("/patient1/:id", (req, res) => {
 
 })
 router.get("/view/:id", (req, res) => {
-    getPersonById({ id: id }, (x, data) => {
-        console.log(`HII${data[0]}`)
-        res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` })
-    })
+    id = req.params.id;
+    console.log(req.params.id)
+    // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
+    if (id != null) {
+
+        db.query(`SELECT * FROM consent where id = ?;`, [id], function (error, data, fields) {
+            console.log(data[0])
+
+            res.render("consentfinal.ejs", { id: `${data[0].id}`, agree: `${data[0].agree}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, program: `${data[0].program}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` })
+
+        })
+
+
+    } else {
+        res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
 })
 
 

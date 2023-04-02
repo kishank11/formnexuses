@@ -91,6 +91,7 @@ function getPersonById(data, callback) {
         callback(null, data);
     });
 
+
 }
 function getPersonBySig(data, callback) {
     let query = "SELECT * FROM person where signature = ?";

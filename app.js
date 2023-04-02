@@ -452,10 +452,21 @@ app.get("/patient/:id", (req, res) => {
     id = req.params.id;
     console.log(req.params.id)
     if (id != null) {
-        getPersonById({ id: id }, (x, data) => {
-            console.log(data[0])
-            res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}` })
+        db.query(`SELECT * FROM encbb where id = ?;`, [id], function (error, data, fields) {
+
+            if (data.length > 0) {
+                console.log(data[0])
+                res.render("index.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}` })
+
+            } else {
+                res.send(`
+            <center>
+            <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+
+            }
+
         })
+
     } else {
         res.send(`
         <center>
@@ -477,9 +488,34 @@ app.post("/patient/:id", (req, res) => {
 
 })
 app.get("/view/:id", (req, res) => {
-    getPersonById({ id: id }, (x, data) => {
-        res.render("final.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` })
-    })
+    id = req.params.id;
+    console.log(req.params.id)
+    if (id != null) {
+
+        db.query(`SELECT * FROM encbb where id = ?;`, [id], function (error, data, fields) {
+            if (data.length > 0) {
+                console.log(data[0])
+                res.render("final.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, county: `${data[0].county}`, insurance_carrier: `${data[0].insurance_carrier}`, assessment_done: `${data[0].assessment_done}`, dora: `${data[0].dora}`, in_treatment: `${data[0].in_treatment}`, referred: `${data[0].referred}`, clinician_services: `${data[0].clinician_services}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, name_of_thera: `${data[0].name_of_thera}`, name_of_client: `${data[0].name_of_client}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}` })
+
+            } else {
+                res.send(`
+        <center>
+        <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE REFRESH THE PAGE</h1></div></center>`)
+
+            }
+
+
+        })
+
+    } else {
+        res.send(`
+        <center>
+        <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
+
+
+
+
 })
 
 app.get("/generateReport/:id", (req, res) => {
@@ -1050,9 +1086,9 @@ app.get('/d', (req, res) => {
 })
 
 app.get("/hello", (req, res) => {
-    const arr = "signatureat,name_of_client, signature, _select, reason_for_audio_only, chart_id, insurance_id, dob, medicare, icd_10, name_of_supervising_physician, co_pay_amount, paid_amount, smoking_history, time_in, adult_psychotherapy, child_psychotherapy, adult_medication_review, child_medication_review, adult_psychiatric_evaluations, child_psychiatric_evaluations, time_out, am_or_pm, insurance_carrier,name_of_thera";
+    const arr = "data.id, data._select, data.reason_for_audio_only, data.office, data.chart_id, data.insurance_id, data.dob, data.consumer_name, data.icd_10, data.medicare, data.name_of_supervising_physician, data.co_pay_amount, data.paid_amount, data.time_in, data.time_out, data.am_or_pm, data.county, data.insurance_carrier, data.assessment_done, data.dora, data.in_treatment, data.referred, data.clinician_services, data.signature, data.signatureat, data.name_of_client, data.name_of_thera";
     const ss = arr.split(",")
-    console.log(ss)
+    console.log(ss.length)
     ss.forEach((data) => {
         console.log(`ALTER TABLE nj ALTER COLUMN ${data} SET DEFAULT '-';`)
     })
@@ -1061,3 +1097,13 @@ app.on('close', function () {
     db.end();
 });
 
+
+
+// if (data.length > 0) {
+
+// } else {
+//     res.send(`
+// <center>
+// <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+
+// }

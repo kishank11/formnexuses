@@ -119,7 +119,7 @@ router.post("/action_page", (req, res) => {
 
     const p = insurance_carrier != null ? insurance_carrier.join(",") : "-"
     const ap = adult_psychotherapy != null ? adult_psychotherapy.join(",") : "-"
-    const cp = child_psychotherapy != null ? child_psychotherapy.join(",") : ""
+    const cp = child_psychotherapy != null ? child_psychotherapy.join(",") : "-"
     const amr = adult_medication_review != null ? adult_medication_review.join(",") : "-";
     const cmr = child_medication_review != null ? child_medication_review.join(",") : "-";
     const ape = adult_psychiatric_evaluations != null ? adult_psychiatric_evaluations.join(",") : "-";
@@ -210,9 +210,18 @@ router.get("/patient/:id", (req, res) => {
     console.log(req.params.id)
     // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
     if (id != null) {
-        getPersonById({ id: id }, (x, data) => {
-            console.log(data[0])
-            res.render("njindex.ejs", { id: `${data[0].id}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+        db.query(`SELECT * FROM nj where id = ?;`, [id], function (error, data, fields) {
+
+            if (data.length > 0) {
+                console.log(data[0])
+                res.render("njindex.ejs", { id: `${data[0].id}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}` })
+
+            } else {
+                res.send(`
+            <center>
+            <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+
+            }
         })
 
     } else {
@@ -239,10 +248,30 @@ router.post("/patient/:id", (req, res) => {
 
 })
 router.get("/view/:id", (req, res) => {
-    getPersonById({ id: id }, (x, data) => {
-        console.log(data[0])
-        res.render("njfinal.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}` })
-    })
+
+    id = req.params.id;
+    console.log(req.params.id)
+    // var base64Data = req.body.signature.replace(/^data:image\/png;base64,/, "");
+    if (id != null) {
+        db.query(`SELECT * FROM nj where id = ?;`, [id], function (error, data, fields) {
+
+            if (data.length > 0) {
+                console.log(data[0])
+                res.render("njfinal.ejs", { id: `${data[0].id}`, _select: `${data[0]._select}`, reason_for_audio_only: `${data[0].reason_for_audio_only}`, chart_id: `${data[0].chart_id}`, insurance_id: `${data[0].insurance_id}`, dob: `${data[0].dob}`, icd_10: `${data[0].icd_10}`, medicare: `${data[0].medicare}`, name_of_supervising_physician: `${data[0].name_of_supervising_physician}`, co_pay_amount: `${data[0].co_pay_amount}`, paid_amount: `${data[0].paid_amount}`, id: `${data[0].id}`, time_in: `${data[0].time_in}`, time_out: `${data[0].time_out}`, am_or_pm: `${data[0].am_or_pm}`, insurance_carrier: `${data[0].insurance_carrier}`, smoking_history: `${data[0].smoking_history}`, adult_psychotherapy: `${data[0].adult_psychotherapy}`, child_psychotherapy: `${data[0].child_psychotherapy}`, adult_medication_review: `${data[0].adult_medication_review}`, child_medication_review: `${data[0].child_medication_review}`, adult_psychiatric_evaluations: `${data[0].adult_psychiatric_evaluations}`, child_psychiatric_evaluations: `${data[0].child_psychiatric_evaluations}`, sigt: `${data[0].signature}`, sigtp: `${data[0].signaturep}`, signatureat: `${data[0].signatureat}`, signaturepat: `${data[0].signaturepat}`, name_of_client: `${data[0].name_of_client}`, name_of_thera: `${data[0].name_of_thera}` })
+
+            } else {
+                res.send(`
+<center>
+<div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>PLEASE REFRESH THE PAGE</h1></div></center>`)
+
+            }
+        })
+
+    } else {
+        res.send(`
+    <center>
+    <div style="margin-top: 300px; margin-left: 300px; margin-right: 300px;background-color: grey;"><h1>FORM DID NOT SAVE IN THE DATABASE.PLEASE FILL AGAIN</h1></div></center>`)
+    }
 })
 
 
