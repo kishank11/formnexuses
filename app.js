@@ -915,7 +915,7 @@ app.get("/therapist/peer", (req, res) => {
 
 })
 app.get("/therapist/ibhs", (req, res) => {
-    name = "consent"
+    name = "ibhs"
     const authHeader = req.session.token;
     console.log(req.session.token)
     const token = req.session.token
